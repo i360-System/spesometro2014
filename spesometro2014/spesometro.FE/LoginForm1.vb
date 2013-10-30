@@ -9,7 +9,8 @@
     ' quali il nome utente, il nome visualizzato e così via.
 
     Private Sub OK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OK.Click
-        Me.Close()
+        If InitController.NotCampiVuotiAll(Me) And True Then Application.Run()
+
     End Sub
 
     Private Sub Cancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Cancel.Click

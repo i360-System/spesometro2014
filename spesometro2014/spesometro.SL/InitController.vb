@@ -12,4 +12,14 @@
 
     End Function
 
+    Public Function NotCampiVuotiAll(ByRef obj As Object) As Boolean
+        Dim cvbool As Boolean = True
+        For Each controls In obj
+            If TypeOf obj Is TextBox Then
+                cvbool = (Not obj.text = "") And cvbool
+            End If
+        Next
+        Return cvbool
+    End Function
+
 End Module

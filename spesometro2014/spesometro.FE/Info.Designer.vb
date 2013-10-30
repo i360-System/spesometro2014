@@ -46,6 +46,7 @@ Partial Class Info
         '
         'TableLayoutPanel
         '
+        Me.TableLayoutPanel.BackColor = System.Drawing.SystemColors.AppWorkspace
         Me.TableLayoutPanel.ColumnCount = 2
         Me.TableLayoutPanel.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.0!))
         Me.TableLayoutPanel.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 67.0!))
@@ -71,6 +72,7 @@ Partial Class Info
         '
         'LogoPictureBox
         '
+        Me.LogoPictureBox.BackColor = System.Drawing.SystemColors.AppWorkspace
         Me.LogoPictureBox.Dock = System.Windows.Forms.DockStyle.Fill
         Me.LogoPictureBox.Image = CType(resources.GetObject("LogoPictureBox.Image"), System.Drawing.Image)
         Me.LogoPictureBox.Location = New System.Drawing.Point(3, 3)
@@ -131,6 +133,7 @@ Partial Class Info
         '
         'TextBoxDescription
         '
+        Me.TextBoxDescription.BackColor = System.Drawing.SystemColors.AppWorkspace
         Me.TextBoxDescription.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TextBoxDescription.Location = New System.Drawing.Point(136, 103)
         Me.TextBoxDescription.Margin = New System.Windows.Forms.Padding(6, 3, 3, 3)

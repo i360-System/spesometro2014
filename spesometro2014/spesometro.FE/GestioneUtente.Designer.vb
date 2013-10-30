@@ -37,6 +37,7 @@ Partial Class GestioneUtente
         '
         'TextBox5
         '
+        Me.TextBox5.Enabled = False
         Me.TextBox5.Location = New System.Drawing.Point(91, 175)
         Me.TextBox5.Name = "TextBox5"
         Me.TextBox5.Size = New System.Drawing.Size(131, 20)
@@ -44,6 +45,7 @@ Partial Class GestioneUtente
         '
         'TextBox4
         '
+        Me.TextBox4.Enabled = False
         Me.TextBox4.Location = New System.Drawing.Point(91, 149)
         Me.TextBox4.Name = "TextBox4"
         Me.TextBox4.Size = New System.Drawing.Size(131, 20)
@@ -52,6 +54,7 @@ Partial Class GestioneUtente
         'Label6
         '
         Me.Label6.AutoSize = True
+        Me.Label6.Enabled = False
         Me.Label6.Location = New System.Drawing.Point(29, 178)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(56, 13)
@@ -61,6 +64,7 @@ Partial Class GestioneUtente
         'Label5
         '
         Me.Label5.AutoSize = True
+        Me.Label5.Enabled = False
         Me.Label5.Location = New System.Drawing.Point(12, 152)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(73, 13)
@@ -106,6 +110,7 @@ Partial Class GestioneUtente
         '
         'Button1
         '
+        Me.Button1.Enabled = False
         Me.Button1.Location = New System.Drawing.Point(238, 166)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(35, 29)
