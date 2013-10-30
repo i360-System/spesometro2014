@@ -22,6 +22,8 @@ Partial Class Form1
     'Non modificarla nell'editor del codice.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
@@ -34,6 +36,8 @@ Partial Class Form1
         Me.ExcellToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.TracciatoTelematicoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GestioneUtenteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.RiduciInSystemTrayToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.NotifyIcon1 = New System.Windows.Forms.NotifyIcon(Me.components)
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -48,7 +52,7 @@ Partial Class Form1
         '
         'FileToolStripMenuItem
         '
-        Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OpzioniToolStripMenuItem, Me.EsciToolStripMenuItem})
+        Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OpzioniToolStripMenuItem, Me.RiduciInSystemTrayToolStripMenuItem, Me.EsciToolStripMenuItem})
         Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
         Me.FileToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
         Me.FileToolStripMenuItem.Text = "File"
@@ -63,7 +67,7 @@ Partial Class Form1
         'EsciToolStripMenuItem
         '
         Me.EsciToolStripMenuItem.Name = "EsciToolStripMenuItem"
-        Me.EsciToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.EsciToolStripMenuItem.Size = New System.Drawing.Size(187, 22)
         Me.EsciToolStripMenuItem.Text = "Esci"
         '
         'InformazioniSulSoftwareToolStripMenuItem
@@ -116,6 +120,19 @@ Partial Class Form1
         Me.GestioneUtenteToolStripMenuItem.Size = New System.Drawing.Size(160, 22)
         Me.GestioneUtenteToolStripMenuItem.Text = "Gestione Utente"
         '
+        'RiduciInSystemTrayToolStripMenuItem
+        '
+        Me.RiduciInSystemTrayToolStripMenuItem.Name = "RiduciInSystemTrayToolStripMenuItem"
+        Me.RiduciInSystemTrayToolStripMenuItem.Size = New System.Drawing.Size(187, 22)
+        Me.RiduciInSystemTrayToolStripMenuItem.Text = "Riduci in System Tray"
+        '
+        'NotifyIcon1
+        '
+        Me.NotifyIcon1.BalloonTipText = "Spesometro 2014 verrà ridotto a ciona sulla barra di system tray"
+        Me.NotifyIcon1.Icon = CType(resources.GetObject("NotifyIcon1.Icon"), System.Drawing.Icon)
+        Me.NotifyIcon1.Text = "Spesometro 2014"
+        Me.NotifyIcon1.Visible = True
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -144,5 +161,13 @@ Partial Class Form1
     Friend WithEvents InformazioniSulSoftwareToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents HelpToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents GestioneUtenteToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents RiduciInSystemTrayToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents NotifyIcon1 As System.Windows.Forms.NotifyIcon
+
+    'Friend WithEvents nfiIcona As NotifyIcon
+    Friend WithEvents mnMenuContestuale As ContextMenu
+    Friend WithEvents mnEsci As MenuItem
+    Friend WithEvents mnOpzioni As MenuItem
+    Friend WithEvents mnMostra As MenuItem
 
 End Class

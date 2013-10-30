@@ -15,3 +15,4 @@ C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\spesometr
 C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\spesometro2014\obj\x86\Debug\spesometro2014.exe
 C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\spesometro2014\obj\x86\Debug\spesometro2014.xml
 C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\spesometro2014\obj\x86\Debug\spesometro2014.pdb
+C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\spesometro2014\obj\x86\Debug\spesometro2014.GestioneUtente.resources

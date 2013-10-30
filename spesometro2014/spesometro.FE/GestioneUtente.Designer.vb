@@ -39,14 +39,14 @@ Partial Class GestioneUtente
         '
         Me.TextBox5.Location = New System.Drawing.Point(91, 175)
         Me.TextBox5.Name = "TextBox5"
-        Me.TextBox5.Size = New System.Drawing.Size(115, 20)
+        Me.TextBox5.Size = New System.Drawing.Size(131, 20)
         Me.TextBox5.TabIndex = 22
         '
         'TextBox4
         '
         Me.TextBox4.Location = New System.Drawing.Point(91, 149)
         Me.TextBox4.Name = "TextBox4"
-        Me.TextBox4.Size = New System.Drawing.Size(115, 20)
+        Me.TextBox4.Size = New System.Drawing.Size(131, 20)
         Me.TextBox4.TabIndex = 21
         '
         'Label6
@@ -80,7 +80,7 @@ Partial Class GestioneUtente
         Me.ToolStrip1.Dock = System.Windows.Forms.DockStyle.None
         Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripButton1, Me.ToolStripButton2})
         Me.ToolStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow
-        Me.ToolStrip1.Location = New System.Drawing.Point(223, 38)
+        Me.ToolStrip1.Location = New System.Drawing.Point(222, 50)
         Me.ToolStrip1.Name = "ToolStrip1"
         Me.ToolStrip1.Size = New System.Drawing.Size(51, 55)
         Me.ToolStrip1.TabIndex = 24
@@ -106,9 +106,9 @@ Partial Class GestioneUtente
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(223, 151)
+        Me.Button1.Location = New System.Drawing.Point(238, 166)
         Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(51, 39)
+        Me.Button1.Size = New System.Drawing.Size(35, 29)
         Me.Button1.TabIndex = 25
         Me.Button1.Text = "Ok"
         Me.Button1.UseVisualStyleBackColor = True
