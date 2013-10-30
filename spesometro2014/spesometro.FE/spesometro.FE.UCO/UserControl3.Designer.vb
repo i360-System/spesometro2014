@@ -22,8 +22,16 @@ Partial Class UserControl3
     'Non modificarla nell'editor del codice.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        components = New System.ComponentModel.Container()
+        Me.SuspendLayout()
+        '
+        'UserControl3
+        '
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.Name = "UserControl3"
+        Me.Size = New System.Drawing.Size(550, 472)
+        Me.ResumeLayout(False)
+
     End Sub
 
 End Class

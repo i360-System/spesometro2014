@@ -100,16 +100,28 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="spesometro.FE\GestioneUtente.Designer.vb">
+      <DependentUpon>GestioneUtente.vb</DependentUpon>
+    </Compile>
+    <Compile Include="spesometro.FE\GestioneUtente.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="spesometro.FE\LoginForm1.Designer.vb">
       <DependentUpon>LoginForm1.vb</DependentUpon>
     </Compile>
     <Compile Include="spesometro.FE\LoginForm1.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="spesometro.FE\spesometro.FE.UCO\UserControl1.Designer.vb">
-      <DependentUpon>UserControl1.vb</DependentUpon>
+    <Compile Include="spesometro.FE\Opzioni.Designer.vb">
+      <DependentUpon>Opzioni.vb</DependentUpon>
     </Compile>
-    <Compile Include="spesometro.FE\spesometro.FE.UCO\UserControl1.vb">
+    <Compile Include="spesometro.FE\Opzioni.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="spesometro.FE\spesometro.FE.UCO\UserControlMenuXLS.Designer.vb">
+      <DependentUpon>UserControlMenuXLS.vb</DependentUpon>
+    </Compile>
+    <Compile Include="spesometro.FE\spesometro.FE.UCO\UserControlMenuXLS.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="spesometro.FE\spesometro.FE.UCO\UserControl2.Designer.vb">
@@ -144,8 +156,20 @@
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="spesometro.FE\GestioneUtente.resx">
+      <DependentUpon>GestioneUtente.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="spesometro.FE\LoginForm1.resx">
       <DependentUpon>LoginForm1.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="spesometro.FE\Opzioni.resx">
+      <DependentUpon>Opzioni.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="spesometro.FE\spesometro.FE.UCO\UserControlMenuXLS.resx">
+      <DependentUpon>UserControlMenuXLS.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="spesometro.FE\spesometro.FE.UCO\UserControl3.resx">
+      <DependentUpon>UserControl3.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="spesometro.FE\SplashScreen1.resx">
       <DependentUpon>SplashScreen1.vb</DependentUpon>
@@ -163,9 +187,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="spesometro.BL\" />
+    <Folder Include="spesometro.BE.BL\" />
+    <Folder Include="spesometro.DAL.Database\" />
     <Folder Include="spesometro.DAL\" />
     <Folder Include="spesometro.SL\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Lente_conti_630x390_spesometro2014.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,0 +1,17 @@
+C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\spesometro2014\bin\Debug\spesometro2014.exe
+C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\spesometro2014\bin\Debug\spesometro2014.pdb
+C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\spesometro2014\bin\Debug\spesometro2014.xml
+C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\spesometro2014\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\spesometro2014\obj\x86\Debug\spesometro2014.AboutBox1.resources
+C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\spesometro2014\obj\x86\Debug\spesometro2014.Form1.resources
+C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\spesometro2014\obj\x86\Debug\spesometro2014.Resources.resources
+C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\spesometro2014\obj\x86\Debug\spesometro2014.LoginForm1.resources
+C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\spesometro2014\obj\x86\Debug\spesometro2014.Opzioni.resources
+C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\spesometro2014\obj\x86\Debug\spesometro2014.UserControlMenuXLS.resources
+C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\spesometro2014\obj\x86\Debug\spesometro2014.UserControl3.resources
+C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\spesometro2014\obj\x86\Debug\spesometro2014.SplashScreen1.resources
+C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\spesometro2014\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\spesometro2014\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\spesometro2014\obj\x86\Debug\spesometro2014.exe
+C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\spesometro2014\obj\x86\Debug\spesometro2014.xml
+C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\spesometro2014\obj\x86\Debug\spesometro2014.pdb
