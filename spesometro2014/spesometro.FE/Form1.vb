@@ -25,10 +25,10 @@
 
         ' Aggiungere le eventuali istruzioni di inizializzazione dopo la chiamata a InitializeComponent().
         NotifyIcon1.Visible = False
-        Dim mnMenuContestuale = New ContextMenu()
-        Dim mnMostra = New MenuItem()
-        Dim mnEsci = New MenuItem()
-        Dim mnOpzioni = New MenuItem()
+        mnMenuContestuale = New ContextMenu()
+        mnMostra = New MenuItem()
+        mnEsci = New MenuItem()
+        mnOpzioni = New MenuItem()
 
         mnMostra.Text = "Mostra spesometro 2014"
         mnEsci.Text = "&Esci"
@@ -38,7 +38,7 @@
 
     End Sub
 
-    Public Sub StMenuContestuale(ByVal sender As Object, ByVal e As System.EventArgs) Handles mnMostra.Click, mnOpzioni.Click, mnEsci.Click
+    Public Sub mnMenuContestuale_click(ByVal sender As Object, ByVal e As System.EventArgs) Handles mnMostra.Click, mnOpzioni.Click, mnEsci.Click
         Select Case CType(sender, MenuItem).Text
             Case "Mostra spesometro 2014"
                 Me.Show()
