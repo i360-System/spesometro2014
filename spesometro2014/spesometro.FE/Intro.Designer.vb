@@ -27,7 +27,6 @@ Partial Class Intro
     'Non modificarla nell'editor del codice.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Intro))
         Me.MainLayoutPanel = New System.Windows.Forms.TableLayoutPanel()
         Me.DetailsLayoutPanel = New System.Windows.Forms.TableLayoutPanel()
         Me.Version = New System.Windows.Forms.Label()
@@ -39,11 +38,10 @@ Partial Class Intro
         '
         'MainLayoutPanel
         '
-        Me.MainLayoutPanel.BackgroundImage = CType(resources.GetObject("MainLayoutPanel.BackgroundImage"), System.Drawing.Image)
-        Me.MainLayoutPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.MainLayoutPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.MainLayoutPanel.ColumnCount = 2
         Me.MainLayoutPanel.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 243.0!))
-        Me.MainLayoutPanel.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
+        Me.MainLayoutPanel.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 253.0!))
         Me.MainLayoutPanel.Controls.Add(Me.DetailsLayoutPanel, 1, 1)
         Me.MainLayoutPanel.Controls.Add(Me.ApplicationTitle, 1, 0)
         Me.MainLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill
@@ -59,7 +57,7 @@ Partial Class Intro
         Me.DetailsLayoutPanel.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.DetailsLayoutPanel.BackColor = System.Drawing.Color.Transparent
         Me.DetailsLayoutPanel.ColumnCount = 1
-        Me.DetailsLayoutPanel.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 142.0!))
+        Me.DetailsLayoutPanel.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 247.0!))
         Me.DetailsLayoutPanel.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 142.0!))
         Me.DetailsLayoutPanel.Controls.Add(Me.Version, 0, 0)
         Me.DetailsLayoutPanel.Controls.Add(Me.Copyright, 0, 1)
@@ -104,7 +102,7 @@ Partial Class Intro
         Me.ApplicationTitle.Text = "Titolo applicazione"
         Me.ApplicationTitle.TextAlign = System.Drawing.ContentAlignment.BottomLeft
         '
-        'SplashScreen1
+        'Intro
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -114,7 +112,7 @@ Partial Class Intro
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "SplashScreen1"
+        Me.Name = "Intro"
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.MainLayoutPanel.ResumeLayout(False)

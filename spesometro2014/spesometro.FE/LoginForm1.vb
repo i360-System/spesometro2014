@@ -9,7 +9,7 @@
     ' quali il nome utente, il nome visualizzato e così via.
 
     Private Sub OK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OK.Click
-        If InitController.NotCampiVuotiAll(Me) And True Then Application.Run()
+        If InitController.NotCampiVuotiAll(Me) AndAlso InitController.Credenziali(New List(Of String) {Me.UsernameTextBox.Text}{ Me.PasswordTextBox.Text}) Then Application.Run()
 
     End Sub
 

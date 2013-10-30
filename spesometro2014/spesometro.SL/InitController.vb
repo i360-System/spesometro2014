@@ -22,4 +22,8 @@
         Return cvbool
     End Function
 
+    Public Function Credenziali(ByVal obj As List(Of String)) As Boolean
+
+    End Function
+
 End Module
