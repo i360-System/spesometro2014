@@ -6,7 +6,17 @@ spesometro2014
 </name>
 </assembly>
 <members>
-<member name="P:spesometro2014.My.Resources.Resources.ResourceManager">
+<member name="T:spesometro2014.Database1DataSet">
+	<summary>
+Represents a strongly typed in-memory cache of data.
+</summary>
+</member><member name="M:spesometro2014.InitController.OpzioniGeneraliXls">
+	<summary>
+ Funzione di service layer per il controllo di esistenza dei percorsi di database e di output di xls
+ </summary>
+	<returns>True or False</returns>
+	<remarks></remarks>
+</member><member name="P:spesometro2014.My.Resources.Resources.ResourceManager">
 	<summary>
   Restituisce l'istanza di ResourceManager nella cache utilizzata da questa classe.
 </summary>

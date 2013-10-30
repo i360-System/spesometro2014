@@ -1,4 +1,4 @@
-﻿Public NotInheritable Class SplashScreen1
+﻿Public NotInheritable Class Intro
 
     'TODO: questo form può essere facilmente impostato come schermata iniziale per l'applicazione dalla scheda "Applicazione"
     '  di Progettazione progetti (scegliere "Proprietà" dal menu "Progetto").

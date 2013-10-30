@@ -9,11 +9,11 @@ Imports System.Runtime.InteropServices
 ' Controllare i valori degli attributi dell'assembly
 
 <Assembly: AssemblyTitle("spesometro2014")> 
-<Assembly: AssemblyDescription("")> 
-<Assembly: AssemblyCompany("")> 
+<Assembly: AssemblyDescription("Software di analisi gestionale su sistemi i360-System.")> 
+<Assembly: AssemblyCompany("i360-System")> 
 <Assembly: AssemblyProduct("spesometro2014")> 
-<Assembly: AssemblyCopyright("Copyright ©  2013")> 
-<Assembly: AssemblyTrademark("")> 
+<Assembly: AssemblyCopyright("Copyright © informatica360 && System 2013")> 
+<Assembly: AssemblyTrademark("Prodotto concesso in licenza a: Agea s.n.c.")> 
 
 <Assembly: ComVisible(False)>
 

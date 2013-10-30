@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class Form1
+Partial Class MainForm
     Inherits System.Windows.Forms.Form
 
     'Form esegue l'override del metodo Dispose per pulire l'elenco dei componenti.
@@ -23,21 +23,22 @@ Partial Class Form1
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(MainForm))
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.EsciToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.InformazioniSulSoftwareToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.StrumentiToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.OpzioniToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.RiduciInSystemTrayToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.EsciToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.StrumentiToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CreazioneFlussoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ExcellToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.TracciatoTelematicoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GestioneUtenteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.RiduciInSystemTrayToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.InformazioniSulSoftwareToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.NotifyIcon1 = New System.Windows.Forms.NotifyIcon(Me.components)
+        Me.Panel1 = New System.Windows.Forms.Panel()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -46,7 +47,7 @@ Partial Class Form1
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.StrumentiToolStripMenuItem, Me.ToolStripMenuItem1})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(930, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(967, 24)
         Me.MenuStrip1.TabIndex = 0
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -57,12 +58,17 @@ Partial Class Form1
         Me.FileToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
         Me.FileToolStripMenuItem.Text = "File"
         '
-        'ToolStripMenuItem1
+        'OpzioniToolStripMenuItem
         '
-        Me.ToolStripMenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.InformazioniSulSoftwareToolStripMenuItem, Me.HelpToolStripMenuItem})
-        Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(24, 20)
-        Me.ToolStripMenuItem1.Text = "?"
+        Me.OpzioniToolStripMenuItem.Name = "OpzioniToolStripMenuItem"
+        Me.OpzioniToolStripMenuItem.Size = New System.Drawing.Size(187, 22)
+        Me.OpzioniToolStripMenuItem.Text = "Opzioni..."
+        '
+        'RiduciInSystemTrayToolStripMenuItem
+        '
+        Me.RiduciInSystemTrayToolStripMenuItem.Name = "RiduciInSystemTrayToolStripMenuItem"
+        Me.RiduciInSystemTrayToolStripMenuItem.Size = New System.Drawing.Size(187, 22)
+        Me.RiduciInSystemTrayToolStripMenuItem.Text = "Riduci in System Tray"
         '
         'EsciToolStripMenuItem
         '
@@ -70,30 +76,12 @@ Partial Class Form1
         Me.EsciToolStripMenuItem.Size = New System.Drawing.Size(187, 22)
         Me.EsciToolStripMenuItem.Text = "Esci"
         '
-        'InformazioniSulSoftwareToolStripMenuItem
-        '
-        Me.InformazioniSulSoftwareToolStripMenuItem.Name = "InformazioniSulSoftwareToolStripMenuItem"
-        Me.InformazioniSulSoftwareToolStripMenuItem.Size = New System.Drawing.Size(207, 22)
-        Me.InformazioniSulSoftwareToolStripMenuItem.Text = "Informazioni sul software"
-        '
         'StrumentiToolStripMenuItem
         '
         Me.StrumentiToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CreazioneFlussoToolStripMenuItem, Me.GestioneUtenteToolStripMenuItem})
         Me.StrumentiToolStripMenuItem.Name = "StrumentiToolStripMenuItem"
         Me.StrumentiToolStripMenuItem.Size = New System.Drawing.Size(71, 20)
         Me.StrumentiToolStripMenuItem.Text = "Strumenti"
-        '
-        'OpzioniToolStripMenuItem
-        '
-        Me.OpzioniToolStripMenuItem.Name = "OpzioniToolStripMenuItem"
-        Me.OpzioniToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
-        Me.OpzioniToolStripMenuItem.Text = "Opzioni..."
-        '
-        'HelpToolStripMenuItem
-        '
-        Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
-        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(207, 22)
-        Me.HelpToolStripMenuItem.Text = "Help"
         '
         'CreazioneFlussoToolStripMenuItem
         '
@@ -120,11 +108,24 @@ Partial Class Form1
         Me.GestioneUtenteToolStripMenuItem.Size = New System.Drawing.Size(160, 22)
         Me.GestioneUtenteToolStripMenuItem.Text = "Gestione Utente"
         '
-        'RiduciInSystemTrayToolStripMenuItem
+        'ToolStripMenuItem1
         '
-        Me.RiduciInSystemTrayToolStripMenuItem.Name = "RiduciInSystemTrayToolStripMenuItem"
-        Me.RiduciInSystemTrayToolStripMenuItem.Size = New System.Drawing.Size(187, 22)
-        Me.RiduciInSystemTrayToolStripMenuItem.Text = "Riduci in System Tray"
+        Me.ToolStripMenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.InformazioniSulSoftwareToolStripMenuItem, Me.HelpToolStripMenuItem})
+        Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(24, 20)
+        Me.ToolStripMenuItem1.Text = "?"
+        '
+        'InformazioniSulSoftwareToolStripMenuItem
+        '
+        Me.InformazioniSulSoftwareToolStripMenuItem.Name = "InformazioniSulSoftwareToolStripMenuItem"
+        Me.InformazioniSulSoftwareToolStripMenuItem.Size = New System.Drawing.Size(207, 22)
+        Me.InformazioniSulSoftwareToolStripMenuItem.Text = "Informazioni sul software"
+        '
+        'HelpToolStripMenuItem
+        '
+        Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
+        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(207, 22)
+        Me.HelpToolStripMenuItem.Text = "Help"
         '
         'NotifyIcon1
         '
@@ -133,15 +134,25 @@ Partial Class Form1
         Me.NotifyIcon1.Text = "Spesometro 2014"
         Me.NotifyIcon1.Visible = True
         '
-        'Form1
+        'Panel1
+        '
+        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.Panel1.Location = New System.Drawing.Point(0, 619)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(967, 68)
+        Me.Panel1.TabIndex = 1
+        '
+        'MainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(930, 687)
+        Me.ClientSize = New System.Drawing.Size(967, 687)
+        Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.MenuStrip1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.MainMenuStrip = Me.MenuStrip1
-        Me.Name = "Form1"
+        Me.MaximizeBox = False
+        Me.Name = "MainForm"
         Me.Text = "Spesometro 2014"
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
@@ -169,5 +180,6 @@ Partial Class Form1
     Friend WithEvents mnEsci As MenuItem
     Friend WithEvents mnOpzioni As MenuItem
     Friend WithEvents mnMostra As MenuItem
+    Friend WithEvents Panel1 As System.Windows.Forms.Panel
 
 End Class

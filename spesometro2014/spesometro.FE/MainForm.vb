@@ -1,4 +1,4 @@
-﻿Public Class Form1
+﻿Public Class MainForm
 
     Private Sub OpzioniToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OpzioniToolStripMenuItem.Click
         Opzioni.ShowDialog()
@@ -41,6 +41,7 @@
     Public Sub mnMenuContestuale_click(ByVal sender As Object, ByVal e As System.EventArgs) Handles mnMostra.Click, mnOpzioni.Click, mnEsci.Click
         Select Case CType(sender, MenuItem).Text
             Case "Mostra spesometro 2014"
+                NotifyIcon1.Visible = False
                 Me.Show()
                 'Shell("Notepad.exe", AppWinStyle.NormalFocus)
             Case "&Opzioni..."
@@ -50,5 +51,24 @@
                 NotifyIcon1.Visible = False
                 Application.Exit()
         End Select
+    End Sub
+
+
+    Private Sub InformazioniSulSoftwareToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles InformazioniSulSoftwareToolStripMenuItem.Click
+        Info.ShowDialog()
+    End Sub
+
+   
+
+    Private Sub TracciatoTelematicoToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TracciatoTelematicoToolStripMenuItem.Click
+        If My.Settings.txtMod Then
+            MsgBox("La funzione di elaborazione tracciato txt telematico," & vbCrLf & "non è stata attivata dal pannello Opzioni.")
+        Else
+            'elabora
+        End If
+    End Sub
+
+    Private Sub ExcellToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ExcellToolStripMenuItem.Click
+        ElaborazioneExcell.ShowDialog()
     End Sub
 End Class
