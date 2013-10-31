@@ -6,16 +6,30 @@ spesometro2014
 </name>
 </assembly>
 <members>
-<member name="T:spesometro2014.Database1DataSet">
-	<summary>
-Represents a strongly typed in-memory cache of data.
-</summary>
-</member><member name="M:spesometro2014.InitController.OpzioniGeneraliXls">
+<member name="M:spesometro2014.InitController.OpzioniGeneraliXls">
 	<summary>
  Funzione di service layer per il controllo di esistenza dei percorsi di database e di output di xls
  </summary>
 	<returns>True or False</returns>
 	<remarks></remarks>
+</member><member name="M:spesometro2014.InitController.NotCampiVuotiAll(System.Object@)">
+	<summary>
+ Funzione di SL per il controllo dei campi vuoti del form in questione
+ </summary>
+	<param name="obj"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:spesometro2014.InitController.Credenziali(System.Collections.Generic.List{System.String})">
+	<summary>
+ Funzione di SL chiamante la funzione di DASL per la convalida di accesso credenziali
+ </summary>
+	<param name="obj"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="T:spesometro2014.Database1DataSet">
+	<summary>
+Represents a strongly typed in-memory cache of data.
+</summary>
 </member><member name="P:spesometro2014.My.Resources.Resources.ResourceManager">
 	<summary>
   Restituisce l'istanza di ResourceManager nella cache utilizzata da questa classe.

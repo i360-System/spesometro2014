@@ -1,5 +1,37 @@
 ﻿Module InitController
 
+#Region "Controlli sostanziali FE"
+
+    ''' <summary>
+    ''' Funzione di SL per il controllo dei campi vuoti del form in questione, viene passata una list of controls
+    ''' </summary>
+    ''' <param name="obj"></param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Public Function NotCampiVuotiAll(ByRef obj As Object) As Boolean
+        Dim cvbool As Boolean = True
+        For Each ctrl As Control In obj
+            If TypeOf ctrl Is TextBox Then
+                cvbool = (Not ctrl.Text = "") And cvbool
+            End If
+        Next
+        Return cvbool
+    End Function
+
+#End Region
+
+#Region "Controlli di convalida DASL.Database e di coerenza"
+
+    ''' <summary>
+    ''' Funzione di SL chiamante la funzione di DASL per la convalida di accesso credenziali
+    ''' </summary>
+    ''' <param name="obj"></param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Public Function Credenziali(ByVal obj As List(Of String)) As Boolean
+        Return DASL.Credenziali(obj)
+    End Function
+
     ''' <summary>
     ''' Funzione di service layer per il controllo di esistenza dei percorsi di database e di output di xls
     ''' </summary>
@@ -12,18 +44,6 @@
 
     End Function
 
-    Public Function NotCampiVuotiAll(ByRef obj As Object) As Boolean
-        Dim cvbool As Boolean = True
-        For Each controls In obj
-            If TypeOf obj Is TextBox Then
-                cvbool = (Not obj.text = "") And cvbool
-            End If
-        Next
-        Return cvbool
-    End Function
-
-    Public Function Credenziali(ByVal obj As List(Of String)) As Boolean
-
-    End Function
+#End Region
 
 End Module

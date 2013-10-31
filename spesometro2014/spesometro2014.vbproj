@@ -96,6 +96,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Database1DataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="spesometro.DAL\DASL.vb" />
     <Compile Include="spesometro.FE\Info.Designer.vb">
       <DependentUpon>Info.vb</DependentUpon>
     </Compile>
@@ -223,9 +224,7 @@
       <DependentUpon>Database1DataSet.xsd</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="spesometro.DAL\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="Resources\Lente_conti_630x390_spesometro2014.jpg" />
   </ItemGroup>

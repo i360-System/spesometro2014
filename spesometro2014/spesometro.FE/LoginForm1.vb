@@ -9,12 +9,30 @@
     ' quali il nome utente, il nome visualizzato e così via.
 
     Private Sub OK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OK.Click
-        If InitController.NotCampiVuotiAll(Me) AndAlso InitController.Credenziali(New List(Of String) {Me.UsernameTextBox.Text}{ Me.PasswordTextBox.Text}) Then Application.Run()
+
+        If InitController.NotCampiVuotiAll(Me.Controls) Then
+
+            If InitController.Credenziali(New List(Of String)(New String() {Trim(Me.UsernameTextBox.Text), Trim(Me.PasswordTextBox.Text)})) Then
+
+                Me.Hide()
+                MainForm.ShowDialog()
+
+            Else
+
+                MsgBox("Credenziali inserite non corrette.")
+
+            End If
+
+        Else
+
+            MsgBox("Compilare correttamente i campi.")
+
+        End If
 
     End Sub
 
     Private Sub Cancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Cancel.Click
-        Me.Close()
+        Me.Dispose()
     End Sub
 
 End Class
