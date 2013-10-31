@@ -16,7 +16,13 @@
         Select Case val.ToString
 
             Case 0 ' select
-                DASL.OleDBcommandConn(QueryBuilder.selec).Open()
+                Try
+                    If ConnectionState.Open = 0 Then DASL.OleDBcommandConn(QueryBuilder.selec).Open()
+
+                Catch ex As Exception
+                    MsgBox(ex.ToString())
+                End Try
+                
             Case "insert"
             Case "update"
             Case "delete"

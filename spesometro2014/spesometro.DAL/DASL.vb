@@ -84,8 +84,12 @@ Module DASL
     Private Function MakeConnectionstring() As String
 
         Dim mkcstr As String = Nothing
-        If My.Settings.TipoOleDb = 0 Then 'if access 97-2003 
-            mkcstr = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" & My.Settings.PercorsoDB.ToString & ";User Id=admin; Password=;"
+        If My.Settings.TipoOleDb = 0 Then 'if access 97-2003
+            If My.Settings.conCredenziali Then
+                mkcstr = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" & My.Settings.PercorsoDB.ToString & ";User Id=" & My.Settings.NomeCred & ";Password=" & My.Settings.PassCred & ";"
+            Else
+                mkcstr = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" & My.Settings.PercorsoDB.ToString & ";User Id=admin; Password=;"
+            End If
         ElseIf My.Settings.TipoOleDb = 1 Then 'elseif access 2007 - 2013
             mkcstr = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" & My.Settings.PercorsoDB.ToString & ";Persist Security Info=False;"
         End If

@@ -28,11 +28,13 @@ Partial Class UserControlMenuXLS
         Me.TextBox2 = New System.Windows.Forms.TextBox()
         Me.LabelAzienda = New System.Windows.Forms.Label()
         Me.LabelEsercizio = New System.Windows.Forms.Label()
+        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(181, 6)
+        Me.Button1.Location = New System.Drawing.Point(593, 3)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(80, 50)
         Me.Button1.TabIndex = 0
@@ -41,7 +43,7 @@ Partial Class UserControlMenuXLS
         '
         'Button2
         '
-        Me.Button2.Location = New System.Drawing.Point(267, 6)
+        Me.Button2.Location = New System.Drawing.Point(679, 3)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(80, 50)
         Me.Button2.TabIndex = 1
@@ -80,10 +82,29 @@ Partial Class UserControlMenuXLS
         Me.LabelEsercizio.TabIndex = 8
         Me.LabelEsercizio.Text = "Esercizio:"
         '
+        'ComboBox1
+        '
+        Me.ComboBox1.FormattingEnabled = True
+        Me.ComboBox1.Location = New System.Drawing.Point(308, 9)
+        Me.ComboBox1.Name = "ComboBox1"
+        Me.ComboBox1.Size = New System.Drawing.Size(194, 21)
+        Me.ComboBox1.TabIndex = 9
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(203, 12)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(104, 13)
+        Me.Label1.TabIndex = 10
+        Me.Label1.Text = "Quadri da compilare:"
+        '
         'UserControlMenuXLS
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.Controls.Add(Me.Label1)
+        Me.Controls.Add(Me.ComboBox1)
         Me.Controls.Add(Me.LabelEsercizio)
         Me.Controls.Add(Me.LabelAzienda)
         Me.Controls.Add(Me.TextBox2)
@@ -102,5 +123,7 @@ Partial Class UserControlMenuXLS
     Friend WithEvents TextBox2 As System.Windows.Forms.TextBox
     Friend WithEvents LabelAzienda As System.Windows.Forms.Label
     Friend WithEvents LabelEsercizio As System.Windows.Forms.Label
+    Friend WithEvents ComboBox1 As System.Windows.Forms.ComboBox
+    Friend WithEvents Label1 As System.Windows.Forms.Label
 
 End Class

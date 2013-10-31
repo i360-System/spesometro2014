@@ -71,4 +71,6 @@
     Private Sub ExcellToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ExcellToolStripMenuItem.Click
         ElaborazioneExcell.ShowDialog()
     End Sub
+
+   
 End Class

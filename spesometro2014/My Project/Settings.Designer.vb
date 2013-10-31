@@ -158,6 +158,102 @@ Namespace My
                 Me("PassCred") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property FlussoQuadro1() As String
+            Get
+                Return CType(Me("FlussoQuadro1"),String)
+            End Get
+            Set
+                Me("FlussoQuadro1") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property FlussoQuadro2() As String
+            Get
+                Return CType(Me("FlussoQuadro2"),String)
+            End Get
+            Set
+                Me("FlussoQuadro2") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property FlussoQuadro3() As String
+            Get
+                Return CType(Me("FlussoQuadro3"),String)
+            End Get
+            Set
+                Me("FlussoQuadro3") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property FlussoQuadro4() As String
+            Get
+                Return CType(Me("FlussoQuadro4"),String)
+            End Get
+            Set
+                Me("FlussoQuadro4") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property FlussoQuadro5() As String
+            Get
+                Return CType(Me("FlussoQuadro5"),String)
+            End Get
+            Set
+                Me("FlussoQuadro5") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property FlussoQuadro6() As String
+            Get
+                Return CType(Me("FlussoQuadro6"),String)
+            End Get
+            Set
+                Me("FlussoQuadro6") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property FlussoQuadro7() As String
+            Get
+                Return CType(Me("FlussoQuadro7"),String)
+            End Get
+            Set
+                Me("FlussoQuadro7") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property FlussoQuadro8() As String
+            Get
+                Return CType(Me("FlussoQuadro8"),String)
+            End Get
+            Set
+                Me("FlussoQuadro8") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

@@ -22,8 +22,9 @@
         If Not My.Settings.OutPutXls = "" Then TextBox2.Text = My.Settings.OutPutXls
         If Not My.Settings.OutPutTxt = "" Then TextBox3.Text = My.Settings.OutPutTxt
         If Not IsNothing(My.Settings.txtMod) Then CheckBox1.CheckState = My.Settings.txtMod
-        If Not IsNothing(My.Settings.conCredenziali) Then CheckBox2.CheckState = My.Settings.conCredenziali
-        If CheckBox2.CheckState = True Then
+        If Not IsNothing(My.Settings.conCredenziali) Then CheckBox2.Checked = My.Settings.conCredenziali
+        'aggiungere tab 3
+        If CheckBox2.Checked = True Then
             Label5.Enabled = True
             Label6.Enabled = True
             TextBox4.Enabled = True
@@ -34,7 +35,7 @@
     End Sub
 
     Private Sub CheckBox2_CheckStateChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles CheckBox2.CheckStateChanged
-        If CheckBox2.CheckState = False Then
+        If CheckBox2.Checked = False Then
             Label5.Enabled = False
             Label6.Enabled = False
             TextBox4.Enabled = False
@@ -61,6 +62,7 @@
             .TipoOleDb = ComboBox1.SelectedIndex
             .conCredenziali = CheckBox2.CheckState
             .txtMod = CheckBox1.CheckState
+            'aggiungere tab 3
             .NomeCred = TextBox4.Text
             .PassCred = TextBox5.Text
             .Save()
