@@ -6,15 +6,22 @@ spesometro2014
 </name>
 </assembly>
 <members>
-<member name="M:spesometro2014.InitController.OpzioniGeneraliXls">
+<member name="M:spesometro2014.DASL.Credenziali(System.Collections.Generic.List{System.String})">
 	<summary>
- Funzione di service layer per il controllo di esistenza dei percorsi di database e di output di xls
+ Funzione di DASL per la convalida delle credenziali di accesso 
  </summary>
-	<returns>True or False</returns>
+	<param name="cred"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:spesometro2014.DASL.OleDBcommandConn(System.String)">
+	<summary>
+ Funzione che restituisce un oggetto SQLCEconnection
+ </summary>
+	<returns></returns>
 	<remarks></remarks>
 </member><member name="M:spesometro2014.InitController.NotCampiVuotiAll(System.Object@)">
 	<summary>
- Funzione di SL per il controllo dei campi vuoti del form in questione
+ Funzione di SL per il controllo dei campi vuoti del form in questione, viene passata una list of controls
  </summary>
 	<param name="obj"></param>
 	<returns></returns>
@@ -25,6 +32,12 @@ spesometro2014
  </summary>
 	<param name="obj"></param>
 	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:spesometro2014.InitController.OpzioniGeneraliXls">
+	<summary>
+ Funzione di service layer per il controllo di esistenza dei percorsi di database e di output di xls
+ </summary>
+	<returns>True or False</returns>
 	<remarks></remarks>
 </member><member name="T:spesometro2014.Database1DataSet">
 	<summary>
@@ -43,6 +56,16 @@ Represents a strongly typed in-memory cache of data.
 	<summary>
   Classe di risorse fortemente tipizzata per la ricerca di stringhe localizzate e così via.
 </summary>
+</member><member name="M:spesometro2014.WorkflowBL.mainXls(System.String)">
+	<summary>
+ MEtodo main di elaborazione del tracciato excell.
+ val = 0 --&gt; select
+ val = 1 --&gt; insert
+ val = 2 --&gt; update
+ val = 3 --&gt; delete
+ </summary>
+	<param name="val"></param>
+	<remarks></remarks>
 </member>
 </members>
 </doc>

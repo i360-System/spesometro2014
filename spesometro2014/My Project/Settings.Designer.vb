@@ -92,13 +92,13 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
-        Public Property tipodb() As String
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property conCredenziali() As Boolean
             Get
-                Return CType(Me("tipodb"),String)
+                Return CType(Me("conCredenziali"),Boolean)
             End Get
             Set
-                Me("tipodb") = value
+                Me("conCredenziali") = value
             End Set
         End Property
         
@@ -121,6 +121,41 @@ Namespace My
             End Get
             Set
                 Me("txtMod") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute()>  _
+        Public Property TipoOleDb() As Single
+            Get
+                Return CType(Me("TipoOleDb"),Single)
+            End Get
+            Set
+                Me("TipoOleDb") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property NomeCred() As String
+            Get
+                Return CType(Me("NomeCred"),String)
+            End Get
+            Set
+                Me("NomeCred") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property PassCred() As String
+            Get
+                Return CType(Me("PassCred"),String)
+            End Get
+            Set
+                Me("PassCred") = value
             End Set
         End Property
     End Class

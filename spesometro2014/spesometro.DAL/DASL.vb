@@ -1,6 +1,7 @@
 ﻿Imports System.Globalization
 Imports System.Data.Common
 Imports System.Data.SqlServerCe
+Imports System.Data.OleDb
 
 Module DASL
 
@@ -60,5 +61,40 @@ Module DASL
         End Try
 
     End Function
+
+    ''' <summary>
+    ''' Funzione che restituisce un oggetto SQLCEconnection
+    ''' </summary>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Public Function OleDBcommandConn(ByVal insertSQL As String) As OleDbConnection
+
+        Dim con As New OleDbConnection(MakeConnectionstring)
+        ConnectionOledb = con
+        Dim command As New OleDbCommand(insertSQL)
+
+        ' Set the Connection to the new OleDbConnection.
+        command.Connection = con
+        CommandOleDB = command
+
+        Return con
+
+    End Function
+
+    Private Function MakeConnectionstring() As String
+
+        Dim mkcstr As String = Nothing
+        If My.Settings.TipoOleDb = 0 Then 'if access 97-2003 
+            mkcstr = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" & My.Settings.PercorsoDB.ToString & ";User Id=admin; Password=;"
+        ElseIf My.Settings.TipoOleDb = 1 Then 'elseif access 2007 - 2013
+            mkcstr = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" & My.Settings.PercorsoDB.ToString & ";Persist Security Info=False;"
+        End If
+        Return mkcstr
+
+    End Function
+
+    Public Property ConnectionOledb As OleDbConnection
+
+    Public Property CommandOleDB As OleDbCommand
 
 End Module

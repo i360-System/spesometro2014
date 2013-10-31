@@ -134,6 +134,7 @@ Partial Class GestioneUtente
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "GestioneUtente"
+        Me.ShowIcon = False
         Me.Text = "Gestione Utente"
         Me.ToolStrip1.ResumeLayout(False)
         Me.ToolStrip1.PerformLayout()

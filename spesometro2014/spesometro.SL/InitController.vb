@@ -39,8 +39,7 @@
     ''' <remarks></remarks>
     Public Function OpzioniGeneraliXls() As Boolean
 
-        Return (Not My.Settings.PercorsoDB.ToString = "") And (Not My.Settings.OutPutXls = "") _
-            And (Not My.Settings.tipodb = "")
+        Return (Not My.Settings.PercorsoDB.ToString = "") And (Not My.Settings.OutPutXls = "")
 
     End Function
 

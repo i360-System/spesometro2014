@@ -11,8 +11,8 @@
     <Setting Name="OutPutTxt" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="tipodb" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+    <Setting Name="conCredenziali" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="Database1ConnectionString" Type="(Connection string)" Scope="Application">
       <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
@@ -24,6 +24,15 @@
     </Setting>
     <Setting Name="txtMod" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="TipoOleDb" Type="System.Single" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="NomeCred" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="PassCred" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>
