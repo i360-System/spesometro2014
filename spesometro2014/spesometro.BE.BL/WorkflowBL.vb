@@ -139,7 +139,7 @@ Module WorkflowBL
             Case 4 ' all
                 'todo
         End Select
-
+        Dim table As System.Data.DataTable
         If ConnectionState.Open = 0 Then
             Dim pp = DASL.OleDBcommandConn("SELECT * FROM Aziende WHERE Azienda='" & ElaborazioneExcell.UserControlMenuXLS1.TextBox1.Text & "'")
             pp.Open()
@@ -149,11 +149,11 @@ Module WorkflowBL
             Else
                 mainAd = New OleDbDataAdapter(CommandOleDB.CommandText.ToString, ConnectionOledb)
                 mainAd.FillSchema(mainDb, SchemaType.Source)
-                mainAd.Fill(mainDb) : Dim table As System.Data.DataTable
+                mainAd.Fill(mainDb)
                 table = mainDb.Tables("Aziende")
                 CodiceFiscaleAzienda = table.Rows(0)("CodiceFiscale").ToString()
                 pp.Close()
-
+                table = Nothing
             End If
 
         End If
@@ -176,13 +176,13 @@ Module WorkflowBL
         End If
         mainAd = New OleDbDataAdapter(CommandOleDB.CommandText.ToString, p)
         mainAd.FillSchema(mainDb, SchemaType.Source)
-        mainAd.Fill(mainDb) : Dim table As System.Data.DataTable
+        mainAd.Fill(mainDb)
         table = mainDb.Tables("MovimentiIvaTestata")
         mainAd = Nothing
         p.Close()
         p.Dispose()
         mainDb = Nothing
-        table = Nothing
+        Dim table2 As DataTable
         For Each r As DataRow In table.Rows
             Dim quer = "SELECT * FROM MovimentiContabiliTestata WHERE Azienda='" & r("Azienda").value() _
             & "' AND Esercizio='" & r("Esercizio").value() & "' AND NumeroPrimaNota = " & r("NumeroPrimaNota").value()
@@ -191,10 +191,12 @@ Module WorkflowBL
             mainAd = New OleDbDataAdapter(quer, p)
             mainAd.FillSchema(mainDb, SchemaType.Source)
             mainAd.Fill(mainDb)
-            table = mainDb.Tables("MovimentiContabiliTestata")
-            If table.Rows(0)("Causale").value = "001" Then
-                'allora produrre excell
-
+            table2 = mainDb.Tables("MovimentiContabiliTestata")
+            If table2.Rows(0)("Causale").value = "001" Then
+                For Each ro In table.Rows
+                    ro()
+                    'sviluppo riga excell dati anagrafici(tab anagrafiche) e numerici iva - azienda conto sottoconto e vado in sottoconti e ricavo il campo anagrafica
+                Next
             End If
         Next
         table.Rows(0)("").ToString()
