@@ -39,7 +39,14 @@
     ''' <remarks></remarks>
     Public Function OpzioniGeneraliXls() As Boolean
 
-        Return (Not My.Settings.PercorsoDB.ToString = "") And (Not My.Settings.OutPutXls = "")
+        Return (Not My.Settings.PercorsoDB.ToString = "") And ((Not My.Settings.FlussoQuadro1 = "") OrElse _
+                                                               (Not My.Settings.FlussoQuadro2 = "") OrElse _
+                                                               (Not My.Settings.FlussoQuadro3 = "") OrElse _
+                                                               (Not My.Settings.FlussoQuadro4 = "") OrElse _
+                                                               (Not My.Settings.FlussoQuadro5 = "") OrElse _
+                                                               (Not My.Settings.FlussoQuadro6 = "") OrElse _
+                                                               (Not My.Settings.FlussoQuadro7 = "") OrElse _
+                                                               (Not My.Settings.FlussoQuadro8 = ""))
 
     End Function
 

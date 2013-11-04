@@ -38,7 +38,6 @@ Partial Class MainForm
         Me.InformazioniSulSoftwareToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.NotifyIcon1 = New System.Windows.Forms.NotifyIcon(Me.components)
-        Me.Panel1 = New System.Windows.Forms.Panel()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -134,20 +133,11 @@ Partial Class MainForm
         Me.NotifyIcon1.Text = "Spesometro 2014"
         Me.NotifyIcon1.Visible = True
         '
-        'Panel1
-        '
-        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Panel1.Location = New System.Drawing.Point(0, 619)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(967, 68)
-        Me.Panel1.TabIndex = 1
-        '
         'MainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(967, 687)
-        Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.MenuStrip1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.MainMenuStrip = Me.MenuStrip1
@@ -180,6 +170,5 @@ Partial Class MainForm
     Friend WithEvents mnEsci As MenuItem
     Friend WithEvents mnOpzioni As MenuItem
     Friend WithEvents mnMostra As MenuItem
-    Friend WithEvents Panel1 As System.Windows.Forms.Panel
 
 End Class

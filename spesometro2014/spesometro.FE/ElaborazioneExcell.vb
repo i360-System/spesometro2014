@@ -11,17 +11,7 @@
         InitializeComponent()
 
         ' Aggiungere le eventuali istruzioni di inizializzazione dopo la chiamata a InitializeComponent().
-        If InitController.OpzioniGeneraliXls Then
-            'Me.Labelattendere.Visible = False
-            'Me.Labelconnessione.Visible = True
-            'Me.Labelconnessione.Visible = False
-            MainForm.Panel1.Enabled = True
-        Else
-            MsgBox("Impossibile eseguire l'elaborazione richiesta." & vbCrLf & "Controllare nelle opzioni del software," _
-                   & vbCrLf & "che tutti campi e le funzionalità siano valorizzati.")
-        End If
-
-
+        Labelattendere.Visible = False
     End Sub
 
     Protected Overrides Sub Finalize()
@@ -35,4 +25,5 @@
         delete = 3
     End Enum
 
+    
 End Class

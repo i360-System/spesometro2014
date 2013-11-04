@@ -42,35 +42,43 @@ Partial Class Opzioni
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
-        Me.Button5 = New System.Windows.Forms.Button()
-        Me.Button7 = New System.Windows.Forms.Button()
-        Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
-        Me.FolderBrowserDialog2 = New System.Windows.Forms.FolderBrowserDialog()
         Me.TabPage3 = New System.Windows.Forms.TabPage()
-        Me.TextBox6 = New System.Windows.Forms.TextBox()
-        Me.TextBox7 = New System.Windows.Forms.TextBox()
-        Me.TextBox8 = New System.Windows.Forms.TextBox()
-        Me.TextBox9 = New System.Windows.Forms.TextBox()
-        Me.TextBox10 = New System.Windows.Forms.TextBox()
-        Me.TextBox11 = New System.Windows.Forms.TextBox()
-        Me.TextBox12 = New System.Windows.Forms.TextBox()
-        Me.Button4 = New System.Windows.Forms.Button()
-        Me.Button6 = New System.Windows.Forms.Button()
-        Me.Button8 = New System.Windows.Forms.Button()
-        Me.Button9 = New System.Windows.Forms.Button()
-        Me.Button10 = New System.Windows.Forms.Button()
-        Me.Button11 = New System.Windows.Forms.Button()
-        Me.Button12 = New System.Windows.Forms.Button()
-        Me.Label7 = New System.Windows.Forms.Label()
-        Me.Label8 = New System.Windows.Forms.Label()
-        Me.Label9 = New System.Windows.Forms.Label()
-        Me.Label10 = New System.Windows.Forms.Label()
-        Me.Label11 = New System.Windows.Forms.Label()
-        Me.Label12 = New System.Windows.Forms.Label()
-        Me.Label13 = New System.Windows.Forms.Label()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.Button13 = New System.Windows.Forms.Button()
         Me.TextBox13 = New System.Windows.Forms.TextBox()
+        Me.Label13 = New System.Windows.Forms.Label()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.Button12 = New System.Windows.Forms.Button()
+        Me.Button11 = New System.Windows.Forms.Button()
+        Me.Button10 = New System.Windows.Forms.Button()
+        Me.Button9 = New System.Windows.Forms.Button()
+        Me.Button8 = New System.Windows.Forms.Button()
+        Me.Button6 = New System.Windows.Forms.Button()
+        Me.Button4 = New System.Windows.Forms.Button()
+        Me.TextBox12 = New System.Windows.Forms.TextBox()
+        Me.TextBox11 = New System.Windows.Forms.TextBox()
+        Me.TextBox10 = New System.Windows.Forms.TextBox()
+        Me.TextBox9 = New System.Windows.Forms.TextBox()
+        Me.TextBox8 = New System.Windows.Forms.TextBox()
+        Me.TextBox7 = New System.Windows.Forms.TextBox()
+        Me.TextBox6 = New System.Windows.Forms.TextBox()
+        Me.Button5 = New System.Windows.Forms.Button()
+        Me.Button7 = New System.Windows.Forms.Button()
+        Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
+        Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
+        Me.OpenFileDialog2 = New System.Windows.Forms.OpenFileDialog()
+        Me.OpenFileDialog3 = New System.Windows.Forms.OpenFileDialog()
+        Me.OpenFileDialog4 = New System.Windows.Forms.OpenFileDialog()
+        Me.OpenFileDialog5 = New System.Windows.Forms.OpenFileDialog()
+        Me.OpenFileDialog6 = New System.Windows.Forms.OpenFileDialog()
+        Me.OpenFileDialog7 = New System.Windows.Forms.OpenFileDialog()
+        Me.OpenFileDialog8 = New System.Windows.Forms.OpenFileDialog()
+        Me.OpenFileDialog9 = New System.Windows.Forms.OpenFileDialog()
         Me.TabControl1.SuspendLayout()
         Me.TabPage2.SuspendLayout()
         Me.TabPage1.SuspendLayout()
@@ -277,24 +285,6 @@ Partial Class Opzioni
         Me.TextBox1.Size = New System.Drawing.Size(321, 20)
         Me.TextBox1.TabIndex = 0
         '
-        'Button5
-        '
-        Me.Button5.Location = New System.Drawing.Point(339, 271)
-        Me.Button5.Name = "Button5"
-        Me.Button5.Size = New System.Drawing.Size(75, 23)
-        Me.Button5.TabIndex = 1
-        Me.Button5.Text = "&Salva"
-        Me.Button5.UseVisualStyleBackColor = True
-        '
-        'Button7
-        '
-        Me.Button7.Location = New System.Drawing.Point(423, 271)
-        Me.Button7.Name = "Button7"
-        Me.Button7.Size = New System.Drawing.Size(75, 23)
-        Me.Button7.TabIndex = 3
-        Me.Button7.Text = "&Esci"
-        Me.Button7.UseVisualStyleBackColor = True
-        '
         'TabPage3
         '
         Me.TabPage3.Controls.Add(Me.Label14)
@@ -326,183 +316,8 @@ Partial Class Opzioni
         Me.TabPage3.Padding = New System.Windows.Forms.Padding(3)
         Me.TabPage3.Size = New System.Drawing.Size(478, 227)
         Me.TabPage3.TabIndex = 2
-        Me.TabPage3.Text = "OutPut"
+        Me.TabPage3.Text = "OutPut Excell"
         Me.TabPage3.UseVisualStyleBackColor = True
-        '
-        'TextBox6
-        '
-        Me.TextBox6.Location = New System.Drawing.Point(102, 9)
-        Me.TextBox6.Name = "TextBox6"
-        Me.TextBox6.Size = New System.Drawing.Size(193, 20)
-        Me.TextBox6.TabIndex = 0
-        '
-        'TextBox7
-        '
-        Me.TextBox7.Location = New System.Drawing.Point(102, 35)
-        Me.TextBox7.Name = "TextBox7"
-        Me.TextBox7.Size = New System.Drawing.Size(193, 20)
-        Me.TextBox7.TabIndex = 1
-        '
-        'TextBox8
-        '
-        Me.TextBox8.Location = New System.Drawing.Point(102, 61)
-        Me.TextBox8.Name = "TextBox8"
-        Me.TextBox8.Size = New System.Drawing.Size(193, 20)
-        Me.TextBox8.TabIndex = 2
-        '
-        'TextBox9
-        '
-        Me.TextBox9.Location = New System.Drawing.Point(102, 87)
-        Me.TextBox9.Name = "TextBox9"
-        Me.TextBox9.Size = New System.Drawing.Size(193, 20)
-        Me.TextBox9.TabIndex = 3
-        '
-        'TextBox10
-        '
-        Me.TextBox10.Location = New System.Drawing.Point(102, 115)
-        Me.TextBox10.Name = "TextBox10"
-        Me.TextBox10.Size = New System.Drawing.Size(193, 20)
-        Me.TextBox10.TabIndex = 4
-        '
-        'TextBox11
-        '
-        Me.TextBox11.Location = New System.Drawing.Point(102, 141)
-        Me.TextBox11.Name = "TextBox11"
-        Me.TextBox11.Size = New System.Drawing.Size(193, 20)
-        Me.TextBox11.TabIndex = 5
-        '
-        'TextBox12
-        '
-        Me.TextBox12.Location = New System.Drawing.Point(102, 167)
-        Me.TextBox12.Name = "TextBox12"
-        Me.TextBox12.Size = New System.Drawing.Size(193, 20)
-        Me.TextBox12.TabIndex = 6
-        '
-        'Button4
-        '
-        Me.Button4.Location = New System.Drawing.Point(301, 9)
-        Me.Button4.Name = "Button4"
-        Me.Button4.Size = New System.Drawing.Size(28, 23)
-        Me.Button4.TabIndex = 7
-        Me.Button4.Text = "..."
-        Me.Button4.UseVisualStyleBackColor = True
-        '
-        'Button6
-        '
-        Me.Button6.Location = New System.Drawing.Point(301, 35)
-        Me.Button6.Name = "Button6"
-        Me.Button6.Size = New System.Drawing.Size(28, 23)
-        Me.Button6.TabIndex = 8
-        Me.Button6.Text = "..."
-        Me.Button6.UseVisualStyleBackColor = True
-        '
-        'Button8
-        '
-        Me.Button8.Location = New System.Drawing.Point(301, 61)
-        Me.Button8.Name = "Button8"
-        Me.Button8.Size = New System.Drawing.Size(28, 23)
-        Me.Button8.TabIndex = 9
-        Me.Button8.Text = "..."
-        Me.Button8.UseVisualStyleBackColor = True
-        '
-        'Button9
-        '
-        Me.Button9.Location = New System.Drawing.Point(301, 87)
-        Me.Button9.Name = "Button9"
-        Me.Button9.Size = New System.Drawing.Size(28, 23)
-        Me.Button9.TabIndex = 10
-        Me.Button9.Text = "..."
-        Me.Button9.UseVisualStyleBackColor = True
-        '
-        'Button10
-        '
-        Me.Button10.Location = New System.Drawing.Point(301, 115)
-        Me.Button10.Name = "Button10"
-        Me.Button10.Size = New System.Drawing.Size(28, 23)
-        Me.Button10.TabIndex = 11
-        Me.Button10.Text = "..."
-        Me.Button10.UseVisualStyleBackColor = True
-        '
-        'Button11
-        '
-        Me.Button11.Location = New System.Drawing.Point(301, 141)
-        Me.Button11.Name = "Button11"
-        Me.Button11.Size = New System.Drawing.Size(28, 23)
-        Me.Button11.TabIndex = 12
-        Me.Button11.Text = "..."
-        Me.Button11.UseVisualStyleBackColor = True
-        '
-        'Button12
-        '
-        Me.Button12.Location = New System.Drawing.Point(301, 167)
-        Me.Button12.Name = "Button12"
-        Me.Button12.Size = New System.Drawing.Size(28, 23)
-        Me.Button12.TabIndex = 13
-        Me.Button12.Text = "..."
-        Me.Button12.UseVisualStyleBackColor = True
-        '
-        'Label7
-        '
-        Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(7, 12)
-        Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(87, 13)
-        Me.Label7.TabIndex = 14
-        Me.Label7.Text = "Flusso Quadro 1:"
-        '
-        'Label8
-        '
-        Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(7, 40)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(87, 13)
-        Me.Label8.TabIndex = 15
-        Me.Label8.Text = "Flusso Quadro 2:"
-        '
-        'Label9
-        '
-        Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(7, 66)
-        Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(87, 13)
-        Me.Label9.TabIndex = 16
-        Me.Label9.Text = "Flusso Quadro 3:"
-        '
-        'Label10
-        '
-        Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(7, 92)
-        Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(87, 13)
-        Me.Label10.TabIndex = 17
-        Me.Label10.Text = "Flusso Quadro 4:"
-        '
-        'Label11
-        '
-        Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(7, 118)
-        Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(87, 13)
-        Me.Label11.TabIndex = 18
-        Me.Label11.Text = "Flusso Quadro 5:"
-        '
-        'Label12
-        '
-        Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(7, 146)
-        Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(87, 13)
-        Me.Label12.TabIndex = 19
-        Me.Label12.Text = "Flusso Quadro 6:"
-        '
-        'Label13
-        '
-        Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(7, 172)
-        Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(87, 13)
-        Me.Label13.TabIndex = 20
-        Me.Label13.Text = "Flusso Quadro 7:"
         '
         'Label14
         '
@@ -515,7 +330,7 @@ Partial Class Opzioni
         '
         'Button13
         '
-        Me.Button13.Location = New System.Drawing.Point(301, 193)
+        Me.Button13.Location = New System.Drawing.Point(437, 193)
         Me.Button13.Name = "Button13"
         Me.Button13.Size = New System.Drawing.Size(28, 23)
         Me.Button13.TabIndex = 22
@@ -524,10 +339,239 @@ Partial Class Opzioni
         '
         'TextBox13
         '
-        Me.TextBox13.Location = New System.Drawing.Point(102, 193)
+        Me.TextBox13.Location = New System.Drawing.Point(238, 193)
         Me.TextBox13.Name = "TextBox13"
         Me.TextBox13.Size = New System.Drawing.Size(193, 20)
         Me.TextBox13.TabIndex = 21
+        '
+        'Label13
+        '
+        Me.Label13.AutoSize = True
+        Me.Label13.Location = New System.Drawing.Point(7, 172)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Size = New System.Drawing.Size(87, 13)
+        Me.Label13.TabIndex = 20
+        Me.Label13.Text = "Flusso Quadro 7:"
+        '
+        'Label12
+        '
+        Me.Label12.AutoSize = True
+        Me.Label12.Location = New System.Drawing.Point(7, 146)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(87, 13)
+        Me.Label12.TabIndex = 19
+        Me.Label12.Text = "Flusso Quadro 6:"
+        '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.Location = New System.Drawing.Point(7, 118)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(87, 13)
+        Me.Label11.TabIndex = 18
+        Me.Label11.Text = "Flusso Quadro 5:"
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.Location = New System.Drawing.Point(7, 92)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(176, 13)
+        Me.Label10.TabIndex = 17
+        Me.Label10.Text = "Flusso quadro note credito ricevute:"
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Location = New System.Drawing.Point(7, 66)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(150, 13)
+        Me.Label9.TabIndex = 16
+        Me.Label9.Text = "Flusso quadro fatture ricevute:"
+        '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Location = New System.Drawing.Point(7, 40)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(174, 13)
+        Me.Label8.TabIndex = 15
+        Me.Label8.Text = "Flusso quadro note credito emesse:"
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.Location = New System.Drawing.Point(7, 12)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(148, 13)
+        Me.Label7.TabIndex = 14
+        Me.Label7.Text = "Flusso quadro fatture emesse:"
+        '
+        'Button12
+        '
+        Me.Button12.Location = New System.Drawing.Point(437, 167)
+        Me.Button12.Name = "Button12"
+        Me.Button12.Size = New System.Drawing.Size(28, 23)
+        Me.Button12.TabIndex = 13
+        Me.Button12.Text = "..."
+        Me.Button12.UseVisualStyleBackColor = True
+        '
+        'Button11
+        '
+        Me.Button11.Location = New System.Drawing.Point(437, 141)
+        Me.Button11.Name = "Button11"
+        Me.Button11.Size = New System.Drawing.Size(28, 23)
+        Me.Button11.TabIndex = 12
+        Me.Button11.Text = "..."
+        Me.Button11.UseVisualStyleBackColor = True
+        '
+        'Button10
+        '
+        Me.Button10.Location = New System.Drawing.Point(437, 115)
+        Me.Button10.Name = "Button10"
+        Me.Button10.Size = New System.Drawing.Size(28, 23)
+        Me.Button10.TabIndex = 11
+        Me.Button10.Text = "..."
+        Me.Button10.UseVisualStyleBackColor = True
+        '
+        'Button9
+        '
+        Me.Button9.Location = New System.Drawing.Point(437, 87)
+        Me.Button9.Name = "Button9"
+        Me.Button9.Size = New System.Drawing.Size(28, 23)
+        Me.Button9.TabIndex = 10
+        Me.Button9.Text = "..."
+        Me.Button9.UseVisualStyleBackColor = True
+        '
+        'Button8
+        '
+        Me.Button8.Location = New System.Drawing.Point(437, 61)
+        Me.Button8.Name = "Button8"
+        Me.Button8.Size = New System.Drawing.Size(28, 23)
+        Me.Button8.TabIndex = 9
+        Me.Button8.Text = "..."
+        Me.Button8.UseVisualStyleBackColor = True
+        '
+        'Button6
+        '
+        Me.Button6.Location = New System.Drawing.Point(437, 35)
+        Me.Button6.Name = "Button6"
+        Me.Button6.Size = New System.Drawing.Size(28, 23)
+        Me.Button6.TabIndex = 8
+        Me.Button6.Text = "..."
+        Me.Button6.UseVisualStyleBackColor = True
+        '
+        'Button4
+        '
+        Me.Button4.Location = New System.Drawing.Point(437, 9)
+        Me.Button4.Name = "Button4"
+        Me.Button4.Size = New System.Drawing.Size(28, 23)
+        Me.Button4.TabIndex = 7
+        Me.Button4.Text = "..."
+        Me.Button4.UseVisualStyleBackColor = True
+        '
+        'TextBox12
+        '
+        Me.TextBox12.Location = New System.Drawing.Point(238, 167)
+        Me.TextBox12.Name = "TextBox12"
+        Me.TextBox12.Size = New System.Drawing.Size(193, 20)
+        Me.TextBox12.TabIndex = 6
+        '
+        'TextBox11
+        '
+        Me.TextBox11.Location = New System.Drawing.Point(238, 141)
+        Me.TextBox11.Name = "TextBox11"
+        Me.TextBox11.Size = New System.Drawing.Size(193, 20)
+        Me.TextBox11.TabIndex = 5
+        '
+        'TextBox10
+        '
+        Me.TextBox10.Location = New System.Drawing.Point(238, 115)
+        Me.TextBox10.Name = "TextBox10"
+        Me.TextBox10.Size = New System.Drawing.Size(193, 20)
+        Me.TextBox10.TabIndex = 4
+        '
+        'TextBox9
+        '
+        Me.TextBox9.Location = New System.Drawing.Point(238, 87)
+        Me.TextBox9.Name = "TextBox9"
+        Me.TextBox9.Size = New System.Drawing.Size(193, 20)
+        Me.TextBox9.TabIndex = 3
+        '
+        'TextBox8
+        '
+        Me.TextBox8.Location = New System.Drawing.Point(238, 61)
+        Me.TextBox8.Name = "TextBox8"
+        Me.TextBox8.Size = New System.Drawing.Size(193, 20)
+        Me.TextBox8.TabIndex = 2
+        '
+        'TextBox7
+        '
+        Me.TextBox7.Location = New System.Drawing.Point(238, 35)
+        Me.TextBox7.Name = "TextBox7"
+        Me.TextBox7.Size = New System.Drawing.Size(193, 20)
+        Me.TextBox7.TabIndex = 1
+        '
+        'TextBox6
+        '
+        Me.TextBox6.Location = New System.Drawing.Point(238, 9)
+        Me.TextBox6.Name = "TextBox6"
+        Me.TextBox6.Size = New System.Drawing.Size(193, 20)
+        Me.TextBox6.TabIndex = 0
+        '
+        'Button5
+        '
+        Me.Button5.Location = New System.Drawing.Point(339, 271)
+        Me.Button5.Name = "Button5"
+        Me.Button5.Size = New System.Drawing.Size(75, 23)
+        Me.Button5.TabIndex = 1
+        Me.Button5.Text = "&Salva"
+        Me.Button5.UseVisualStyleBackColor = True
+        '
+        'Button7
+        '
+        Me.Button7.Location = New System.Drawing.Point(423, 271)
+        Me.Button7.Name = "Button7"
+        Me.Button7.Size = New System.Drawing.Size(75, 23)
+        Me.Button7.TabIndex = 3
+        Me.Button7.Text = "&Esci"
+        Me.Button7.UseVisualStyleBackColor = True
+        '
+        'OpenFileDialog1
+        '
+        Me.OpenFileDialog1.FileName = "OpenFileDialog1"
+        '
+        'OpenFileDialog2
+        '
+        Me.OpenFileDialog2.FileName = "OpenFileDialog1"
+        '
+        'OpenFileDialog3
+        '
+        Me.OpenFileDialog3.FileName = "OpenFileDialog1"
+        '
+        'OpenFileDialog4
+        '
+        Me.OpenFileDialog4.FileName = "OpenFileDialog1"
+        '
+        'OpenFileDialog5
+        '
+        Me.OpenFileDialog5.FileName = "OpenFileDialog1"
+        '
+        'OpenFileDialog6
+        '
+        Me.OpenFileDialog6.FileName = "OpenFileDialog1"
+        '
+        'OpenFileDialog7
+        '
+        Me.OpenFileDialog7.FileName = "OpenFileDialog1"
+        '
+        'OpenFileDialog8
+        '
+        Me.OpenFileDialog8.FileName = "OpenFileDialog1"
+        '
+        'OpenFileDialog9
+        '
+        Me.OpenFileDialog9.FileName = "OpenFileDialog1"
         '
         'Opzioni
         '
@@ -569,7 +613,6 @@ Partial Class Opzioni
     Friend WithEvents Button5 As System.Windows.Forms.Button
     Friend WithEvents Button7 As System.Windows.Forms.Button
     Friend WithEvents FolderBrowserDialog1 As System.Windows.Forms.FolderBrowserDialog
-    Friend WithEvents FolderBrowserDialog2 As System.Windows.Forms.FolderBrowserDialog
     Friend WithEvents Label4 As System.Windows.Forms.Label
     Friend WithEvents ComboBox1 As System.Windows.Forms.ComboBox
     Friend WithEvents CheckBox2 As System.Windows.Forms.CheckBox
@@ -602,4 +645,13 @@ Partial Class Opzioni
     Friend WithEvents Label9 As System.Windows.Forms.Label
     Friend WithEvents Label8 As System.Windows.Forms.Label
     Friend WithEvents Label7 As System.Windows.Forms.Label
+    Friend WithEvents OpenFileDialog1 As System.Windows.Forms.OpenFileDialog
+    Friend WithEvents OpenFileDialog2 As System.Windows.Forms.OpenFileDialog
+    Friend WithEvents OpenFileDialog3 As System.Windows.Forms.OpenFileDialog
+    Friend WithEvents OpenFileDialog4 As System.Windows.Forms.OpenFileDialog
+    Friend WithEvents OpenFileDialog5 As System.Windows.Forms.OpenFileDialog
+    Friend WithEvents OpenFileDialog6 As System.Windows.Forms.OpenFileDialog
+    Friend WithEvents OpenFileDialog7 As System.Windows.Forms.OpenFileDialog
+    Friend WithEvents OpenFileDialog8 As System.Windows.Forms.OpenFileDialog
+    Friend WithEvents OpenFileDialog9 As System.Windows.Forms.OpenFileDialog
 End Class

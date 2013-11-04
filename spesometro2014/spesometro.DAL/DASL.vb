@@ -100,5 +100,13 @@ Module DASL
     Public Property ConnectionOledb As OleDbConnection
 
     Public Property CommandOleDB As OleDbCommand
+        Set(ByVal value As OleDbCommand)
+            _CommandOleDB = value
+        End Set
+        Get
+            Return _CommandOleDB
+        End Get
+    End Property
+    Private _CommandOleDB As OleDbCommand
 
 End Module

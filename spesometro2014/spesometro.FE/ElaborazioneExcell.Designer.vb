@@ -23,10 +23,13 @@ Partial Class ElaborazioneExcell
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.ProgressBar1 = New System.Windows.Forms.ProgressBar()
-        Me.Labelattendere = New System.Windows.Forms.Label()
-        Me.Labelconnessione = New System.Windows.Forms.Label()
-        Me.Labelcontrollo = New System.Windows.Forms.Label()
+        Me.Panel1 = New System.Windows.Forms.Panel()
         Me.Labelcompletato = New System.Windows.Forms.Label()
+        Me.Labelcontrollo = New System.Windows.Forms.Label()
+        Me.Labelconnessione = New System.Windows.Forms.Label()
+        Me.Labelattendere = New System.Windows.Forms.Label()
+        Me.UserControlMenuXLS1 = New spesometro2014.UserControlMenuXLS()
+        Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
         '
         'ProgressBar1
@@ -34,77 +37,98 @@ Partial Class ElaborazioneExcell
         Me.ProgressBar1.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.ProgressBar1.Location = New System.Drawing.Point(0, 164)
         Me.ProgressBar1.Name = "ProgressBar1"
-        Me.ProgressBar1.Size = New System.Drawing.Size(581, 23)
+        Me.ProgressBar1.Size = New System.Drawing.Size(674, 23)
         Me.ProgressBar1.TabIndex = 0
         '
-        'Labelattendere
+        'Panel1
         '
-        Me.Labelattendere.AutoSize = True
-        Me.Labelattendere.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Labelattendere.Location = New System.Drawing.Point(57, 69)
-        Me.Labelattendere.Name = "Labelattendere"
-        Me.Labelattendere.Size = New System.Drawing.Size(341, 25)
-        Me.Labelattendere.TabIndex = 1
-        Me.Labelattendere.Text = "Attendere, elaborazione in corso..."
-        '
-        'Labelconnessione
-        '
-        Me.Labelconnessione.AutoSize = True
-        Me.Labelconnessione.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Labelconnessione.Location = New System.Drawing.Point(57, 69)
-        Me.Labelconnessione.Name = "Labelconnessione"
-        Me.Labelconnessione.Size = New System.Drawing.Size(459, 25)
-        Me.Labelconnessione.TabIndex = 2
-        Me.Labelconnessione.Text = "Connessione al Database e controllo dei dati..."
-        Me.Labelconnessione.Visible = False
-        '
-        'Labelcontrollo
-        '
-        Me.Labelcontrollo.AutoSize = True
-        Me.Labelcontrollo.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Labelcontrollo.Location = New System.Drawing.Point(57, 69)
-        Me.Labelcontrollo.Name = "Labelcontrollo"
-        Me.Labelcontrollo.Size = New System.Drawing.Size(252, 25)
-        Me.Labelcontrollo.TabIndex = 3
-        Me.Labelcontrollo.Text = "Controllo coerenza dati..."
-        Me.Labelcontrollo.Visible = False
+        Me.Panel1.Controls.Add(Me.UserControlMenuXLS1)
+        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel1.Location = New System.Drawing.Point(0, 0)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(674, 66)
+        Me.Panel1.TabIndex = 5
         '
         'Labelcompletato
         '
         Me.Labelcompletato.AutoSize = True
         Me.Labelcompletato.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Labelcompletato.Location = New System.Drawing.Point(57, 69)
+        Me.Labelcompletato.Location = New System.Drawing.Point(108, 81)
         Me.Labelcompletato.Name = "Labelcompletato"
         Me.Labelcompletato.Size = New System.Drawing.Size(139, 25)
-        Me.Labelcompletato.TabIndex = 4
+        Me.Labelcompletato.TabIndex = 9
         Me.Labelcompletato.Text = "Completato..."
         Me.Labelcompletato.Visible = False
+        '
+        'Labelcontrollo
+        '
+        Me.Labelcontrollo.AutoSize = True
+        Me.Labelcontrollo.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Labelcontrollo.Location = New System.Drawing.Point(108, 81)
+        Me.Labelcontrollo.Name = "Labelcontrollo"
+        Me.Labelcontrollo.Size = New System.Drawing.Size(252, 25)
+        Me.Labelcontrollo.TabIndex = 8
+        Me.Labelcontrollo.Text = "Controllo coerenza dati..."
+        Me.Labelcontrollo.Visible = False
+        '
+        'Labelconnessione
+        '
+        Me.Labelconnessione.AutoSize = True
+        Me.Labelconnessione.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Labelconnessione.Location = New System.Drawing.Point(108, 81)
+        Me.Labelconnessione.Name = "Labelconnessione"
+        Me.Labelconnessione.Size = New System.Drawing.Size(459, 25)
+        Me.Labelconnessione.TabIndex = 7
+        Me.Labelconnessione.Text = "Connessione al Database e controllo dei dati..."
+        Me.Labelconnessione.Visible = False
+        '
+        'Labelattendere
+        '
+        Me.Labelattendere.AutoSize = True
+        Me.Labelattendere.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Labelattendere.Location = New System.Drawing.Point(108, 81)
+        Me.Labelattendere.Name = "Labelattendere"
+        Me.Labelattendere.Size = New System.Drawing.Size(341, 25)
+        Me.Labelattendere.TabIndex = 6
+        Me.Labelattendere.Text = "Attendere, elaborazione in corso..."
+        '
+        'UserControlMenuXLS1
+        '
+        Me.UserControlMenuXLS1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.UserControlMenuXLS1.Location = New System.Drawing.Point(0, 0)
+        Me.UserControlMenuXLS1.Name = "UserControlMenuXLS1"
+        Me.UserControlMenuXLS1.Size = New System.Drawing.Size(674, 66)
+        Me.UserControlMenuXLS1.TabIndex = 0
         '
         'ElaborazioneExcell
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(581, 187)
+        Me.ClientSize = New System.Drawing.Size(674, 187)
         Me.ControlBox = False
         Me.Controls.Add(Me.Labelcompletato)
         Me.Controls.Add(Me.Labelcontrollo)
         Me.Controls.Add(Me.Labelconnessione)
         Me.Controls.Add(Me.Labelattendere)
+        Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.ProgressBar1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "ElaborazioneExcell"
         Me.ShowInTaskbar = False
-        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
+        Me.Panel1.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
     Friend WithEvents ProgressBar1 As System.Windows.Forms.ProgressBar
-    Friend WithEvents Labelattendere As System.Windows.Forms.Label
-    Friend WithEvents Labelconnessione As System.Windows.Forms.Label
-    Friend WithEvents Labelcontrollo As System.Windows.Forms.Label
+    Friend WithEvents Panel1 As System.Windows.Forms.Panel
+    Friend WithEvents UserControlMenuXLS1 As spesometro2014.UserControlMenuXLS
     Friend WithEvents Labelcompletato As System.Windows.Forms.Label
+    Friend WithEvents Labelcontrollo As System.Windows.Forms.Label
+    Friend WithEvents Labelconnessione As System.Windows.Forms.Label
+    Friend WithEvents Labelattendere As System.Windows.Forms.Label
 
 End Class

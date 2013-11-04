@@ -64,6 +64,9 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.SqlServerCe, Version=3.5.1.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
@@ -90,6 +93,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationEvents.vb" />
+    <Compile Include="spesometro.BE.BL\Class1.vb" />
     <Compile Include="spesometro.BE.BL\WorkflowBL.vb" />
     <Compile Include="spesometro.DAL.Database\Database1DataSet.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -143,12 +147,6 @@
     <Compile Include="spesometro.FE\Opzioni.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="spesometro.FE\spesometro.FE.UCO\UserControlMenuXLS.Designer.vb">
-      <DependentUpon>UserControlMenuXLS.vb</DependentUpon>
-    </Compile>
-    <Compile Include="spesometro.FE\spesometro.FE.UCO\UserControlMenuXLS.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
     <Compile Include="spesometro.FE\spesometro.FE.UCO\UserControl2.Designer.vb">
       <DependentUpon>UserControl2.vb</DependentUpon>
     </Compile>
@@ -167,7 +165,14 @@
     <Compile Include="spesometro.FE\ElaborazioneExcell.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="spesometro.FE\spesometro.FE.UCO\UserControlMenuXLS.Designer.vb">
+      <DependentUpon>UserControlMenuXLS.vb</DependentUpon>
+    </Compile>
+    <Compile Include="spesometro.FE\spesometro.FE.UCO\UserControlMenuXLS.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="spesometro.SL\InitController.vb" />
+    <Compile Include="spesometro2014.iBE\iBe.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="spesometro.FE\Info.resx">
@@ -191,14 +196,14 @@
     <EmbeddedResource Include="spesometro.FE\Opzioni.resx">
       <DependentUpon>Opzioni.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="spesometro.FE\spesometro.FE.UCO\UserControlMenuXLS.resx">
-      <DependentUpon>UserControlMenuXLS.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="spesometro.FE\Intro.resx">
       <DependentUpon>Intro.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="spesometro.FE\ElaborazioneExcell.resx">
       <DependentUpon>ElaborazioneExcell.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="spesometro.FE\spesometro.FE.UCO\UserControlMenuXLS.resx">
+      <DependentUpon>UserControlMenuXLS.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
