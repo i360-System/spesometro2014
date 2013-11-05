@@ -2,8 +2,11 @@
 Imports System.Data.Common
 Imports System.Data.OleDb
 Imports Microsoft.Office.Interop.Excel
+Imports Microsoft.Office.Interop
 
 Module WorkflowBL
+
+    Dim NomeFoglio As String
 
     Dim exc As List(Of Exception)
 
@@ -129,7 +132,6 @@ Module WorkflowBL
         Dim mainDb As New DataSet
         Dim mainAd As OleDbDataAdapter
 
-        Dim NomeFoglio As String
         Select Case ElaborazioneExcell.UserControlMenuXLS1.ComboBox2.SelectedIndex
             Case 0 ' FE
                 NomeFoglio = My.Settings.FlussoQuadro1.ToString
@@ -165,16 +167,7 @@ Module WorkflowBL
             'table = Nothing
         End If
 
-        '-----------------------------------------
-        Dim wbk As Workbook : Dim ap As ApplicationClass : Dim sht As Worksheet
-        ap.Workbooks.Add(NomeFoglio)
-        'sht = wbk.Sheets(0)
-        wbk = ap.Workbooks.Open(NomeFoglio)
-        ap.Visible = False
 
-        'seleziona il foglio di lavoro 1 del file excel
-        sht = wbk.Worksheets(1)
-        '-----------------------------------
         Dim text1 = ElaborazioneExcell.UserControlMenuXLS1.TextBox1.Text
         Dim text2 = ElaborazioneExcell.UserControlMenuXLS1.TextBox2.Text
         Criterio = "SELECT * FROM MovimentiIvaTestata WHERE Azienda='" & text1 _
@@ -182,7 +175,7 @@ Module WorkflowBL
             & "AND NumeroRegistro = 1"
 
         Dim p As New OleDb.OleDbConnection(DASL.MakeConnectionstring) : mainAd = Nothing : mainDb = New DataSet
-        
+
         p.Open()
         'Dim command2 As New OleDbCommand(Criterio)
         'command2.Connection = p
@@ -300,6 +293,44 @@ Prossimo:
     Private Sub ProduciXls(ByVal obj As List(Of String))
 
 
+        Dim oXL As Excel.Application
+        Dim oWB As Excel.Workbook
+        Dim oSheet As Excel.Worksheet
+        Dim oRng As Excel.Range
+
+        ' Start Excel and get Application object.
+        oXL = CreateObject("Excel.Application")
+        'oXL.Visible = True
+
+        ' Get a  workbook NomeFoglio.
+        oWB = oXL.Workbooks.Add(NomeFoglio)
+        oSheet = oWB.ActiveSheet
+
+
+        With oSheet.Range("A1", "") ' mettere range
+            .Font.Bold = True
+            .VerticalAlignment = Excel.XlVAlign.xlVAlignCenter
+        End With
+
+
+        oSheet.Range("", "").Value = obj 'range
+
+        ' release object references.
+        oRng = Nothing
+        oSheet = Nothing
+        oWB = Nothing
+        oXL.Quit()
+        oXL = Nothing
+        '-----------------------------------------
+        ''Dim wbk As Workbook : Dim ap As ApplicationClass = Nothing : Dim sht As Worksheet
+        ''ap.Workbooks.Add(NomeFoglio)
+        ' ''sht = wbk.Sheets(0)
+        ''wbk = ap.Workbooks.Open(NomeFoglio)
+        ''ap.Visible = False
+
+        ' ''seleziona il foglio di lavoro 1 del file excel
+        ''sht = wbk.Worksheets(1)
+        '-----------------------------------
         '   End If
         'rsTab.Close()
         ''pagina attiva excel = 1
