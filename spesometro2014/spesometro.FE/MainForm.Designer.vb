@@ -166,9 +166,9 @@ Partial Class MainForm
     Friend WithEvents NotifyIcon1 As System.Windows.Forms.NotifyIcon
 
     'Friend WithEvents nfiIcona As NotifyIcon
-    Friend WithEvents mnMenuContestuale As ContextMenu
-    Friend WithEvents mnEsci As MenuItem
-    Friend WithEvents mnOpzioni As MenuItem
-    Friend WithEvents mnMostra As MenuItem
+    Friend WithEvents mnMenuContestuale As System.Windows.Forms.ContextMenu
+    Friend WithEvents mnEsci As System.Windows.Forms.MenuItem
+    Friend WithEvents mnOpzioni As System.Windows.Forms.MenuItem
+    Friend WithEvents mnMostra As System.Windows.Forms.MenuItem
 
 End Class

@@ -27,20 +27,20 @@
         ' Aggiungere le eventuali istruzioni di inizializzazione dopo la chiamata a InitializeComponent().
         NotifyIcon1.Visible = False
         mnMenuContestuale = New ContextMenu()
-        mnMostra = New MenuItem()
-        mnEsci = New MenuItem()
-        mnOpzioni = New MenuItem()
+        mnMostra = New System.Windows.Forms.MenuItem()
+        mnEsci = New System.Windows.Forms.MenuItem()
+        mnOpzioni = New System.Windows.Forms.MenuItem()
 
         mnMostra.Text = "Mostra spesometro 2014"
         mnEsci.Text = "&Esci"
         mnOpzioni.Text = "&Opzioni..."
-        mnMenuContestuale.MenuItems.AddRange(New MenuItem() {mnMostra, mnOpzioni, mnEsci})
+        mnMenuContestuale.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {mnMostra, mnOpzioni, mnEsci})
         NotifyIcon1.ContextMenu = mnMenuContestuale
 
     End Sub
 
     Public Sub mnMenuContestuale_click(ByVal sender As Object, ByVal e As System.EventArgs) Handles mnMostra.Click, mnOpzioni.Click, mnEsci.Click
-        Select Case CType(sender, MenuItem).Text
+        Select Case CType(sender, System.Windows.Forms.MenuItem).Text
             Case "Mostra spesometro 2014"
                 NotifyIcon1.Visible = False
                 Me.Show()
@@ -50,7 +50,7 @@
                 'Shell("Calc.exe", AppWinStyle.NormalFocus)
             Case "&Esci"
                 NotifyIcon1.Visible = False
-                Application.Exit()
+                LoginForm1.Dispose()
         End Select
     End Sub
 

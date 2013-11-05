@@ -1,4 +1,7 @@
-﻿Module InitController
+﻿
+
+
+Module InitController
 
 #Region "Controlli sostanziali FE"
 
@@ -11,7 +14,7 @@
     Public Function NotCampiVuotiAll(ByRef obj As Object) As Boolean
         Dim cvbool As Boolean = True
         For Each ctrl As Control In obj
-            If TypeOf ctrl Is TextBox Then
+            If TypeOf ctrl Is Global.System.Windows.Forms.TextBox Then
                 cvbool = (Not ctrl.Text = "") And cvbool
             End If
         Next

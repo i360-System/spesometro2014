@@ -67,26 +67,27 @@ Module DASL
     ''' </summary>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Function OleDBcommandConn(ByVal insertSQL As String) As OleDbConnection
+    Public Function OleDBcommandConn() As OleDbConnection
 
         Dim con As New OleDbConnection(MakeConnectionstring)
-        ConnectionOledb = con
-        Dim command As New OleDbCommand(insertSQL)
+        'ConnectionOledb = con
+        'Dim command As New OleDbCommand(insertSQL)
 
         ' Set the Connection to the new OleDbConnection.
-        command.Connection = con
-        CommandOleDB = command
+        'command.Connection = con
+        'CommandOleDB = command
 
         Return con
 
     End Function
 
-    Private Function MakeConnectionstring() As String
+    Public Function MakeConnectionstring() As String
 
         Dim mkcstr As String = Nothing
         If My.Settings.TipoOleDb = 0 Then 'if access 97-2003
             If My.Settings.conCredenziali Then
-                mkcstr = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" & My.Settings.PercorsoDB.ToString & ";User Id=" & My.Settings.NomeCred & ";Password=" & My.Settings.PassCred & ";"
+                
+                mkcstr = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" & My.Settings.PercorsoDB.ToString & ";" & "Jet OLEDB:Database Password=" & My.Settings.PassCred & ";"
             Else
                 mkcstr = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" & My.Settings.PercorsoDB.ToString & ";User Id=admin; Password=;"
             End If

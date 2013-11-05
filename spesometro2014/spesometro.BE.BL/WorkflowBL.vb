@@ -26,7 +26,7 @@ Module WorkflowBL
                     'With t
                     '    .Add("")
                     'End With
-                    GeneraXls()
+                    ElaboraDati()
                 Catch ex As Exception
                     MsgBox(ex.ToString())
                 End Try
@@ -109,19 +109,22 @@ Module WorkflowBL
     End Structure
 
 
-    Public Sub FoglioExcel()
+    Public Sub ElaboraDati()
 
         On Error Resume Next
 
         If MsgBox("Procedere con l'inserimento in Excel: Azienda " & _
-           ElaborazioneExcell.UserControlMenuXLS1.TextBox1.Text & " Esercizio " & ElaborazioneExcell.UserControlMenuXLS1.TextBox2.Text & " ?", vbYesNo + vbQuestion + vbDefaultButton2, nometabella) = vbNo Then
+           ElaborazioneExcell.UserControlMenuXLS1.TextBox1.Text & " Esercizio " & ElaborazioneExcell.UserControlMenuXLS1.TextBox2.Text & " ?", vbYesNo + vbQuestion + vbDefaultButton2, "Azienda") = vbNo Then
             MsgBox("Procedura abbandonata", vbCritical)
             Exit Sub
         End If
 
-        Dim Criterio As String, i, j, k, t, tt, Riga, RigaExcel As Long
-        Dim CodiceFiscaleAzienda, CodiceFiscale, PartitaIva, RagioneSociale, _
-            NumeroDocumento, NumeroRegistrazione As String, DataDocumento, DataRegistrazione As Date, TipoConto As String
+        Dim Criterio, anagrafica, quer As String, i, j, k, t, tt, Riga, RigaExcel As Long
+        Dim CodiceFiscaleAzienda, CodiceFiscale, PartitaIva, RagioneSociale, TipoConto, Azienda, _
+            NumeroDocumento, NumeroRegistrazione As String, DataDocumento, DataRegistrazione As Date, conto As Byte, _
+            sottoconto As Integer
+        Dim imponibile, iva As Double
+
 
         Dim mainDb As New DataSet
         Dim mainAd As OleDbDataAdapter
@@ -139,24 +142,30 @@ Module WorkflowBL
             Case 4 ' all
                 'todo
         End Select
-        Dim table As System.Data.DataTable
-        If ConnectionState.Open = 0 Then
-            Dim pp = DASL.OleDBcommandConn("SELECT * FROM Aziende WHERE Azienda='" & ElaborazioneExcell.UserControlMenuXLS1.TextBox1.Text & "'")
-            pp.Open()
-            If CommandOleDB.ExecuteNonQuery() = 0 Then
-                MsgBox("Azienda non codificata: " & ElaborazioneExcell.UserControlMenuXLS1.TextBox1.Text)
-                Exit Sub
-            Else
-                mainAd = New OleDbDataAdapter(CommandOleDB.CommandText.ToString, ConnectionOledb)
-                mainAd.FillSchema(mainDb, SchemaType.Source)
-                mainAd.Fill(mainDb)
-                table = mainDb.Tables("Aziende")
-                CodiceFiscaleAzienda = table.Rows(0)("CodiceFiscale").ToString()
-                pp.Close()
-                table = Nothing
-            End If
-
+        Dim table As System.Data.DataTable : Dim tableIvatestata As System.Data.DataTable
+        ' If ConnectionState.Closed = 0 Then
+        'Dim pp = DASL.OleDBcommandConn()
+        Dim pp As New OleDb.OleDbConnection(DASL.MakeConnectionstring)
+        pp.Open()
+        Dim command As New OleDbCommand("SELECT * FROM Aziende WHERE Azienda='" & ElaborazioneExcell.UserControlMenuXLS1.TextBox1.Text & "'")
+        command.Connection = pp
+        Dim rslset = command.ExecuteReader()
+        If Not rslset.HasRows Then
+            MsgBox("Azienda non codificata: " & ElaborazioneExcell.UserControlMenuXLS1.TextBox1.Text)
+            pp.Close()
+            Exit Sub
+        Else
+            mainAd = New OleDbDataAdapter(command.CommandText.ToString, pp)
+            mainAd.FillSchema(mainDb, SchemaType.Source)
+            mainAd.Fill(mainDb, "Aziende")
+            table = mainDb.Tables("Aziende")
+            CodiceFiscaleAzienda = table.Rows(0)("CodiceFiscale").ToString()
+            pp.Close()
+            mainDb.Dispose()
+            'table = Nothing
         End If
+
+        '-----------------------------------------
         Dim wbk As Workbook : Dim ap As ApplicationClass : Dim sht As Worksheet
         ap.Workbooks.Add(NomeFoglio)
         'sht = wbk.Sheets(0)
@@ -165,150 +174,177 @@ Module WorkflowBL
 
         'seleziona il foglio di lavoro 1 del file excel
         sht = wbk.Worksheets(1)
-
-        Criterio = "SELECT * FROM MovimentiIvaTestata WHERE Azienda='" & ElaborazioneExcell.UserControlMenuXLS1.TextBox1.Text _
-            & "' AND Esercizio='" & ElaborazioneExcell.UserControlMenuXLS1.TextBox2.Text & "' AND TipoRegistro = 'V' " _
+        '-----------------------------------
+        Dim text1 = ElaborazioneExcell.UserControlMenuXLS1.TextBox1.Text
+        Dim text2 = ElaborazioneExcell.UserControlMenuXLS1.TextBox2.Text
+        Criterio = "SELECT * FROM MovimentiIvaTestata WHERE Azienda='" & text1 _
+            & "' AND Esercizio='" & text2 & "' AND TipoRegistro = 'V' " _
             & "AND NumeroRegistro = 1"
 
-        Dim p = DASL.OleDBcommandConn(Criterio) : mainAd = Nothing : mainDb = Nothing
-        If ConnectionState.Closed Then
-            p.Open()
-        End If
-        mainAd = New OleDbDataAdapter(CommandOleDB.CommandText.ToString, p)
+        Dim p As New OleDb.OleDbConnection(DASL.MakeConnectionstring) : mainAd = Nothing : mainDb = New DataSet
+        
+        p.Open()
+        'Dim command2 As New OleDbCommand(Criterio)
+        'command2.Connection = p
+
+        mainAd = New OleDbDataAdapter(Criterio, p)
         mainAd.FillSchema(mainDb, SchemaType.Source)
-        mainAd.Fill(mainDb)
-        table = mainDb.Tables("MovimentiIvaTestata")
+        mainAd.Fill(mainDb, "MovimentiIvaTestata")
+
+        tableIvatestata = mainDb.Tables("MovimentiIvaTestata")
         mainAd = Nothing
-        p.Close()
-        p.Dispose()
-        mainDb = Nothing
-        Dim table2 As DataTable
-        For Each r As DataRow In table.Rows
-            Dim quer = "SELECT * FROM MovimentiContabiliTestata WHERE Azienda='" & r("Azienda").value() _
-            & "' AND Esercizio='" & r("Esercizio").value() & "' AND NumeroPrimaNota = " & r("NumeroPrimaNota").value()
-            p = DASL.OleDBcommandConn(quer)
+        p.Close() : p.Dispose()
+        mainDb.Dispose()
+        Dim table2 As System.Data.DataTable : Dim tablesottoconti As System.Data.DataTable : Dim anagraficaTable As  _
+            System.Data.DataTable : Dim MovimentiTable As System.Data.DataTable
+        Dim FiveValueanagrafica As New List(Of String) : Dim threeValue As New List(Of String) : Dim ArrFiveValue() As String
+        For Each r As DataRow In tableIvatestata.Rows
+            quer = "SELECT * FROM MovimentiContabiliTestata WHERE Azienda='" & r("Azienda").ToString _
+            & "' AND Esercizio='" & text2 & "' AND NumeroPrimaNota = " & r("NumeroPrimaNota").ToString & _
+            " And Causale = '001'"
+            p = DASL.OleDBcommandConn()
             p.Open()
+            'Dim command3 As New OleDbCommand(quer)
+            'command3.Connection = p
             mainAd = New OleDbDataAdapter(quer, p)
+            mainDb = New DataSet
             mainAd.FillSchema(mainDb, SchemaType.Source)
-            mainAd.Fill(mainDb)
+
+            mainAd.Fill(mainDb, "MovimentiContabiliTestata")
             table2 = mainDb.Tables("MovimentiContabiliTestata")
-            If table2.Rows(0)("Causale").value = "001" Then
-                For Each ro In table.Rows
-                    ro()
-                    'sviluppo riga excell dati anagrafici(tab anagrafiche) e numerici iva - azienda conto sottoconto e vado in sottoconti e ricavo il campo anagrafica
-                Next
+            mainAd = Nothing
+            mainDb.Dispose()
+            p.Close()
+            If table2.Rows.Count > 0 Then
+                For Each ro As DataRow In tableIvatestata.Rows
+                    MsgBox(ro)
+                    Azienda = ro("Azienda").ToString()
+                    sottoconto = ro("Sottoconto").ToString() : conto = (ro("Conto").ToString())
+                    Dim querySottoconto = "select * from Sottoconti where Azienda='" & Azienda & "'" & " And Conto = " & conto & " And Sottoconto =" & sottoconto
+                    p = Nothing
+                    p = DASL.OleDBcommandConn()
+                    p.Open()
+                    mainDb = New DataSet
+                    mainAd = New OleDbDataAdapter(querySottoconto, p)
+                    mainAd.FillSchema(mainDb, SchemaType.Source)
+                    mainAd.Fill(mainDb, "Sottoconti")
+                    tablesottoconti = mainDb.Tables("Sottoconti")
+                    p.Close() : p = Nothing : mainAd = Nothing : mainDb.Dispose()
+                    anagrafica = tablesottoconti.Rows(0)("Anagrafica").ToString()
+                    Dim queryAnagrafiche = "select * from anagrafiche where Anagrafica=" & anagrafica
+                    p = DASL.OleDBcommandConn()
+                    p.Open()
+                    mainAd = New OleDbDataAdapter(queryAnagrafiche, p)
+                    mainDb = New DataSet
+                    mainAd.FillSchema(mainDb, SchemaType.Source)
+                    mainAd.Fill(mainDb, "Anagrafiche")
+                    anagraficaTable = mainDb.Tables("Anagrafiche")
+                    FiveValueanagrafica = Nothing : threeValue = Nothing
+                    ArrFiveValue = {anagraficaTable.Rows(0)("Denominazione1").ToString, _
+                                                  IIf(IsNothing(anagraficaTable.Rows(0)("Denominazione2").ToString), "", anagraficaTable.Rows(0)("Denominazione2").ToString), _
+                                                  IIf(IsNothing(anagraficaTable.Rows(0)("PartitaIva").ToString), "", anagraficaTable.Rows(0)("PartitaIva").ToString), _
+                                                  IIf(IsNothing(anagraficaTable.Rows(0)("CodiceFiscale").ToString), "", anagraficaTable.Rows(0)("CodiceFiscale").ToString), _
+                                                  IIf(IsNothing(UCase(anagraficaTable.Rows(0)("TipoConto").ToString)), "", UCase(anagraficaTable.Rows(0)("TipoConto").ToString))}
+                    FiveValueanagrafica = New List(Of String)(ArrFiveValue)
+                    If (Not FiveValueanagrafica(4).ToString = "N") And (IsNumeric(FiveValueanagrafica(2).ToString)) Then
+                        Dim ArrthreeValue() As String
+                        Dim format As String = "ddMMyyyy"
+                        ArrthreeValue = {CDate(table2.Rows(0)("DataOperazione").ToString()).Date.ToString(format), _
+                                         table2.Rows(0)("EstremiDocumento").ToString(), CDate(table2.Rows(0)("DataDocumento").ToString()).Date.ToString(format)}
+                        threeValue = New List(Of String)(ArrthreeValue)
+                    Else
+                        GoTo prossimo
+                    End If
+                    p = Nothing
+                    mainDb = New DataSet
+                    mainAd = Nothing
+                    Dim QueryMultiRecord = "Select * from MovimentiIvaRighe where Azienda = '" & Azienda & "'" & " And Esercizio = '" _
+                                           & r("Esercizio").ToString & "'" & " And TipoRegistro = 'V'" _
+                                           & " And NumeroRegistro = 1 And NumeroProtocollo = " & r("NumeroProtocollo").ToString
+                    p = DASL.OleDBcommandConn()
+                    p.Open()
+                    mainAd = New OleDbDataAdapter(QueryMultiRecord, p)
+                    mainAd.FillSchema(mainDb, SchemaType.Source) : mainAd.Fill(mainDb, "MovimentiIvaRighe")
+                    MovimentiTable = mainDb.Tables("MovimentiIvaRighe")
+                    imponibile = 0 : iva = 0
+                    For Each rigaTabella As DataRow In MovimentiTable.Rows
+                        imponibile = imponibile + rigaTabella("Imponibile").ToString
+                        iva = iva + rigaTabella("Iva").ToString
+                        ' call
+                    Next
+                    Dim lista As New List(Of String)
+                    Dim arrlista() As String
+                    arrlista = {r("Esercizio").ToString(), "00", CodiceFiscaleAzienda, "2", FiveValueanagrafica(4).ToString, _
+                                    anagrafica, FiveValueanagrafica(2).ToString, FiveValueanagrafica(3).ToString, _
+                                    FiveValueanagrafica(0).ToString, FiveValueanagrafica(1).ToString, "", "", "", "", "", _
+                                    "", "", "", "", "", "", "", "", "", "", "", "", threeValue(2).ToString, threeValue(0).ToString, _
+                                    threeValue(1).ToString, imponibile + iva, iva}
+                    lista = New List(Of String)(arrlista)
+
+                    ProduciXls(lista)
+
+Prossimo:
+
+                Next ro
             End If
         Next
-        table.Rows(0)("").ToString()
 
-        locMov = mainDb.OpenRecordset(Criterio, dbOpenDynaset)
-        If Err() <> 0 Then
-            MsgBox("MovimentiIva:" & Err.Description & Chr$(13) & "ELABORAZIONE ANNULLATA.", vbCritical)
-            Exit Sub
-        End If
-        locMov.MoveLast()
-        locMov.MoveFirst()
-        ElaborazioneExcell.ProgressBar1.MinimumSize = 0
-        ElaborazioneExcell.ProgressBar1.MaximumSize = locMov.RecordCount
-        For t = 1 To locMov.RecordCount
-            ProgressBar1.Value = t
-            Dim Imponibile, Iva As Double
-            Imponibile = 0 : Iva = 0
-            Dim locRighe As Recordset
-            Criterio = "SELECT * FROM MovimentiIvaRighe WHERE Azienda='" & locMov("Azienda") & _
-                       "' AND Esercizio='" & locMov("Esercizio") & _
-                       "' AND TipoRegistro='" & locMov("TipoRegistro") & _
-                       "' AND NumeroRegistro=" & locMov("NumeroRegistro") & _
-                       " AND NumeroProtocollo=" & locMov("NumeroProtocollo")
-            locRighe = mainDb.OpenRecordset(Criterio, dbOpenDynaset)
-            locRighe.MoveLast()
-            locRighe.MoveFirst()
-            For tt = 1 To locRighe.RecordCount
-                'controllo sul cod. iva
-                'Select Case locMov("SiglaIva")
-                '       Case "20", "21"   ' qui altri cod. iva
-                Imponibile = Imponibile + locRighe("Imponibile")
-                Iva = Iva + locRighe("Iva")
-                'End Select
-                locRighe.MoveNext()
-            Next
-            locRighe.Close()
-            'If Imponibile >= 3000 Then
-            RagioneSociale = "" : CodiceFiscale = "" : PartitaIva = "" : TipoConto = ""
-            Dim Anagrafica As Long
-            Anagrafica = 0
-            'prelievo n.documento e data, dati rag. sociale
-            rsTab = mainDb.OpenRecordset("SELECT * FROM Sottoconti WHERE Azienda='" & Text1 & "' AND Conto=" & locMov("Conto") & " AND Sottoconto=" & locMov("Sottoconto"), dbOpenDynaset)
-            rsTab.MoveFirst()
-            If rsTab.RecordCount = 1 Then
-                Anagrafica = rsTab("Anagrafica")
-            End If
-            rsTab.Close()
 
-            rsTab = mainDb.OpenRecordset("SELECT * FROM Anagrafiche WHERE Anagrafica=" & Anagrafica & "And tipoConto not in 'N','n'", dbOpenDynaset)
-            rsTab.MoveFirst()
-            If rsTab.RecordCount = 1 Then
-                RagioneSociale = rsTab("Denominazione1")
-                CodiceFiscale = rsTab("CodiceFiscale")
-                PartitaIva = rsTab("PartitaIva")
-                TipoConto = rsTab("TipoConto")
-            End If
-            rsTab.Close()
-            NumeroDocumento = "" : DataDocumento = ""
-            NumeroRegistrazione = "" : DataRegistrazione = ""
-            rsTab = mainDb.OpenRecordset("SELECT * FROM MovimentiContabiliTestata WHERE Azienda='" & locMov("Azienda") & "' AND Esercizio='" & locMov("Esercizio") & "' AND NumeroPrimaNota=" & locMov("NumeroPrimaNota"), dbOpenDynaset)
-            rsTab.MoveFirst()
-            If rsTab.RecordCount = 1 Then
-                NumeroDocumento = rsTab("EstremiDocumento")
-                DataDocumento = rsTab("DataDocumento")
-                NumeroRegistrazione = rsTab("NumeroPrimaNota")
-                DataRegistrazione = rsTab("DataOperazione")
-            End If
-            rsTab.Close()
-            'pagina attiva excel = 1
-            Excel_Sheet = Excel_Book.Worksheets(1)
-            'ricerca prima riga vuota disponibile
-            RigaExcel = 1
-            Do
-                RigaExcel = RigaExcel + 1
-            Loop Until Excel_Sheet.cells(RigaExcel, 1) = ""
-            Excel_Sheet.cells(RigaExcel, 1) = Text2
-            Excel_Sheet.cells(RigaExcel, 2) = CodiceFiscaleAzienda
-            If locMov("TipoRegistro") = "V" Then k = 1 Else k = 2
-            Excel_Sheet.cells(RigaExcel, 3) = k
-            Excel_Sheet.cells(RigaExcel, 4) = 2
-            Excel_Sheet.cells(RigaExcel, 5) = TipoConto
-            Excel_Sheet.cells(RigaExcel, 6) = CodiceFiscale
-            Excel_Sheet.cells(RigaExcel, 7) = PartitaIva
-            Excel_Sheet.cells(RigaExcel, 8) = Mid(RagioneSociale, 1, 30)
-            Excel_Sheet.cells(RigaExcel, 23) = Right("00000000" & Mid(DataRegistrazione, 1, 2) & Mid(DataRegistrazione, 4, 2) & Mid(DataRegistrazione, 7), 8)
-            Excel_Sheet.cells(RigaExcel, 24) = NumeroRegistrazione
-            Excel_Sheet.cells(RigaExcel, 26) = Right("00000000" & Mid(DataDocumento, 1, 2) & Mid(DataDocumento, 4, 2) & Mid(DataDocumento, 7), 8)
-            Excel_Sheet.cells(RigaExcel, 27) = NumeroDocumento
-            Excel_Sheet.cells(RigaExcel, 33) = 0
-            Excel_Sheet.cells(RigaExcel, 34) = 1
-            Excel_Sheet.cells(RigaExcel, 35) = Imponibile
-            Excel_Sheet.cells(RigaExcel, 36) = Iva
-            'End If
-            locMov.MoveNext()
-        Next
-        locMov.Close()
-        mainDb.Close()
-        Err = 0
 
-        'salvataggio e chiusura
-        Excel_Sheet.SaveAs(NomeFoglio)
-        If Err() <> 0 Then
-            MsgBox("Errore Excel: " & Err.Description)
-        End If
-        ' chiude l'elaborazione
-        Excel_App.ActiveWorkbook.Close(True)
-        ' chiude excel
-        Excel_App.Quit()
-        Excel_Sheet = Nothing
-        Excel_App = Nothing
+
+
 
         MsgBox("E' terminata la fase di importazione documenti in Excel", vbInformation)
 
     End Sub
+    Private Sub ProduciXls(ByVal obj As List(Of String))
+
+
+        '   End If
+        'rsTab.Close()
+        ''pagina attiva excel = 1
+        'Excel_Sheet = Excel_Book.Worksheets(1)
+        ''ricerca prima riga vuota disponibile
+        'RigaExcel = 1
+        'Do
+        '    RigaExcel = RigaExcel + 1
+        'Loop Until Excel_Sheet.cells(RigaExcel, 1) = ""
+        'Excel_Sheet.cells(RigaExcel, 1) = Text2
+        'Excel_Sheet.cells(RigaExcel, 2) = CodiceFiscaleAzienda
+        'If locMov("TipoRegistro") = "V" Then k = 1 Else k = 2
+        'Excel_Sheet.cells(RigaExcel, 3) = k
+        'Excel_Sheet.cells(RigaExcel, 4) = 2
+        'Excel_Sheet.cells(RigaExcel, 5) = TipoConto
+        'Excel_Sheet.cells(RigaExcel, 6) = CodiceFiscale
+        'Excel_Sheet.cells(RigaExcel, 7) = PartitaIva
+        'Excel_Sheet.cells(RigaExcel, 8) = Mid(RagioneSociale, 1, 30)
+        'Excel_Sheet.cells(RigaExcel, 23) = Right("00000000" & Mid(DataRegistrazione, 1, 2) & Mid(DataRegistrazione, 4, 2) & Mid(DataRegistrazione, 7), 8)
+        'Excel_Sheet.cells(RigaExcel, 24) = NumeroRegistrazione
+        'Excel_Sheet.cells(RigaExcel, 26) = Right("00000000" & Mid(DataDocumento, 1, 2) & Mid(DataDocumento, 4, 2) & Mid(DataDocumento, 7), 8)
+        'Excel_Sheet.cells(RigaExcel, 27) = NumeroDocumento
+        'Excel_Sheet.cells(RigaExcel, 33) = 0
+        'Excel_Sheet.cells(RigaExcel, 34) = 1
+        'Excel_Sheet.cells(RigaExcel, 35) = Imponibile
+        'Excel_Sheet.cells(RigaExcel, 36) = Iva
+        ''End If
+        'locMov.MoveNext()
+        'Next
+        'locMov.Close()
+        'mainDb.Close()
+        'Err = 0
+
+        ''salvataggio e chiusura
+        'Excel_Sheet.SaveAs(NomeFoglio)
+        'If Err() <> 0 Then
+        '    MsgBox("Errore Excel: " & Err.Description)
+        'End If
+        '' chiude l'elaborazione
+        'Excel_App.ActiveWorkbook.Close(True)
+        '' chiude excel
+        'Excel_App.Quit()
+        'Excel_Sheet = Nothing
+        'Excel_App = Nothing
+
+    End Sub
+
 End Module

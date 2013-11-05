@@ -24,6 +24,8 @@
         If Not IsNothing(My.Settings.txtMod) Then CheckBox1.CheckState = My.Settings.txtMod
         If Not IsNothing(My.Settings.conCredenziali) Then CheckBox2.Checked = My.Settings.conCredenziali
         'aggiungere tab 3
+        TextBox6.Text = My.Settings.FlussoQuadro1
+        'todo
         If CheckBox2.Checked = True Then
             Label5.Enabled = True
             Label6.Enabled = True
