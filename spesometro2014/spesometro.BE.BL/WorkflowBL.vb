@@ -271,7 +271,7 @@ Module WorkflowBL
                                     anagrafica, FiveValueanagrafica(2).ToString, FiveValueanagrafica(3).ToString, _
                                     FiveValueanagrafica(0).ToString, FiveValueanagrafica(1).ToString, "", "", "", "", "", _
                                     "", "", "", "", "", "", "", "", "", "", "", "", threeValue(2).ToString, threeValue(0).ToString, _
-                                    threeValue(1).ToString, imponibile + iva, iva}
+                                    threeValue(1).ToString, imponibile + iva, iva, ""}
                     lista = New List(Of String)(arrlista)
 
                     ProduciXls(lista)
@@ -307,13 +307,15 @@ Prossimo:
         oSheet = oWB.ActiveSheet
 
 
-        With oSheet.Range("A1", "") ' mettere range
+        With oSheet.Range("A2", "AG2") ' mettere range
             .Font.Bold = True
             .VerticalAlignment = Excel.XlVAlign.xlVAlignCenter
+            .HorizontalAlignment = Excel.XlVAlign.xlVAlignCenter
         End With
+        Dim ar = obj.ToArray
 
-
-        oSheet.Range("", "").Value = obj 'range
+        oSheet.Range("A" & "variabileIncrementale", "AG" & "incrementale").Value = ar 'range
+        oSheet.SaveAs(NomeFoglio, Excel.XlFileFormat.xlXMLSpreadsheet, , , , , , , , )
 
         ' release object references.
         oRng = Nothing
