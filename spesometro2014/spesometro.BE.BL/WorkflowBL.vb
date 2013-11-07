@@ -7,6 +7,8 @@ Imports Microsoft.Office.Interop
 Module WorkflowBL
 
     Dim NomeFoglio As String
+    Dim riga As Integer = 1
+    Dim lista = New List(Of String)
 
     Dim exc As List(Of Exception)
 
@@ -29,6 +31,7 @@ Module WorkflowBL
                     'With t
                     '    .Add("")
                     'End With
+                    riga = 1
                     ElaboraDati()
                 Catch ex As Exception
                     MsgBox(ex.ToString())
@@ -128,10 +131,11 @@ Module WorkflowBL
             sottoconto As Integer
         Dim imponibile, iva As Double
 
-
+        Dim counter As Long = 0
         Dim mainDb As New DataSet
         Dim mainAd As OleDbDataAdapter
-
+        ElaborazioneExcell.Labelattendere.Visible = True
+        ElaborazioneExcell.ProgressBar1.Value = 0
         Select Case ElaborazioneExcell.UserControlMenuXLS1.ComboBox2.SelectedIndex
             Case 0 ' FE
                 NomeFoglio = My.Settings.FlussoQuadro1.ToString
@@ -147,6 +151,7 @@ Module WorkflowBL
         Dim table As System.Data.DataTable : Dim tableIvatestata As System.Data.DataTable
         ' If ConnectionState.Closed = 0 Then
         'Dim pp = DASL.OleDBcommandConn()
+        ElaborazioneExcell.ProgressBar1.Minimum = 0
         Dim pp As New OleDb.OleDbConnection(DASL.MakeConnectionstring)
         pp.Open()
         Dim command As New OleDbCommand("SELECT * FROM Aziende WHERE Azienda='" & ElaborazioneExcell.UserControlMenuXLS1.TextBox1.Text & "'")
@@ -185,16 +190,19 @@ Module WorkflowBL
         mainAd.Fill(mainDb, "MovimentiIvaTestata")
 
         tableIvatestata = mainDb.Tables("MovimentiIvaTestata")
+        
         mainAd = Nothing
         p.Close() : p.Dispose()
         mainDb.Dispose()
         Dim table2 As System.Data.DataTable : Dim tablesottoconti As System.Data.DataTable : Dim anagraficaTable As  _
             System.Data.DataTable : Dim MovimentiTable As System.Data.DataTable
         Dim FiveValueanagrafica As New List(Of String) : Dim threeValue As New List(Of String) : Dim ArrFiveValue() As String
+        ElaborazioneExcell.ProgressBar1.Maximum = tableIvatestata.Rows.Count
+        ElaborazioneExcell.ProgressBar1.Step = 1
         For Each r As DataRow In tableIvatestata.Rows
             quer = "SELECT * FROM MovimentiContabiliTestata WHERE Azienda='" & r("Azienda").ToString _
             & "' AND Esercizio='" & text2 & "' AND NumeroPrimaNota = " & r("NumeroPrimaNota").ToString & _
-            " And Causale = '001'"
+            " And Causale = '001'" ' in '016','0XX'
             p = DASL.OleDBcommandConn()
             p.Open()
             'Dim command3 As New OleDbCommand(quer)
@@ -202,97 +210,103 @@ Module WorkflowBL
             mainAd = New OleDbDataAdapter(quer, p)
             mainDb = New DataSet
             mainAd.FillSchema(mainDb, SchemaType.Source)
-
+           
             mainAd.Fill(mainDb, "MovimentiContabiliTestata")
             table2 = mainDb.Tables("MovimentiContabiliTestata")
             mainAd = Nothing
             mainDb.Dispose()
             p.Close()
+            ElaborazioneExcell.ProgressBar1.PerformStep()
+            ElaborazioneExcell.ProgressBar1.Refresh()
             If table2.Rows.Count > 0 Then
-                For Each ro As DataRow In tableIvatestata.Rows
-                    MsgBox(ro)
-                    Azienda = ro("Azienda").ToString()
-                    sottoconto = ro("Sottoconto").ToString() : conto = (ro("Conto").ToString())
-                    Dim querySottoconto = "select * from Sottoconti where Azienda='" & Azienda & "'" & " And Conto = " & conto & " And Sottoconto =" & sottoconto
-                    p = Nothing
-                    p = DASL.OleDBcommandConn()
-                    p.Open()
-                    mainDb = New DataSet
-                    mainAd = New OleDbDataAdapter(querySottoconto, p)
-                    mainAd.FillSchema(mainDb, SchemaType.Source)
-                    mainAd.Fill(mainDb, "Sottoconti")
-                    tablesottoconti = mainDb.Tables("Sottoconti")
-                    p.Close() : p = Nothing : mainAd = Nothing : mainDb.Dispose()
-                    anagrafica = tablesottoconti.Rows(0)("Anagrafica").ToString()
-                    Dim queryAnagrafiche = "select * from anagrafiche where Anagrafica=" & anagrafica
-                    p = DASL.OleDBcommandConn()
-                    p.Open()
-                    mainAd = New OleDbDataAdapter(queryAnagrafiche, p)
-                    mainDb = New DataSet
-                    mainAd.FillSchema(mainDb, SchemaType.Source)
-                    mainAd.Fill(mainDb, "Anagrafiche")
-                    anagraficaTable = mainDb.Tables("Anagrafiche")
-                    FiveValueanagrafica = Nothing : threeValue = Nothing
-                    ArrFiveValue = {anagraficaTable.Rows(0)("Denominazione1").ToString, _
-                                                  IIf(IsNothing(anagraficaTable.Rows(0)("Denominazione2").ToString), "", anagraficaTable.Rows(0)("Denominazione2").ToString), _
-                                                  IIf(IsNothing(anagraficaTable.Rows(0)("PartitaIva").ToString), "", anagraficaTable.Rows(0)("PartitaIva").ToString), _
-                                                  IIf(IsNothing(anagraficaTable.Rows(0)("CodiceFiscale").ToString), "", anagraficaTable.Rows(0)("CodiceFiscale").ToString), _
-                                                  IIf(IsNothing(UCase(anagraficaTable.Rows(0)("TipoConto").ToString)), "", UCase(anagraficaTable.Rows(0)("TipoConto").ToString))}
-                    FiveValueanagrafica = New List(Of String)(ArrFiveValue)
-                    If (Not FiveValueanagrafica(4).ToString = "N") And (IsNumeric(FiveValueanagrafica(2).ToString)) Then
-                        Dim ArrthreeValue() As String
-                        Dim format As String = "ddMMyyyy"
-                        ArrthreeValue = {CDate(table2.Rows(0)("DataOperazione").ToString()).Date.ToString(format), _
-                                         table2.Rows(0)("EstremiDocumento").ToString(), CDate(table2.Rows(0)("DataDocumento").ToString()).Date.ToString(format)}
-                        threeValue = New List(Of String)(ArrthreeValue)
-                    Else
-                        GoTo prossimo
-                    End If
-                    p = Nothing
-                    mainDb = New DataSet
-                    mainAd = Nothing
-                    Dim QueryMultiRecord = "Select * from MovimentiIvaRighe where Azienda = '" & Azienda & "'" & " And Esercizio = '" _
-                                           & r("Esercizio").ToString & "'" & " And TipoRegistro = 'V'" _
-                                           & " And NumeroRegistro = 1 And NumeroProtocollo = " & r("NumeroProtocollo").ToString
-                    p = DASL.OleDBcommandConn()
-                    p.Open()
-                    mainAd = New OleDbDataAdapter(QueryMultiRecord, p)
-                    mainAd.FillSchema(mainDb, SchemaType.Source) : mainAd.Fill(mainDb, "MovimentiIvaRighe")
-                    MovimentiTable = mainDb.Tables("MovimentiIvaRighe")
-                    imponibile = 0 : iva = 0
-                    For Each rigaTabella As DataRow In MovimentiTable.Rows
-                        imponibile = imponibile + rigaTabella("Imponibile").ToString
-                        iva = iva + rigaTabella("Iva").ToString
-                        ' call
-                    Next
-                    Dim lista As New List(Of String)
-                    Dim arrlista() As String
-                    arrlista = {r("Esercizio").ToString(), "00", CodiceFiscaleAzienda, "2", FiveValueanagrafica(4).ToString, _
-                                    anagrafica, FiveValueanagrafica(2).ToString, FiveValueanagrafica(3).ToString, _
-                                    FiveValueanagrafica(0).ToString, FiveValueanagrafica(1).ToString, "", "", "", "", "", _
-                                    "", "", "", "", "", "", "", "", "", "", "", "", threeValue(2).ToString, threeValue(0).ToString, _
-                                    threeValue(1).ToString, imponibile + iva, iva, ""}
-                    lista = New List(Of String)(arrlista)
+                
+                ' For Each ro As DataRow In tableIvatestata.Rows
+                Azienda = r("Azienda").ToString()
+                sottoconto = r("Sottoconto").ToString() : conto = (r("Conto").ToString())
+                Dim querySottoconto = "select * from Sottoconti where Azienda='" & Azienda & "'" & " And Conto = " & conto & " And Sottoconto =" & sottoconto
+                p = Nothing
+                p = DASL.OleDBcommandConn()
+                p.Open()
+                mainDb = New DataSet
+                mainAd = New OleDbDataAdapter(querySottoconto, p)
+                mainAd.FillSchema(mainDb, SchemaType.Source)
+                mainAd.Fill(mainDb, "Sottoconti")
+                tablesottoconti = mainDb.Tables("Sottoconti")
+                p.Close() : p = Nothing : mainAd = Nothing : mainDb.Dispose()
+                anagrafica = tablesottoconti.Rows(0)("Anagrafica").ToString()
+                Dim queryAnagrafiche = "select * from anagrafiche where Anagrafica=" & anagrafica
+                p = DASL.OleDBcommandConn()
+                p.Open()
+                mainAd = New OleDbDataAdapter(queryAnagrafiche, p)
+                mainDb = New DataSet
+                mainAd.FillSchema(mainDb, SchemaType.Source)
+                mainAd.Fill(mainDb, "Anagrafiche")
+                anagraficaTable = mainDb.Tables("Anagrafiche")
+                FiveValueanagrafica = Nothing : threeValue = Nothing
+                ArrFiveValue = {anagraficaTable.Rows(0)("Denominazione1").ToString, _
+                                              IIf(IsNothing(anagraficaTable.Rows(0)("Denominazione2").ToString), "", anagraficaTable.Rows(0)("Denominazione2").ToString), _
+                                              IIf(IsNothing(anagraficaTable.Rows(0)("PartitaIva").ToString), "", anagraficaTable.Rows(0)("PartitaIva").ToString), _
+                                              IIf(IsNothing(anagraficaTable.Rows(0)("CodiceFiscale").ToString), "", anagraficaTable.Rows(0)("CodiceFiscale").ToString), _
+                                              IIf(IsNothing(UCase(anagraficaTable.Rows(0)("TipoConto").ToString)), "", UCase(anagraficaTable.Rows(0)("TipoConto").ToString))}
+                FiveValueanagrafica = New List(Of String)(ArrFiveValue)
+                If (Not FiveValueanagrafica(4).ToString = "N") And (IsNumeric(FiveValueanagrafica(2).ToString)) Then
+                    Dim ArrthreeValue() As String
+                    Dim format As String = "ddMMyyyy"
+                    ArrthreeValue = {CDate(table2.Rows(0)("DataOperazione").ToString()).Date.ToString(format), _
+                                     table2.Rows(0)("EstremiDocumento").ToString(), CDate(table2.Rows(0)("DataDocumento").ToString()).Date.ToString(format)}
+                    threeValue = New List(Of String)(ArrthreeValue)
+                Else
+                    GoTo prossimo
+                End If
+                p = Nothing
+                mainDb = New DataSet
+                mainAd = Nothing
+                Dim QueryMultiRecord = "Select * from MovimentiIvaRighe where Azienda = '" & Azienda & "'" & " And Esercizio = '" _
+                                       & r("Esercizio").ToString & "'" & " And TipoRegistro = 'V'" _
+                                       & " And NumeroRegistro = 1 And NumeroProtocollo = " & r("NumeroProtocollo").ToString
+                p = DASL.OleDBcommandConn()
+                p.Open()
+                mainAd = New OleDbDataAdapter(QueryMultiRecord, p)
+                mainAd.FillSchema(mainDb, SchemaType.Source) : mainAd.Fill(mainDb, "MovimentiIvaRighe")
+                MovimentiTable = mainDb.Tables("MovimentiIvaRighe")
+                imponibile = 0 : iva = 0
+                For Each rigaTabella As DataRow In MovimentiTable.Rows
+                    imponibile = imponibile + rigaTabella("Imponibile").ToString
+                    iva = iva + rigaTabella("Iva").ToString
+                    ' call
+                Next
 
-                    ProduciXls(lista)
+                Dim arrlista() As String
+                arrlista = {r("Esercizio").ToString(), "00", CodiceFiscaleAzienda, "2", FiveValueanagrafica(4).ToString, _
+                                anagrafica, FiveValueanagrafica(2).ToString, FiveValueanagrafica(3).ToString, _
+                                FiveValueanagrafica(0).ToString, FiveValueanagrafica(1).ToString, "", "", "", "", "", _
+                                "", "", "", "", "", "", "", "", "", "", "", "", threeValue(2).ToString, threeValue(0).ToString, _
+                                threeValue(1).ToString, imponibile + iva, iva, ""}
 
-Prossimo:
 
-                Next ro
+                lista.AddRange(arrlista)
+
+                Counter = Counter + 1
+
+                '  Next ro
             End If
+Prossimo:
         Next
-
-
-
-
-
-
+        ElaborazioneExcell.Labelattendere.Visible = False
+        ElaborazioneExcell.Labelcompletato.Visible = True
+        lista.add(counter)
+        ProduciXls(lista)
+        ElaborazioneExcell.Labelxls.Visible = False
+        ElaborazioneExcell.Labelcompletato.Visible = True
         MsgBox("E' terminata la fase di importazione documenti in Excel", vbInformation)
 
     End Sub
     Private Sub ProduciXls(ByVal obj As List(Of String))
 
-
+        riga = riga + 1
+        ElaborazioneExcell.Labelcompletato.Visible = False
+        ElaborazioneExcell.Labelxls.Visible = True
+        Cursor.Current = Cursors.WaitCursor
         Dim oXL As Excel.Application
         Dim oWB As Excel.Workbook
         Dim oSheet As Excel.Worksheet
@@ -300,22 +314,18 @@ Prossimo:
 
         ' Start Excel and get Application object.
         oXL = CreateObject("Excel.Application")
-        'oXL.Visible = True
+        oXL.Visible = True
 
         ' Get a  workbook NomeFoglio.
         oWB = oXL.Workbooks.Add(NomeFoglio)
         oSheet = oWB.ActiveSheet
 
-
-        With oSheet.Range("A2", "AG2") ' mettere range
-            .Font.Bold = True
-            .VerticalAlignment = Excel.XlVAlign.xlVAlignCenter
-            .HorizontalAlignment = Excel.XlVAlign.xlVAlignCenter
-        End With
-        Dim ar = obj.ToArray
-
-        oSheet.Range("A" & "variabileIncrementale", "AG" & "incrementale").Value = ar 'range
-        oSheet.SaveAs(NomeFoglio, Excel.XlFileFormat.xlXMLSpreadsheet, , , , , , , , )
+        Dim ar() = obj.ToArray
+        'For i = 0 to 
+        'Next
+        'oSheet.Range("A" & riga, "AG" & obj.Item(obj.Count - 1) + 1).Value = ar
+        ' oSheet.Range("A2", "").Value = ar 'range
+        oSheet.SaveAs(NomeFoglio)
 
         ' release object references.
         oRng = Nothing
@@ -323,6 +333,8 @@ Prossimo:
         oWB = Nothing
         oXL.Quit()
         oXL = Nothing
+
+        Cursor.Current = Cursors.Default
         '-----------------------------------------
         ''Dim wbk As Workbook : Dim ap As ApplicationClass = Nothing : Dim sht As Worksheet
         ''ap.Workbooks.Add(NomeFoglio)

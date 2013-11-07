@@ -24,11 +24,11 @@ Partial Class ElaborazioneExcell
     Private Sub InitializeComponent()
         Me.ProgressBar1 = New System.Windows.Forms.ProgressBar()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.UserControlMenuXLS1 = New spesometro2014.UserControlMenuXLS()
         Me.Labelcompletato = New System.Windows.Forms.Label()
         Me.Labelcontrollo = New System.Windows.Forms.Label()
-        Me.Labelconnessione = New System.Windows.Forms.Label()
+        Me.Labelxls = New System.Windows.Forms.Label()
         Me.Labelattendere = New System.Windows.Forms.Label()
-        Me.UserControlMenuXLS1 = New spesometro2014.UserControlMenuXLS()
         Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -48,6 +48,14 @@ Partial Class ElaborazioneExcell
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(674, 66)
         Me.Panel1.TabIndex = 5
+        '
+        'UserControlMenuXLS1
+        '
+        Me.UserControlMenuXLS1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.UserControlMenuXLS1.Location = New System.Drawing.Point(0, 0)
+        Me.UserControlMenuXLS1.Name = "UserControlMenuXLS1"
+        Me.UserControlMenuXLS1.Size = New System.Drawing.Size(674, 66)
+        Me.UserControlMenuXLS1.TabIndex = 0
         '
         'Labelcompletato
         '
@@ -71,16 +79,16 @@ Partial Class ElaborazioneExcell
         Me.Labelcontrollo.Text = "Controllo coerenza dati..."
         Me.Labelcontrollo.Visible = False
         '
-        'Labelconnessione
+        'Labelxls
         '
-        Me.Labelconnessione.AutoSize = True
-        Me.Labelconnessione.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Labelconnessione.Location = New System.Drawing.Point(108, 81)
-        Me.Labelconnessione.Name = "Labelconnessione"
-        Me.Labelconnessione.Size = New System.Drawing.Size(459, 25)
-        Me.Labelconnessione.TabIndex = 7
-        Me.Labelconnessione.Text = "Connessione al Database e controllo dei dati..."
-        Me.Labelconnessione.Visible = False
+        Me.Labelxls.AutoSize = True
+        Me.Labelxls.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Labelxls.Location = New System.Drawing.Point(108, 81)
+        Me.Labelxls.Name = "Labelxls"
+        Me.Labelxls.Size = New System.Drawing.Size(323, 25)
+        Me.Labelxls.TabIndex = 7
+        Me.Labelxls.Text = "Elaborazione Excell, attendere..."
+        Me.Labelxls.Visible = False
         '
         'Labelattendere
         '
@@ -92,14 +100,6 @@ Partial Class ElaborazioneExcell
         Me.Labelattendere.TabIndex = 6
         Me.Labelattendere.Text = "Attendere, elaborazione in corso..."
         '
-        'UserControlMenuXLS1
-        '
-        Me.UserControlMenuXLS1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.UserControlMenuXLS1.Location = New System.Drawing.Point(0, 0)
-        Me.UserControlMenuXLS1.Name = "UserControlMenuXLS1"
-        Me.UserControlMenuXLS1.Size = New System.Drawing.Size(674, 66)
-        Me.UserControlMenuXLS1.TabIndex = 0
-        '
         'ElaborazioneExcell
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -108,7 +108,7 @@ Partial Class ElaborazioneExcell
         Me.ControlBox = False
         Me.Controls.Add(Me.Labelcompletato)
         Me.Controls.Add(Me.Labelcontrollo)
-        Me.Controls.Add(Me.Labelconnessione)
+        Me.Controls.Add(Me.Labelxls)
         Me.Controls.Add(Me.Labelattendere)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.ProgressBar1)
@@ -128,7 +128,7 @@ Partial Class ElaborazioneExcell
     Friend WithEvents UserControlMenuXLS1 As spesometro2014.UserControlMenuXLS
     Friend WithEvents Labelcompletato As System.Windows.Forms.Label
     Friend WithEvents Labelcontrollo As System.Windows.Forms.Label
-    Friend WithEvents Labelconnessione As System.Windows.Forms.Label
+    Friend WithEvents Labelxls As System.Windows.Forms.Label
     Friend WithEvents Labelattendere As System.Windows.Forms.Label
 
 End Class
