@@ -303,38 +303,60 @@ Prossimo:
     End Sub
     Private Sub ProduciXls(ByVal obj As List(Of String))
 
-        riga = riga + 1
-        ElaborazioneExcell.Labelcompletato.Visible = False
-        ElaborazioneExcell.Labelxls.Visible = True
-        Cursor.Current = Cursors.WaitCursor
         Dim oXL As Excel.Application
         Dim oWB As Excel.Workbook
         Dim oSheet As Excel.Worksheet
         Dim oRng As Excel.Range
+        Dim count As Integer
+        Dim righe As Integer : Dim p As Integer = 0
+        Dim numcol As Byte
+        Try
 
-        ' Start Excel and get Application object.
-        oXL = CreateObject("Excel.Application")
-        oXL.Visible = True
+            riga = riga + 1
+            ElaborazioneExcell.Labelcompletato.Visible = False
+            ElaborazioneExcell.Labelxls.Visible = True
+            Cursor.Current = Cursors.WaitCursor
+            
+            ' Start Excel and get Application object.
+            oXL = CreateObject("Excel.Application")
+            oXL.Visible = True
 
-        ' Get a  workbook NomeFoglio.
-        oWB = oXL.Workbooks.Add(NomeFoglio)
-        oSheet = oWB.ActiveSheet
+            ' Get a  workbook NomeFoglio.
+            oWB = oXL.Workbooks.Add(NomeFoglio)
+            oSheet = oWB.ActiveSheet
+            Dim arr() As String = Nothing
+            Dim ar() = obj.ToArray
+            count = ar.Last
+            ReDim Preserve ar(UBound(ar) - 1)
+            righe = ar.Count / 33
+            For ciclo = 1 To righe
+                For i = p To (ciclo * 33) - 1
+                    ReDim Preserve arr(numcol)
+                    arr(numcol) = ar(i)
+                    numcol = numcol + 1
+                Next
+                p = ciclo * 33
+                numcol = 0
+                'oSheet.Range("A"2:AG" & (i + 2)).Value = ar(i)
+                oSheet.Range("A" & (ciclo + 1), "AG" & (ciclo + 1)).Value = arr
+            Next
+            'oSheet.Range("A" & riga, "AG" & obj.Item(obj.Count - 1) + 1).Value = ar
+            'oSheet.Range("A2:AG" & ar.Count + 1).Value = ar 'range
+            oSheet.SaveAs(NomeFoglio)
+            ' release object references.
+            Cursor.Current = Cursors.Default
 
-        Dim ar() = obj.ToArray
-        'For i = 0 to 
-        'Next
-        'oSheet.Range("A" & riga, "AG" & obj.Item(obj.Count - 1) + 1).Value = ar
-        ' oSheet.Range("A2", "").Value = ar 'range
-        oSheet.SaveAs(NomeFoglio)
+        Catch ex As Exception
+            ex.ToString()
+        Finally
+            oRng = Nothing
+            oSheet = Nothing
+            oWB = Nothing
+            oXL.Quit()
+            oXL = Nothing
 
-        ' release object references.
-        oRng = Nothing
-        oSheet = Nothing
-        oWB = Nothing
-        oXL.Quit()
-        oXL = Nothing
+        End Try
 
-        Cursor.Current = Cursors.Default
         '-----------------------------------------
         ''Dim wbk As Workbook : Dim ap As ApplicationClass = Nothing : Dim sht As Worksheet
         ''ap.Workbooks.Add(NomeFoglio)
