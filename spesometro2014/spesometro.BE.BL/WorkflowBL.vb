@@ -6,10 +6,11 @@ Imports Microsoft.Office.Interop
 
 Module WorkflowBL
     Const trentatre As Byte = 33
-    Const trenta As Byte = 30
+    Const trenta As Byte = 31
+    Const noteRicevute As Byte = 30
     Dim NomeFoglio As String
     Dim riga As Integer = 1
-    Dim lista = New List(Of String)
+
 
     Dim exc As List(Of Exception)
 
@@ -125,10 +126,10 @@ Module WorkflowBL
             MsgBox("Procedura abbandonata", vbCritical)
             Exit Sub
         End If
-
+        Dim lista = New List(Of String)
         Dim Criterio, anagrafica, quer, elab, tiporegistro, numeroregistro As String, i, j, k, t, tt, Riga, RigaExcel As Long
         Dim CodiceFiscaleAzienda, CodiceFiscale, PartitaIva, RagioneSociale, TipoConto, Azienda, _
-            NumeroDocumento, NumeroRegistrazione As String, DataDocumento, DataRegistrazione As Date, conto As Byte, _
+            NumeroDocumento, NumeroRegistrazione As String, DataDocumento, DataRegistrazione As Date, conto, comboInvolucro As Byte, _
             sottoconto As Integer
         Dim imponibile, iva As Double
 
@@ -138,7 +139,8 @@ Module WorkflowBL
         ElaborazioneExcell.Labelattendere.Visible = True
         ElaborazioneExcell.ProgressBar1.Value = 0
         elab = Nothing : numeroregistro = Nothing : tiporegistro = Nothing
-        Select Case ElaborazioneExcell.UserControlMenuXLS1.ComboBox2.SelectedIndex
+        comboInvolucro = ElaborazioneExcell.UserControlMenuXLS1.ComboBox2.SelectedIndex
+        Select Case comboInvolucro
             Case 0 ' FE
                 If Not controlloInvolucro(0) Then
                     MsgBox("Il tipo di Quadro richiesto nell'eleaborazione, non ha un file corrispondente" & vbCrLf _
@@ -222,7 +224,7 @@ Module WorkflowBL
         Dim text2 = ElaborazioneExcell.UserControlMenuXLS1.TextBox2.Text
         Criterio = "SELECT * FROM MovimentiIvaTestata WHERE Azienda='" & text1 _
             & "' AND Esercizio='" & text2 & "' AND TipoRegistro = " & tiporegistro _
-            & "AND NumeroRegistro = " & numeroregistro
+            & " AND NumeroRegistro = " & numeroregistro
 
         Dim p As New OleDb.OleDbConnection(DASL.MakeConnectionstring) : mainAd = Nothing : mainDb = New DataSet
 
@@ -322,32 +324,44 @@ Module WorkflowBL
                 Next
 
                 Dim arrlista() As String = Nothing
-                Select Case elab
+                Select Case comboInvolucro
                     Case 0, 2 'FE,FR
                         arrlista = {r("Esercizio").ToString(), "00", CodiceFiscaleAzienda, "2", FiveValueanagrafica(4).ToString, _
                                 anagrafica, FiveValueanagrafica(2).ToString, FiveValueanagrafica(3).ToString, _
                                 FiveValueanagrafica(0).ToString, FiveValueanagrafica(1).ToString, "", "", "", "", "", _
                                 "", "", "", "", "", "", "", "", "", "", "", "", threeValue(2).ToString, threeValue(0).ToString, _
                                 threeValue(1).ToString, imponibile + iva, iva, ""}
-                    Case 1, 3 'NE,NR
+                        lista.AddRange(arrlista)
+
+                        counter = counter + 1
+
+                    Case 1 'NE
                         arrlista = {r("Esercizio").ToString(), "00", CodiceFiscaleAzienda, "2", FiveValueanagrafica(4).ToString, _
                                 anagrafica, FiveValueanagrafica(2).ToString, FiveValueanagrafica(3).ToString, _
                                 FiveValueanagrafica(0).ToString, FiveValueanagrafica(1).ToString, "", "", "", "", "", _
                                 "", "", "", "", "", "", "", "", "", threeValue(2).ToString, threeValue(0).ToString, _
-                                threeValue(1).ToString, imponibile + iva, iva, ""}
+                                threeValue(1).ToString, 0, imponibile + iva, iva, ""}
+                        lista.AddRange(arrlista)
+
+                        counter = counter + 1
+                    Case 3 'NR
+                        arrlista = {r("Esercizio").ToString(), "00", CodiceFiscaleAzienda, "2", FiveValueanagrafica(4).ToString, _
+                               anagrafica, FiveValueanagrafica(2).ToString, FiveValueanagrafica(3).ToString, _
+                               FiveValueanagrafica(0).ToString, FiveValueanagrafica(1).ToString, "", "", "", "", "", _
+                               "", "", "", "", "", "", "", "", threeValue(2).ToString, threeValue(0).ToString, _
+                               threeValue(1).ToString, 0, imponibile + iva, iva, ""}
+                        lista.AddRange(arrlista)
+
+                        counter = counter + 1
 
                 End Select
-                lista.AddRange(arrlista)
-
-                counter = counter + 1
-
             End If
 Prossimo:
         Next
         ElaborazioneExcell.Labelattendere.Visible = False
         ElaborazioneExcell.Labelcompletato.Visible = True
         lista.add(counter)
-        ProduciXls(lista, elab)
+        ProduciXls(lista, comboInvolucro)
         ElaborazioneExcell.Labelxls.Visible = False
         ElaborazioneExcell.Labelcompletato.Visible = True
         MsgBox("E' terminata la fase di importazione documenti in Excel", vbInformation)
@@ -367,11 +381,13 @@ Prossimo:
             Select Case val
                 Case 0, 2 'Fe,FR
                     operando = trentatre
-                Case 1, 3 'NE,NR
+                Case 1 'NE
                     operando = trenta
+                Case 3 'NR
+                    operando = noteRicevute
             End Select
 
-            riga = riga + 1
+
             ElaborazioneExcell.Labelcompletato.Visible = False
             ElaborazioneExcell.Labelxls.Visible = True
             Cursor.Current = Cursors.WaitCursor
@@ -387,16 +403,23 @@ Prossimo:
             Dim ar() = obj.ToArray
             count = ar.Last
             ReDim Preserve ar(UBound(ar) - 1)
-            righe = ar.Count / operando
-            For ciclo = 1 To righe
-                For i = p To (ciclo * operando) - 1
+            righe = (UBound(ar) + 1) / operando
+            For ciclo = 1 To righe 'righe
+                For i = p To (ciclo * operando) - 1 'campi
                     ReDim Preserve arr(numcol)
                     arr(numcol) = ar(i)
                     numcol = numcol + 1
                 Next
                 p = ciclo * operando
                 numcol = 0
-                oSheet.Range("A" & (ciclo + 1), "AG" & (ciclo + 1)).Value = arr
+                If val = 0 Or val = 2 Then
+                    oSheet.Range("A" & (ciclo + 1), "AG" & (ciclo + 1)).Value = arr
+                ElseIf val = 1 Then
+                    oSheet.Range("A" & (ciclo + 1), "AE" & (ciclo + 1)).Value = arr
+                ElseIf val = 3 Then
+                    oSheet.Range("A" & (ciclo + 1), "AD" & (ciclo + 1)).Value = arr
+                End If
+
             Next
 
             oSheet.SaveAs(NomeFoglio)
