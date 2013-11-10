@@ -325,7 +325,7 @@ Module WorkflowBL
 
                 Dim arrlista() As String = Nothing
                 Select Case comboInvolucro
-                    Case 0, 2 'FE,FR
+                    Case 0 'FE
                         arrlista = {r("Esercizio").ToString(), "00", CodiceFiscaleAzienda, "2", FiveValueanagrafica(4).ToString, _
                                 anagrafica, FiveValueanagrafica(2).ToString, FiveValueanagrafica(3).ToString, _
                                 FiveValueanagrafica(0).ToString, FiveValueanagrafica(1).ToString, "", "", "", "", "", _
@@ -350,6 +350,15 @@ Module WorkflowBL
                                FiveValueanagrafica(0).ToString, FiveValueanagrafica(1).ToString, "", "", "", "", "", _
                                "", "", "", "", "", "", "", "", threeValue(2).ToString, threeValue(0).ToString, _
                                threeValue(1).ToString, 0, imponibile + iva, iva, ""}
+                        lista.AddRange(arrlista)
+
+                        counter = counter + 1
+                    Case 2 'FR
+                        arrlista = {r("Esercizio").ToString(), "00", CodiceFiscaleAzienda, "2", FiveValueanagrafica(4).ToString, _
+                                anagrafica, FiveValueanagrafica(2).ToString, FiveValueanagrafica(3).ToString, _
+                                FiveValueanagrafica(0).ToString, FiveValueanagrafica(1).ToString, "", "", "", "", "", _
+                                "", "", "", "", "", "", "", "", "", threeValue(2).ToString, threeValue(0).ToString, _
+                                "", "", "", threeValue(1).ToString, imponibile + iva, iva, ""}
                         lista.AddRange(arrlista)
 
                         counter = counter + 1
