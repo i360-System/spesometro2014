@@ -36,7 +36,7 @@ Partial Class UserControlMenuXLS
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(465, 3)
+        Me.Button1.Location = New System.Drawing.Point(553, 3)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(80, 50)
         Me.Button1.TabIndex = 0
@@ -45,7 +45,7 @@ Partial Class UserControlMenuXLS
         '
         'Button2
         '
-        Me.Button2.Location = New System.Drawing.Point(551, 3)
+        Me.Button2.Location = New System.Drawing.Point(639, 3)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(80, 50)
         Me.Button2.TabIndex = 1
@@ -56,14 +56,14 @@ Partial Class UserControlMenuXLS
         '
         Me.TextBox1.Location = New System.Drawing.Point(58, 9)
         Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(153, 20)
+        Me.TextBox1.Size = New System.Drawing.Size(117, 20)
         Me.TextBox1.TabIndex = 5
         '
         'TextBox2
         '
         Me.TextBox2.Location = New System.Drawing.Point(58, 32)
         Me.TextBox2.Name = "TextBox2"
-        Me.TextBox2.Size = New System.Drawing.Size(153, 20)
+        Me.TextBox2.Size = New System.Drawing.Size(117, 20)
         Me.TextBox2.TabIndex = 6
         '
         'LabelAzienda
@@ -87,15 +87,15 @@ Partial Class UserControlMenuXLS
         'ComboBox1
         '
         Me.ComboBox1.FormattingEnabled = True
-        Me.ComboBox1.Location = New System.Drawing.Point(326, 9)
+        Me.ComboBox1.Location = New System.Drawing.Point(275, 9)
         Me.ComboBox1.Name = "ComboBox1"
-        Me.ComboBox1.Size = New System.Drawing.Size(133, 21)
+        Me.ComboBox1.Size = New System.Drawing.Size(272, 21)
         Me.ComboBox1.TabIndex = 9
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(235, 12)
+        Me.Label1.Location = New System.Drawing.Point(182, 12)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(94, 13)
         Me.Label1.TabIndex = 10
@@ -104,15 +104,15 @@ Partial Class UserControlMenuXLS
         'ComboBox2
         '
         Me.ComboBox2.FormattingEnabled = True
-        Me.ComboBox2.Location = New System.Drawing.Point(326, 32)
+        Me.ComboBox2.Location = New System.Drawing.Point(275, 32)
         Me.ComboBox2.Name = "ComboBox2"
-        Me.ComboBox2.Size = New System.Drawing.Size(133, 21)
+        Me.ComboBox2.Size = New System.Drawing.Size(272, 21)
         Me.ComboBox2.TabIndex = 11
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(235, 35)
+        Me.Label2.Location = New System.Drawing.Point(182, 35)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(67, 13)
         Me.Label2.TabIndex = 12

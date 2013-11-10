@@ -37,7 +37,7 @@ Partial Class ElaborazioneExcell
         Me.ProgressBar1.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.ProgressBar1.Location = New System.Drawing.Point(0, 164)
         Me.ProgressBar1.Name = "ProgressBar1"
-        Me.ProgressBar1.Size = New System.Drawing.Size(674, 23)
+        Me.ProgressBar1.Size = New System.Drawing.Size(745, 23)
         Me.ProgressBar1.TabIndex = 0
         '
         'Panel1
@@ -46,7 +46,7 @@ Partial Class ElaborazioneExcell
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(674, 66)
+        Me.Panel1.Size = New System.Drawing.Size(745, 66)
         Me.Panel1.TabIndex = 5
         '
         'UserControlMenuXLS1
@@ -54,7 +54,7 @@ Partial Class ElaborazioneExcell
         Me.UserControlMenuXLS1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.UserControlMenuXLS1.Location = New System.Drawing.Point(0, 0)
         Me.UserControlMenuXLS1.Name = "UserControlMenuXLS1"
-        Me.UserControlMenuXLS1.Size = New System.Drawing.Size(674, 66)
+        Me.UserControlMenuXLS1.Size = New System.Drawing.Size(745, 66)
         Me.UserControlMenuXLS1.TabIndex = 0
         '
         'Labelcompletato
@@ -104,7 +104,7 @@ Partial Class ElaborazioneExcell
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(674, 187)
+        Me.ClientSize = New System.Drawing.Size(745, 187)
         Me.ControlBox = False
         Me.Controls.Add(Me.Labelcompletato)
         Me.Controls.Add(Me.Labelcontrollo)

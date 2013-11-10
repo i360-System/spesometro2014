@@ -5,7 +5,8 @@ Imports Microsoft.Office.Interop.Excel
 Imports Microsoft.Office.Interop
 
 Module WorkflowBL
-
+    Const trentatre As Byte = 33
+    Const trenta As Byte = 30
     Dim NomeFoglio As String
     Dim riga As Integer = 1
     Dim lista = New List(Of String)
@@ -125,7 +126,7 @@ Module WorkflowBL
             Exit Sub
         End If
 
-        Dim Criterio, anagrafica, quer As String, i, j, k, t, tt, Riga, RigaExcel As Long
+        Dim Criterio, anagrafica, quer, elab, tiporegistro, numeroregistro As String, i, j, k, t, tt, Riga, RigaExcel As Long
         Dim CodiceFiscaleAzienda, CodiceFiscale, PartitaIva, RagioneSociale, TipoConto, Azienda, _
             NumeroDocumento, NumeroRegistrazione As String, DataDocumento, DataRegistrazione As Date, conto As Byte, _
             sottoconto As Integer
@@ -136,15 +137,56 @@ Module WorkflowBL
         Dim mainAd As OleDbDataAdapter
         ElaborazioneExcell.Labelattendere.Visible = True
         ElaborazioneExcell.ProgressBar1.Value = 0
+        elab = Nothing : numeroregistro = Nothing : tiporegistro = Nothing
         Select Case ElaborazioneExcell.UserControlMenuXLS1.ComboBox2.SelectedIndex
             Case 0 ' FE
+                If Not controlloInvolucro(0) Then
+                    MsgBox("Il tipo di Quadro richiesto nell'eleaborazione, non ha un file corrispondente" & vbCrLf _
+                           & " selezionato nel pannello ""Opzioni"" sul quale poter scrivere." & vbCrLf _
+                           & "Si prega di selezionare un file vuoto nel pannello ""Opzioni"", salvare e ripetere l'elaborazione.")
+                    ElaborazioneExcell.Labelattendere.Visible = False
+                    Exit Sub
+                End If
                 NomeFoglio = My.Settings.FlussoQuadro1.ToString
+                elab = flusso.fatturEmesse
+                tiporegistro = flusso.tipoRegistroFattureEmesse
+                numeroregistro = flusso.numeroRegistroFattureEmesse
             Case 1 ' NE
+                If Not controlloInvolucro(1) Then
+                    MsgBox("Il tipo di Quadro richiesto nell'eleaborazione, non ha un file corrispondente" & vbCrLf _
+                           & " selezionato nel pannello ""Opzioni"" sul quale poter scrivere." & vbCrLf _
+                           & "Si prega di selezionare un file vuoto nel pannello ""Opzioni"", salvare e ripetere l'elaborazione.")
+                    ElaborazioneExcell.Labelattendere.Visible = False
+                    Exit Sub
+                End If
                 NomeFoglio = My.Settings.FlussoQuadro2.ToString
+                elab = flusso.noteCreditoEmesse
+                tiporegistro = flusso.tipoRegistroNoteCreditoEmesse
+                numeroregistro = flusso.numeroRegistroNoteCreditoEmesse
             Case 2 ' FR
+                If Not controlloInvolucro(2) Then
+                    MsgBox("Il tipo di Quadro richiesto nell'eleaborazione, non ha un file corrispondente" & vbCrLf _
+                           & " selezionato nel pannello ""Opzioni"" sul quale poter scrivere." & vbCrLf _
+                           & "Si prega di selezionare un file vuoto nel pannello ""Opzioni"", salvare e ripetere l'elaborazione.")
+                    ElaborazioneExcell.Labelattendere.Visible = False
+                    Exit Sub
+                End If
                 NomeFoglio = My.Settings.FlussoQuadro3.ToString
-            Case 3 ' NR+
+                elab = flusso.fattureRicevute
+                tiporegistro = flusso.tipoRegistroFattureRicevute
+                numeroregistro = flusso.numeroRegistroFattureRicevute
+            Case 3 ' NR
+                If Not controlloInvolucro(3) Then
+                    MsgBox("Il tipo di Quadro richiesto nell'eleaborazione, non ha un file corrispondente" & vbCrLf _
+                           & " selezionato nel pannello ""Opzioni"" sul quale poter scrivere." & vbCrLf _
+                           & "Si prega di selezionare un file vuoto nel pannello ""Opzioni"", salvare e ripetere l'elaborazione.")
+                    ElaborazioneExcell.Labelattendere.Visible = False
+                    Exit Sub
+                End If
                 NomeFoglio = My.Settings.FlussoQuadro4.ToString
+                elab = flusso.noteCreditoRicevute
+                tiporegistro = flusso.tipoRegistroNoteCreditoRicevute
+                numeroregistro = flusso.numeroRegistroNoteCreditoRicevute
             Case 4 ' all
                 'todo
         End Select
@@ -158,7 +200,10 @@ Module WorkflowBL
         command.Connection = pp
         Dim rslset = command.ExecuteReader()
         If Not rslset.HasRows Then
-            MsgBox("Azienda non codificata: " & ElaborazioneExcell.UserControlMenuXLS1.TextBox1.Text)
+            MsgBox("Azienda non codificata: " & ElaborazioneExcell.UserControlMenuXLS1.TextBox1.Text & "." & _
+                   vbCrLf & "Oppure non sono stati impostati correttamente i parametri, nel pannello opzioni," & vbCrLf & _
+                   " credenziali databse/tipo di database. Non è stato possibile eseguire la query" & vbCrLf & _
+                   " di ricerca o la query di ricerca non h prodotto risultati.")
             pp.Close()
             Exit Sub
         Else
@@ -176,8 +221,8 @@ Module WorkflowBL
         Dim text1 = ElaborazioneExcell.UserControlMenuXLS1.TextBox1.Text
         Dim text2 = ElaborazioneExcell.UserControlMenuXLS1.TextBox2.Text
         Criterio = "SELECT * FROM MovimentiIvaTestata WHERE Azienda='" & text1 _
-            & "' AND Esercizio='" & text2 & "' AND TipoRegistro = 'V' " _
-            & "AND NumeroRegistro = 1"
+            & "' AND Esercizio='" & text2 & "' AND TipoRegistro = " & tiporegistro _
+            & "AND NumeroRegistro = " & numeroregistro
 
         Dim p As New OleDb.OleDbConnection(DASL.MakeConnectionstring) : mainAd = Nothing : mainDb = New DataSet
 
@@ -202,7 +247,7 @@ Module WorkflowBL
         For Each r As DataRow In tableIvatestata.Rows
             quer = "SELECT * FROM MovimentiContabiliTestata WHERE Azienda='" & r("Azienda").ToString _
             & "' AND Esercizio='" & text2 & "' AND NumeroPrimaNota = " & r("NumeroPrimaNota").ToString & _
-            " And Causale = '001'" ' in '016','0XX'
+            " And Causale = " & elab ' in '016','0XX'
             p = DASL.OleDBcommandConn()
             p.Open()
             'Dim command3 As New OleDbCommand(quer)
@@ -276,32 +321,39 @@ Module WorkflowBL
                     ' call
                 Next
 
-                Dim arrlista() As String
-                arrlista = {r("Esercizio").ToString(), "00", CodiceFiscaleAzienda, "2", FiveValueanagrafica(4).ToString, _
+                Dim arrlista() As String = Nothing
+                Select Case elab
+                    Case 0, 2 'FE,FR
+                        arrlista = {r("Esercizio").ToString(), "00", CodiceFiscaleAzienda, "2", FiveValueanagrafica(4).ToString, _
                                 anagrafica, FiveValueanagrafica(2).ToString, FiveValueanagrafica(3).ToString, _
                                 FiveValueanagrafica(0).ToString, FiveValueanagrafica(1).ToString, "", "", "", "", "", _
                                 "", "", "", "", "", "", "", "", "", "", "", "", threeValue(2).ToString, threeValue(0).ToString, _
                                 threeValue(1).ToString, imponibile + iva, iva, ""}
+                    Case 1, 3 'NE,NR
+                        arrlista = {r("Esercizio").ToString(), "00", CodiceFiscaleAzienda, "2", FiveValueanagrafica(4).ToString, _
+                                anagrafica, FiveValueanagrafica(2).ToString, FiveValueanagrafica(3).ToString, _
+                                FiveValueanagrafica(0).ToString, FiveValueanagrafica(1).ToString, "", "", "", "", "", _
+                                "", "", "", "", "", "", "", "", "", threeValue(2).ToString, threeValue(0).ToString, _
+                                threeValue(1).ToString, imponibile + iva, iva, ""}
 
-
+                End Select
                 lista.AddRange(arrlista)
 
-                Counter = Counter + 1
+                counter = counter + 1
 
-                '  Next ro
             End If
 Prossimo:
         Next
         ElaborazioneExcell.Labelattendere.Visible = False
         ElaborazioneExcell.Labelcompletato.Visible = True
         lista.add(counter)
-        ProduciXls(lista)
+        ProduciXls(lista, elab)
         ElaborazioneExcell.Labelxls.Visible = False
         ElaborazioneExcell.Labelcompletato.Visible = True
         MsgBox("E' terminata la fase di importazione documenti in Excel", vbInformation)
 
     End Sub
-    Private Sub ProduciXls(ByVal obj As List(Of String))
+    Private Sub ProduciXls(ByVal obj As List(Of String), ByVal val As Byte)
 
         Dim oXL As Excel.Application
         Dim oWB As Excel.Workbook
@@ -310,13 +362,20 @@ Prossimo:
         Dim count As Integer
         Dim righe As Integer : Dim p As Integer = 0
         Dim numcol As Byte
+        Dim operando As Byte
         Try
+            Select Case val
+                Case 0, 2 'Fe,FR
+                    operando = trentatre
+                Case 1, 3 'NE,NR
+                    operando = trenta
+            End Select
 
             riga = riga + 1
             ElaborazioneExcell.Labelcompletato.Visible = False
             ElaborazioneExcell.Labelxls.Visible = True
             Cursor.Current = Cursors.WaitCursor
-            
+
             ' Start Excel and get Application object.
             oXL = CreateObject("Excel.Application")
             oXL.Visible = True
@@ -328,20 +387,18 @@ Prossimo:
             Dim ar() = obj.ToArray
             count = ar.Last
             ReDim Preserve ar(UBound(ar) - 1)
-            righe = ar.Count / 33
+            righe = ar.Count / operando
             For ciclo = 1 To righe
-                For i = p To (ciclo * 33) - 1
+                For i = p To (ciclo * operando) - 1
                     ReDim Preserve arr(numcol)
                     arr(numcol) = ar(i)
                     numcol = numcol + 1
                 Next
-                p = ciclo * 33
+                p = ciclo * operando
                 numcol = 0
-                'oSheet.Range("A"2:AG" & (i + 2)).Value = ar(i)
                 oSheet.Range("A" & (ciclo + 1), "AG" & (ciclo + 1)).Value = arr
             Next
-            'oSheet.Range("A" & riga, "AG" & obj.Item(obj.Count - 1) + 1).Value = ar
-            'oSheet.Range("A2:AG" & ar.Count + 1).Value = ar 'range
+
             oSheet.SaveAs(NomeFoglio)
             ' release object references.
             Cursor.Current = Cursors.Default
@@ -357,18 +414,6 @@ Prossimo:
 
         End Try
 
-        '-----------------------------------------
-        ''Dim wbk As Workbook : Dim ap As ApplicationClass = Nothing : Dim sht As Worksheet
-        ''ap.Workbooks.Add(NomeFoglio)
-        ' ''sht = wbk.Sheets(0)
-        ''wbk = ap.Workbooks.Open(NomeFoglio)
-        ''ap.Visible = False
-
-        ' ''seleziona il foglio di lavoro 1 del file excel
-        ''sht = wbk.Worksheets(1)
-        '-----------------------------------
-        '   End If
-        'rsTab.Close()
         ''pagina attiva excel = 1
         'Excel_Sheet = Excel_Book.Worksheets(1)
         ''ricerca prima riga vuota disponibile
@@ -382,24 +427,6 @@ Prossimo:
         'Excel_Sheet.cells(RigaExcel, 3) = k
         'Excel_Sheet.cells(RigaExcel, 4) = 2
         'Excel_Sheet.cells(RigaExcel, 5) = TipoConto
-        'Excel_Sheet.cells(RigaExcel, 6) = CodiceFiscale
-        'Excel_Sheet.cells(RigaExcel, 7) = PartitaIva
-        'Excel_Sheet.cells(RigaExcel, 8) = Mid(RagioneSociale, 1, 30)
-        'Excel_Sheet.cells(RigaExcel, 23) = Right("00000000" & Mid(DataRegistrazione, 1, 2) & Mid(DataRegistrazione, 4, 2) & Mid(DataRegistrazione, 7), 8)
-        'Excel_Sheet.cells(RigaExcel, 24) = NumeroRegistrazione
-        'Excel_Sheet.cells(RigaExcel, 26) = Right("00000000" & Mid(DataDocumento, 1, 2) & Mid(DataDocumento, 4, 2) & Mid(DataDocumento, 7), 8)
-        'Excel_Sheet.cells(RigaExcel, 27) = NumeroDocumento
-        'Excel_Sheet.cells(RigaExcel, 33) = 0
-        'Excel_Sheet.cells(RigaExcel, 34) = 1
-        'Excel_Sheet.cells(RigaExcel, 35) = Imponibile
-        'Excel_Sheet.cells(RigaExcel, 36) = Iva
-        ''End If
-        'locMov.MoveNext()
-        'Next
-        'locMov.Close()
-        'mainDb.Close()
-        'Err = 0
-
         ''salvataggio e chiusura
         'Excel_Sheet.SaveAs(NomeFoglio)
         'If Err() <> 0 Then
@@ -413,5 +440,46 @@ Prossimo:
         'Excel_App = Nothing
 
     End Sub
+
+    Private Function controlloInvolucro(ByVal valore As Integer) As Boolean
+
+        Dim ret As Boolean = False
+
+        Select Case valore
+            Case 0 'fe
+                If Not My.Settings.FlussoQuadro1 = "" Then ret = True
+            Case 1 'ce
+                If Not My.Settings.FlussoQuadro2 = "" Then ret = True
+            Case 2 'fr
+                If Not My.Settings.FlussoQuadro3 = "" Then ret = True
+            Case 3 'cr
+                If Not My.Settings.FlussoQuadro4 = "" Then ret = True
+            Case 4 'todo
+            Case 5 'todo
+            Case 6 'todo
+            Case 7 'todo
+            Case Else
+                ret = False
+        End Select
+
+        Return ret
+
+    End Function
+
+
+    Private Structure flusso
+        Shared fatturEmesse = "'001'"
+        Shared fattureRicevute = "'011'"
+        Shared noteCreditoEmesse = "'003'"
+        Shared noteCreditoRicevute = "'015'"
+        Shared tipoRegistroFattureEmesse = "'V'"
+        Shared tipoRegistroFattureRicevute = "'A'"
+        Shared tipoRegistroNoteCreditoEmesse = "'V'"
+        Shared tipoRegistroNoteCreditoRicevute = "'A'"
+        Shared numeroRegistroFattureEmesse = 1
+        Shared numeroRegistroFattureRicevute = 11
+        Shared numeroRegistroNoteCreditoEmesse = 1
+        Shared numeroRegistroNoteCreditoRicevute = 11
+    End Structure
 
 End Module

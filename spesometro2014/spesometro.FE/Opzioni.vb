@@ -25,6 +25,13 @@
         If Not IsNothing(My.Settings.conCredenziali) Then CheckBox2.Checked = My.Settings.conCredenziali
         'aggiungere tab 3
         TextBox6.Text = My.Settings.FlussoQuadro1
+        TextBox7.Text = My.Settings.FlussoQuadro2
+        TextBox8.Text = My.Settings.FlussoQuadro3
+        TextBox9.Text = My.Settings.FlussoQuadro4
+        TextBox10.Text = My.Settings.FlussoQuadro5
+        TextBox11.Text = My.Settings.FlussoQuadro6
+        TextBox12.Text = My.Settings.FlussoQuadro7
+        TextBox13.Text = My.Settings.FlussoQuadro8
         'todo
         If CheckBox2.Checked = True Then
             Label5.Enabled = True
