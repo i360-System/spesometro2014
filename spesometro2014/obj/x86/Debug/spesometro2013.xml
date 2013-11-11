@@ -6,7 +6,20 @@ spesometro2013
 </name>
 </assembly>
 <members>
-<member name="M:spesometro2014.InitController.NotCampiVuotiAll(System.Object@)">
+<member name="M:spesometro2014.DASL.Credenziali(System.Collections.Generic.List{System.String})">
+	<summary>
+ Funzione di DASL per la convalida delle credenziali di accesso 
+ </summary>
+	<param name="cred"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:spesometro2014.DASL.OleDBcommandConn">
+	<summary>
+ Funzione che restituisce un oggetto SQLCEconnection
+ </summary>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:spesometro2014.InitController.NotCampiVuotiAll(System.Object@)">
 	<summary>
  Funzione di SL per il controllo dei campi vuoti del form in questione, viene passata una list of controls
  </summary>
@@ -62,19 +75,6 @@ Represents a strongly typed in-memory cache of data.
 	<param name="table"></param>
 	<param name="field"></param>
 	<param name="param"></param>
-	<returns></returns>
-	<remarks></remarks>
-</member><member name="M:spesometro2014.DASL.Credenziali(System.Collections.Generic.List{System.String})">
-	<summary>
- Funzione di DASL per la convalida delle credenziali di accesso 
- </summary>
-	<param name="cred"></param>
-	<returns></returns>
-	<remarks></remarks>
-</member><member name="M:spesometro2014.DASL.OleDBcommandConn">
-	<summary>
- Funzione che restituisce un oggetto SQLCEconnection
- </summary>
 	<returns></returns>
 	<remarks></remarks>
 </member>

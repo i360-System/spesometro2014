@@ -12,7 +12,7 @@ Module WorkflowBL
     Dim riga As Integer = 1
 
 
-    Dim exc As List(Of Exception)
+    Dim exc As New List(Of Exception)
 
     ''' <summary>
     ''' MEtodo main di elaborazione del tracciato excell.

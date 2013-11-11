@@ -11,8 +11,9 @@
     Private Sub OK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OK.Click
 
         If InitController.NotCampiVuotiAll(Me.Controls) Then
-
-            If InitController.Credenziali(New List(Of String)(New String() {Trim(Me.UsernameTextBox.Text), Trim(Me.PasswordTextBox.Text)})) Then
+            Dim p As New List(Of String)
+            p.AddRange({Trim(Me.UsernameTextBox.Text), Trim(Me.PasswordTextBox.Text)})
+            If InitController.Credenziali(p) Then
 
                 Me.Hide()
                 MainForm.ShowDialog()

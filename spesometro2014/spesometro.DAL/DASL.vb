@@ -27,13 +27,15 @@ Module DASL
                 param = New SqlCeParameter("@nome", SqlDbType.NVarChar, 50)
                 command.Parameters.Add(param)
                 command.Parameters("@nome").Value = cred(0).ToString
+                'MsgBox(cred(0).ToString) ' msgbox1
                 param = New SqlCeParameter("@password", SqlDbType.NVarChar, 50)
                 command.Parameters.Add(param)
                 command.Parameters("@password").Value = cred(1).ToString
+                'MsgBox(cred(1).ToString)
                 connection.Open()
                 command.Prepare()
                 Dim i = command.ExecuteScalar()
-
+                'MsgBox(i.ToString)
                 'Dim DPT As SqlCeDataAdapter = New SqlCeDataAdapter(command.CommandText.ToString, connection)
                 'DPT.FillSchema(DST, SchemaType.Source)
                 'DPT.Fill(DST, "Account")
