@@ -124,7 +124,7 @@ Partial Class MainForm
         '
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
         Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(207, 22)
-        Me.HelpToolStripMenuItem.Text = "Help"
+        Me.HelpToolStripMenuItem.Text = "Manuale"
         '
         'NotifyIcon1
         '
@@ -137,13 +137,16 @@ Partial Class MainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.BackgroundImage = Global.spesometro2014.My.Resources.Resources.logo_i360_system
+        Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.ClientSize = New System.Drawing.Size(967, 687)
         Me.Controls.Add(Me.MenuStrip1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MainMenuStrip = Me.MenuStrip1
         Me.MaximizeBox = False
         Me.Name = "MainForm"
-        Me.Text = "Spesometro 2014"
+        Me.Text = "Spesometro 2013 for GeCog32 standard edition"
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
         Me.ResumeLayout(False)
@@ -171,4 +174,11 @@ Partial Class MainForm
     Friend WithEvents mnOpzioni As System.Windows.Forms.MenuItem
     Friend WithEvents mnMostra As System.Windows.Forms.MenuItem
 
+    Private Sub MainForm_Disposed(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Disposed
+
+    End Sub
+
+    Private Sub MainForm_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
+        LoginForm1.Dispose()
+    End Sub
 End Class

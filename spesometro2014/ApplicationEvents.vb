@@ -1,5 +1,6 @@
 ﻿Namespace My
-    ' I seguenti eventi sono disponibili per MyApplication:
+
+    ' I seguenti eventi sono disponibili per MyApplication:
     ' 
     ' Startup: generato all'avvio dell'applicazione, prima della creazione del form di avvio.
     ' Shutdown: generato dopo la chiusura di tutti i form dell'applicazione. L'evento non è generato se l'applicazione termina in modo anormale.

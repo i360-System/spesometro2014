@@ -10,7 +10,8 @@
     End Sub
 
     Private Sub GestioneUtenteToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles GestioneUtenteToolStripMenuItem.Click
-        GestioneUtente.ShowDialog()
+        'GestioneUtente.ShowDialog()
+        MsgBox("Funzione disabilitata in questa versione.")
     End Sub
 
     Private Sub RiduciInSystemTrayToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RiduciInSystemTrayToolStripMenuItem.Click
@@ -80,4 +81,15 @@
     End Sub
 
    
+    Protected Overrides Sub Finalize()
+        MyBase.Finalize()
+    End Sub
+
+    Private Sub MainForm_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+
+    End Sub
+
+    Private Sub HelpToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HelpToolStripMenuItem.Click
+        Process.Start(Application.StartupPath & "\Manual\Manuale di utilizzo software.pdf")
+    End Sub
 End Class

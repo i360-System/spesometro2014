@@ -1,4 +1,6 @@
-﻿Imports System
+﻿Imports System.Resources
+
+Imports System
 Imports System.Reflection
 Imports System.Runtime.InteropServices
 
@@ -8,14 +10,14 @@ Imports System.Runtime.InteropServices
 
 ' Controllare i valori degli attributi dell'assembly
 
-<Assembly: AssemblyTitle("spesometro2014")> 
+<Assembly: AssemblyTitle("spesometro2013")> 
 <Assembly: AssemblyDescription("Software di analisi gestionale su sistemi i360-System.")> 
 <Assembly: AssemblyCompany("i360-System")> 
-<Assembly: AssemblyProduct("spesometro2014")> 
+<Assembly: AssemblyProduct("spesometro2013 for GeCog32 standard edition")> 
 <Assembly: AssemblyCopyright("Copyright © informatica360 && System 2013")> 
 <Assembly: AssemblyTrademark("Prodotto concesso in licenza a: Agea s.n.c.")> 
 
-<Assembly: ComVisible(False)>
+<Assembly: ComVisible(False)> 
 
 'Se il progetto viene esposto a COM, il GUID seguente verrà utilizzato come ID della libreria dei tipi
 <Assembly: Guid("8c8fb8a6-80cc-4087-b62a-5fc42857161f")> 
@@ -33,3 +35,5 @@ Imports System.Runtime.InteropServices
 
 <Assembly: AssemblyVersion("1.0.0.0")> 
 <Assembly: AssemblyFileVersion("1.0.0.0")> 
+
+<Assembly: NeutralResourcesLanguageAttribute("it-IT")> 

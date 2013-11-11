@@ -64,6 +64,7 @@
     End Sub
 
     Private Sub Button5_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button5.Click
+
         With My.Settings
             .PercorsoDB = Trim(TextBox1.Text)
             .OutPutXls = Trim(TextBox2.Text)
@@ -84,6 +85,7 @@
             .PassCred = TextBox5.Text
             .Save()
         End With
+        MsgBox("Impostazioni salvate con successo.")
     End Sub
 
     Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
@@ -100,48 +102,56 @@
 
     Private Sub Button4_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button4.Click
         OpenFileDialog1.FileName = Nothing
+        OpenFileDialog1.Filter = "File Excel (*.xls)|*.xls|(*.xlms)|*.xlms|(*.xlsx)|*.xlsx|(*.csv)|*.csv"
         OpenFileDialog1.ShowDialog()
         TextBox6.Text = OpenFileDialog1.FileName
     End Sub
 
     Private Sub Button6_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button6.Click
         OpenFileDialog1.FileName = Nothing
+        OpenFileDialog1.Filter = "File Excel (*.xls)|*.xls|(*.xlms)|*.xlms|(*.xlsx)|*.xlsx|(*.csv)|*.csv"
         OpenFileDialog1.ShowDialog()
         TextBox7.Text = OpenFileDialog1.FileName
     End Sub
 
     Private Sub Button8_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button8.Click
         OpenFileDialog1.FileName = Nothing
+        OpenFileDialog1.Filter = "File Excel (*.xls)|*.xls|(*.xlms)|*.xlms|(*.xlsx)|*.xlsx|(*.csv)|*.csv"
         OpenFileDialog1.ShowDialog()
         TextBox8.Text = OpenFileDialog1.FileName
     End Sub
 
     Private Sub Button9_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button9.Click
         OpenFileDialog1.FileName = Nothing
+        OpenFileDialog1.Filter = "File Excel (*.xls)|*.xls|(*.xlms)|*.xlms|(*.xlsx)|*.xlsx|(*.csv)|*.csv"
         OpenFileDialog1.ShowDialog()
         TextBox9.Text = OpenFileDialog1.FileName
     End Sub
 
     Private Sub Button10_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button10.Click
         OpenFileDialog1.FileName = Nothing
+        OpenFileDialog1.Filter = "File Excel (*.xls)|*.xls|(*.xlms)|*.xlms|(*.xlsx)|*.xlsx|(*.csv)|*.csv"
         OpenFileDialog1.ShowDialog()
         TextBox10.Text = OpenFileDialog1.FileName
     End Sub
 
     Private Sub Button11_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button11.Click
         OpenFileDialog1.FileName = Nothing
+        OpenFileDialog1.Filter = "File Excel (*.xls)|*.xls|(*.xlms)|*.xlms|(*.xlsx)|*.xlsx|(*.csv)|*.csv"
         OpenFileDialog1.ShowDialog()
         TextBox11.Text = OpenFileDialog1.FileName
     End Sub
 
     Private Sub Button12_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button12.Click
         OpenFileDialog1.FileName = Nothing
+        OpenFileDialog1.Filter = "File Excel (*.xls)|*.xls|(*.xlms)|*.xlms|(*.xlsx)|*.xlsx|(*.csv)|*.csv"
         OpenFileDialog1.ShowDialog()
         TextBox12.Text = OpenFileDialog1.FileName
     End Sub
 
     Private Sub Button13_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button13.Click
         OpenFileDialog1.FileName = Nothing
+        OpenFileDialog1.Filter = "File Excel (*.xls)|*.xls|(*.xlms)|*.xlms|(*.xlsx)|*.xlsx|(*.csv)|*.csv"
         OpenFileDialog1.ShowDialog()
         TextBox13.Text = OpenFileDialog1.FileName
     End Sub

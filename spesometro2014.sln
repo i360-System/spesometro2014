@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "spesometro2014", "spesometro2014\spesometro2014.vbproj", "{346CE315-5E89-4389-819F-B5082274933E}"
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "spesometro2013 for GeCog32", "spesometro2014\spesometro2013 for GeCog32.vbproj", "{346CE315-5E89-4389-819F-B5082274933E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

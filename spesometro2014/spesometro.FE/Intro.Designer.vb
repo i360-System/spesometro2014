@@ -32,12 +32,14 @@ Partial Class Intro
         Me.Version = New System.Windows.Forms.Label()
         Me.Copyright = New System.Windows.Forms.Label()
         Me.ApplicationTitle = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.MainLayoutPanel.SuspendLayout()
         Me.DetailsLayoutPanel.SuspendLayout()
         Me.SuspendLayout()
         '
         'MainLayoutPanel
         '
+        Me.MainLayoutPanel.BackgroundImage = Global.spesometro2014.My.Resources.Resources.logo_i360_system
         Me.MainLayoutPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.MainLayoutPanel.ColumnCount = 2
         Me.MainLayoutPanel.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 243.0!))
@@ -60,11 +62,14 @@ Partial Class Intro
         Me.DetailsLayoutPanel.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 247.0!))
         Me.DetailsLayoutPanel.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 142.0!))
         Me.DetailsLayoutPanel.Controls.Add(Me.Version, 0, 0)
-        Me.DetailsLayoutPanel.Controls.Add(Me.Copyright, 0, 1)
+        Me.DetailsLayoutPanel.Controls.Add(Me.Copyright, 0, 2)
+        Me.DetailsLayoutPanel.Controls.Add(Me.Label1, 0, 1)
         Me.DetailsLayoutPanel.Location = New System.Drawing.Point(246, 221)
         Me.DetailsLayoutPanel.Name = "DetailsLayoutPanel"
+        Me.DetailsLayoutPanel.RowCount = 3
         Me.DetailsLayoutPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.0!))
         Me.DetailsLayoutPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.0!))
+        Me.DetailsLayoutPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.DetailsLayoutPanel.Size = New System.Drawing.Size(247, 79)
         Me.DetailsLayoutPanel.TabIndex = 1
         '
@@ -73,7 +78,7 @@ Partial Class Intro
         Me.Version.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Version.BackColor = System.Drawing.Color.Transparent
         Me.Version.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Version.Location = New System.Drawing.Point(3, 9)
+        Me.Version.Location = New System.Drawing.Point(3, 4)
         Me.Version.Name = "Version"
         Me.Version.Size = New System.Drawing.Size(241, 20)
         Me.Version.TabIndex = 1
@@ -84,9 +89,9 @@ Partial Class Intro
         Me.Copyright.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Copyright.BackColor = System.Drawing.Color.Transparent
         Me.Copyright.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Copyright.Location = New System.Drawing.Point(3, 39)
+        Me.Copyright.Location = New System.Drawing.Point(3, 58)
         Me.Copyright.Name = "Copyright"
-        Me.Copyright.Size = New System.Drawing.Size(241, 40)
+        Me.Copyright.Size = New System.Drawing.Size(241, 21)
         Me.Copyright.TabIndex = 2
         Me.Copyright.Text = "Copyright"
         '
@@ -94,13 +99,24 @@ Partial Class Intro
         '
         Me.ApplicationTitle.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.ApplicationTitle.BackColor = System.Drawing.Color.Transparent
-        Me.ApplicationTitle.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ApplicationTitle.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ApplicationTitle.Location = New System.Drawing.Point(246, 3)
         Me.ApplicationTitle.Name = "ApplicationTitle"
         Me.ApplicationTitle.Size = New System.Drawing.Size(247, 212)
         Me.ApplicationTitle.TabIndex = 0
         Me.ApplicationTitle.Text = "Titolo applicazione"
         Me.ApplicationTitle.TextAlign = System.Drawing.ContentAlignment.BottomLeft
+        '
+        'Label1
+        '
+        Me.Label1.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.Label1.BackColor = System.Drawing.Color.Transparent
+        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Location = New System.Drawing.Point(3, 29)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(241, 29)
+        Me.Label1.TabIndex = 3
+        Me.Label1.Text = "Versione2:"
         '
         'Intro
         '
@@ -120,5 +136,6 @@ Partial Class Intro
         Me.ResumeLayout(False)
 
     End Sub
+    Friend WithEvents Label1 As System.Windows.Forms.Label
 
 End Class
