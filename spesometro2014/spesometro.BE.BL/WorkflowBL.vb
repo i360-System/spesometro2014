@@ -309,8 +309,8 @@ Module WorkflowBL
                 mainDb = New DataSet
                 mainAd = Nothing
                 Dim QueryMultiRecord = "Select * from MovimentiIvaRighe where Azienda = '" & Azienda & "'" & " And Esercizio = '" _
-                                       & r("Esercizio").ToString & "'" & " And TipoRegistro = 'V'" _
-                                       & " And NumeroRegistro = 1 And NumeroProtocollo = " & r("NumeroProtocollo").ToString
+                                       & r("Esercizio").ToString & "'" & " And TipoRegistro = " & tiporegistro _
+                                       & " And NumeroRegistro = " & numeroregistro & " And NumeroProtocollo = " & r("NumeroProtocollo").ToString
                 p = DASL.OleDBcommandConn()
                 p.Open()
                 mainAd = New OleDbDataAdapter(QueryMultiRecord, p)
