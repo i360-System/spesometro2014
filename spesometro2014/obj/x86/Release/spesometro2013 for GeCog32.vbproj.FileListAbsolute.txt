@@ -1,6 +1,6 @@
-C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\deployRelease\spesometro2013.exe.config
 C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\deployRelease\spesometro.DAL.Database\Database1.sdf
 C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\deployRelease\Manual\Manuale di utilizzo software Spesometro 2013.pdf
+C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\deployRelease\spesometro2013.exe.config
 C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\deployRelease\spesometro2013.exe
 C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\deployRelease\spesometro2013.pdb
 C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\deployRelease\spesometro2013.xml

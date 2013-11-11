@@ -377,11 +377,59 @@ Prossimo:
 
     End Sub
     Private Sub ProduciXls(ByVal obj As List(Of String), ByVal val As Byte)
+        '#If EarlyBinding = 1 Then
+        '    Rem VB IDE
 
-        Dim oXL As Excel.Application
-        Dim oWB As Excel.Workbook
-        Dim oSheet As Excel.Worksheet
-        Dim oRng As Excel.Range
+        '    Rem OUTLOOK
+        '    Dim myOlApp         As Outlook.Application
+        '    Dim myNameSpace     As Outlook.NameSpace
+
+        '    Rem CONTACT
+        '    Dim myContacts      As Outlook.Items
+        '    Dim myItem          As Outlook.ContactItem
+
+        '    Rem APPOINTMENT
+        '    Dim myAppointments  As Outlook.Items
+        '    Dim myRestrictItems As Outlook.Items
+        '    Dim myAppItem       As Outlook.AppointmentItem
+
+        '    Rem Used both for CONTACTS and APPOINTMENTS
+        '    Dim objItems        As Outlook.ItemProperties
+        '    Dim objItem         As Outlook.ItemProperty
+        '#Else
+        '        REM EXE stand alone
+
+        '        REM OUTLOOK
+        '        Dim myOlApp As Object 'Outlook.Application
+        '        Dim myNameSpace As Object 'Outlook.NameSpace
+
+        '        REM CONTACT
+        '        Dim myContacts As Object 'Outlook.Items
+        '        Dim myItem As Object 'Outlook.ContactItem
+
+        '        REM APPOINTMENT
+        '        Dim myAppointments As Object 'Outlook.Items
+        '        Dim myRestrictItems As Object 'Outlook.Items
+        '        Dim myAppItem As Object 'Outlook.AppointmentItem
+
+        '        REM Used both for CONTACTS and APPOINTMENTS
+        '        Dim objItems As Object 'Outlook.ItemProperties
+        '        Dim objItem As Object 'Outlook.ItemProperty
+        'If App.LogMode = 1 Then ' sta eseguendo l'EXE (compilato)
+        '    ' uso il Late-Binding
+        '    myOlApp = CreateObject("Outlook.Application")
+        'Else ' sta eseguendo il progetto nell'IDE
+        '    ' uso l'Early-Binding
+        '    myOlApp = Outlook.Application
+        'End If
+
+
+        Dim oXL As Object 'Excel.Application
+        Dim oWB As Object 'Excel.Workbook
+        Dim oSheet As Object 'Excel.Worksheet
+        Dim oRng As Object 'Excel.Range
+
+
         Dim count As Integer
         Dim righe As Integer : Dim p As Integer = 0
         Dim numcol As Byte
