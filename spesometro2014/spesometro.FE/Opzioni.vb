@@ -95,9 +95,9 @@
     End Sub
 
     Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
-        OpenFileDialog1.FileName = Nothing
-        OpenFileDialog1.ShowDialog()
-        TextBox1.Text = OpenFileDialog1.FileName
+        OpenFileDialog9.FileName = Nothing
+        OpenFileDialog9.ShowDialog()
+        TextBox1.Text = OpenFileDialog9.FileName
     End Sub
 
     Private Sub Button4_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button4.Click
