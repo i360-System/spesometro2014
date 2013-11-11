@@ -90,6 +90,6 @@
     End Sub
 
     Private Sub HelpToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HelpToolStripMenuItem.Click
-        Process.Start(Application.StartupPath & "\Manual\Manuale di utilizzo software.pdf")
+        Process.Start(Application.StartupPath & "\Manual\Manuale di utilizzo software Spesometro 2013.pdf")
     End Sub
 End Class
