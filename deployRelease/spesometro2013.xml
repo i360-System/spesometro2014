@@ -26,6 +26,27 @@ spesometro2013
  </summary>
 	<returns>True or False</returns>
 	<remarks></remarks>
+</member><member name="M:spesometro2014.Opzioni.Button7_Click(System.Object,System.EventArgs)">
+	<summary>
+ Chiudi
+ </summary>
+	<param name="sender"></param>
+	<param name="e"></param>
+	<remarks></remarks>
+</member><member name="M:spesometro2014.Opzioni.Button5_Click(System.Object,System.EventArgs)">
+	<summary>
+ Salva
+ </summary>
+	<param name="sender"></param>
+	<param name="e"></param>
+	<remarks></remarks>
+</member><member name="M:spesometro2014.Opzioni.Button14_Click(System.Object,System.EventArgs)">
+	<summary>
+ Salva e chiudi
+ </summary>
+	<param name="sender"></param>
+	<param name="e"></param>
+	<remarks></remarks>
 </member><member name="T:spesometro2014.Database1DataSet">
 	<summary>
 Represents a strongly typed in-memory cache of data.

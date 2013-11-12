@@ -169,9 +169,9 @@ Module WorkflowBL
                 numeroregistro = flusso.numeroRegistroNoteCreditoEmesse
             Case 2 ' FR
                 If Not controlloInvolucro(2) Then
-                    MsgBox("Il tipo di Quadro richiesto nell'eleaborazione, non ha un file corrispondente" & vbCrLf _
+                    MsgBox("Il tipo di Quadro richiesto nell'elaborazione, non ha un file corrispondente" & vbCrLf _
                            & " selezionato nel pannello ""Opzioni"" sul quale poter scrivere." & vbCrLf _
-                           & "Si prega di selezionare un file vuoto nel pannello ""Opzioni"", salvare e ripetere l'elaborazione.")
+                           & "Si prega di selezionare il file vuoto nel pannello ""Opzioni"", salvare e ripetere l'elaborazione.")
                     ElaborazioneExcell.Labelattendere.Visible = False
                     Exit Sub
                 End If
@@ -205,9 +205,10 @@ Module WorkflowBL
         Dim rslset = command.ExecuteReader()
         If Not rslset.HasRows Then
             MsgBox("Azienda non codificata: " & ElaborazioneExcell.UserControlMenuXLS1.TextBox1.Text & "." & _
-                   vbCrLf & "Oppure non sono stati impostati correttamente i parametri, nel pannello opzioni," & vbCrLf & _
-                   " credenziali databse/tipo di database. Non è stato possibile eseguire la query" & vbCrLf & _
-                   " di ricerca o la query di ricerca non h prodotto risultati.")
+                   vbCrLf & "Oppure non sono stati impostati correttamente i parametri nel pannello opzioni:" & vbCrLf & _
+                   " credenziali, database, tipo di database. Non è stato possibile eseguire la query" & vbCrLf & _
+                   " di ricerca o la query di ricerca non ha prodotto risultati.")
+            ElaborazioneExcell.Labelattendere.Visible = False
             pp.Close()
             Exit Sub
         Else
