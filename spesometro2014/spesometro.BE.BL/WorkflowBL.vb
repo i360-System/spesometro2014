@@ -453,7 +453,7 @@ Prossimo:
 
             ' Start Excel and get Application object.
             oXL = CreateObject("Excel.Application")
-            oXL.Visible = True
+            oXL.Visible = My.Settings.MostraExcel
 
             ' Get a  workbook NomeFoglio.
             oWB = oXL.Workbooks.Add(NomeFoglio)

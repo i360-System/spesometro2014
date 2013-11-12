@@ -254,6 +254,18 @@ Namespace My
                 Me("FlussoQuadro8") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property MostraExcel() As Boolean
+            Get
+                Return CType(Me("MostraExcel"),Boolean)
+            End Get
+            Set
+                Me("MostraExcel") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

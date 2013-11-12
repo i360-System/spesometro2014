@@ -22,6 +22,7 @@ Partial Class Opzioni
     'Non modificarla nell'editor del codice.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.CheckBox1 = New System.Windows.Forms.CheckBox()
@@ -80,6 +81,10 @@ Partial Class Opzioni
         Me.OpenFileDialog8 = New System.Windows.Forms.OpenFileDialog()
         Me.OpenFileDialog9 = New System.Windows.Forms.OpenFileDialog()
         Me.Button14 = New System.Windows.Forms.Button()
+        Me.CheckBox3 = New System.Windows.Forms.CheckBox()
+        Me.CheckBox4 = New System.Windows.Forms.CheckBox()
+        Me.CheckBox5 = New System.Windows.Forms.CheckBox()
+        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.TabControl1.SuspendLayout()
         Me.TabPage2.SuspendLayout()
         Me.TabPage1.SuspendLayout()
@@ -99,6 +104,9 @@ Partial Class Opzioni
         '
         'TabPage2
         '
+        Me.TabPage2.Controls.Add(Me.CheckBox5)
+        Me.TabPage2.Controls.Add(Me.CheckBox4)
+        Me.TabPage2.Controls.Add(Me.CheckBox3)
         Me.TabPage2.Controls.Add(Me.CheckBox1)
         Me.TabPage2.Controls.Add(Me.Label3)
         Me.TabPage2.Controls.Add(Me.Button3)
@@ -118,11 +126,12 @@ Partial Class Opzioni
         '
         Me.CheckBox1.AutoSize = True
         Me.CheckBox1.Enabled = False
-        Me.CheckBox1.Location = New System.Drawing.Point(327, 96)
+        Me.CheckBox1.Location = New System.Drawing.Point(225, 91)
         Me.CheckBox1.Name = "CheckBox1"
         Me.CheckBox1.Size = New System.Drawing.Size(141, 17)
         Me.CheckBox1.TabIndex = 16
         Me.CheckBox1.Text = "Attiva Flusso Telematico"
+        Me.ToolTip1.SetToolTip(Me.CheckBox1, "Funzionalità non disponibile in questa versione.")
         Me.CheckBox1.UseVisualStyleBackColor = True
         '
         'Label3
@@ -143,6 +152,7 @@ Partial Class Opzioni
         Me.Button3.Size = New System.Drawing.Size(28, 23)
         Me.Button3.TabIndex = 7
         Me.Button3.Text = "..."
+        Me.ToolTip1.SetToolTip(Me.Button3, "Funzionalità non disponibile in questa versione.")
         Me.Button3.UseVisualStyleBackColor = True
         '
         'TextBox3
@@ -152,6 +162,7 @@ Partial Class Opzioni
         Me.TextBox3.Name = "TextBox3"
         Me.TextBox3.Size = New System.Drawing.Size(321, 20)
         Me.TextBox3.TabIndex = 6
+        Me.ToolTip1.SetToolTip(Me.TextBox3, "Funzionalità non disponibile in questa versione.")
         '
         'Label2
         '
@@ -336,6 +347,7 @@ Partial Class Opzioni
         Me.Button13.Size = New System.Drawing.Size(28, 23)
         Me.Button13.TabIndex = 22
         Me.Button13.Text = "..."
+        Me.ToolTip1.SetToolTip(Me.Button13, "Funzionalità non disponibile in questa versione.")
         Me.Button13.UseVisualStyleBackColor = True
         '
         'TextBox13
@@ -344,6 +356,7 @@ Partial Class Opzioni
         Me.TextBox13.Name = "TextBox13"
         Me.TextBox13.Size = New System.Drawing.Size(193, 20)
         Me.TextBox13.TabIndex = 21
+        Me.ToolTip1.SetToolTip(Me.TextBox13, "Funzionalità non disponibile in questa versione.")
         '
         'Label13
         '
@@ -415,6 +428,7 @@ Partial Class Opzioni
         Me.Button12.Size = New System.Drawing.Size(28, 23)
         Me.Button12.TabIndex = 13
         Me.Button12.Text = "..."
+        Me.ToolTip1.SetToolTip(Me.Button12, "Funzionalità non disponibile in questa versione.")
         Me.Button12.UseVisualStyleBackColor = True
         '
         'Button11
@@ -424,6 +438,7 @@ Partial Class Opzioni
         Me.Button11.Size = New System.Drawing.Size(28, 23)
         Me.Button11.TabIndex = 12
         Me.Button11.Text = "..."
+        Me.ToolTip1.SetToolTip(Me.Button11, "Funzionalità non disponibile in questa versione.")
         Me.Button11.UseVisualStyleBackColor = True
         '
         'Button10
@@ -433,6 +448,7 @@ Partial Class Opzioni
         Me.Button10.Size = New System.Drawing.Size(28, 23)
         Me.Button10.TabIndex = 11
         Me.Button10.Text = "..."
+        Me.ToolTip1.SetToolTip(Me.Button10, "Funzionalità non disponibile in questa versione.")
         Me.Button10.UseVisualStyleBackColor = True
         '
         'Button9
@@ -477,6 +493,7 @@ Partial Class Opzioni
         Me.TextBox12.Name = "TextBox12"
         Me.TextBox12.Size = New System.Drawing.Size(193, 20)
         Me.TextBox12.TabIndex = 6
+        Me.ToolTip1.SetToolTip(Me.TextBox12, "Funzionalità non disponibile in questa versione.")
         '
         'TextBox11
         '
@@ -484,6 +501,7 @@ Partial Class Opzioni
         Me.TextBox11.Name = "TextBox11"
         Me.TextBox11.Size = New System.Drawing.Size(193, 20)
         Me.TextBox11.TabIndex = 5
+        Me.ToolTip1.SetToolTip(Me.TextBox11, "Funzionalità non disponibile in questa versione.")
         '
         'TextBox10
         '
@@ -491,6 +509,7 @@ Partial Class Opzioni
         Me.TextBox10.Name = "TextBox10"
         Me.TextBox10.Size = New System.Drawing.Size(193, 20)
         Me.TextBox10.TabIndex = 4
+        Me.ToolTip1.SetToolTip(Me.TextBox10, "Funzionalità non disponibile in questa versione.")
         '
         'TextBox9
         '
@@ -583,6 +602,44 @@ Partial Class Opzioni
         Me.Button14.Text = "S&alva ed esci"
         Me.Button14.UseVisualStyleBackColor = True
         '
+        'CheckBox3
+        '
+        Me.CheckBox3.AutoSize = True
+        Me.CheckBox3.Location = New System.Drawing.Point(225, 114)
+        Me.CheckBox3.Name = "CheckBox3"
+        Me.CheckBox3.Size = New System.Drawing.Size(188, 17)
+        Me.CheckBox3.TabIndex = 17
+        Me.CheckBox3.Text = "Mostra Excel durante le operazioni"
+        Me.CheckBox3.UseVisualStyleBackColor = True
+        '
+        'CheckBox4
+        '
+        Me.CheckBox4.AutoSize = True
+        Me.CheckBox4.Enabled = False
+        Me.CheckBox4.Location = New System.Drawing.Point(225, 137)
+        Me.CheckBox4.Name = "CheckBox4"
+        Me.CheckBox4.Size = New System.Drawing.Size(234, 17)
+        Me.CheckBox4.TabIndex = 18
+        Me.CheckBox4.Text = "Riduci in System Tray durante l'elaborazione"
+        Me.ToolTip1.SetToolTip(Me.CheckBox4, "Funzionalità non disponibile in questa versione.")
+        Me.CheckBox4.UseVisualStyleBackColor = True
+        '
+        'CheckBox5
+        '
+        Me.CheckBox5.AutoSize = True
+        Me.CheckBox5.Enabled = False
+        Me.CheckBox5.Location = New System.Drawing.Point(225, 160)
+        Me.CheckBox5.Name = "CheckBox5"
+        Me.CheckBox5.Size = New System.Drawing.Size(246, 17)
+        Me.CheckBox5.TabIndex = 19
+        Me.CheckBox5.Text = "Chiudi il programma al termine dell'elaborazione"
+        Me.ToolTip1.SetToolTip(Me.CheckBox5, "Funzionalità non disponibile in questa versione.")
+        Me.CheckBox5.UseVisualStyleBackColor = True
+        '
+        'ToolTip1
+        '
+        Me.ToolTip1.ToolTipTitle = "Funzionalità non disponibile."
+        '
         'Opzioni
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -666,4 +723,8 @@ Partial Class Opzioni
     Friend WithEvents OpenFileDialog8 As System.Windows.Forms.OpenFileDialog
     Friend WithEvents OpenFileDialog9 As System.Windows.Forms.OpenFileDialog
     Friend WithEvents Button14 As System.Windows.Forms.Button
+    Friend WithEvents CheckBox3 As System.Windows.Forms.CheckBox
+    Friend WithEvents CheckBox4 As System.Windows.Forms.CheckBox
+    Friend WithEvents CheckBox5 As System.Windows.Forms.CheckBox
+    Friend WithEvents ToolTip1 As System.Windows.Forms.ToolTip
 End Class

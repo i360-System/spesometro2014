@@ -32,6 +32,7 @@
         TextBox11.Text = My.Settings.FlussoQuadro6
         TextBox12.Text = My.Settings.FlussoQuadro7
         TextBox13.Text = My.Settings.FlussoQuadro8
+        If Not IsNothing(My.Settings.MostraExcel) Then CheckBox3.CheckState = My.Settings.MostraExcel
         'todo
         If CheckBox2.Checked = True Then
             Label5.Enabled = True
@@ -59,10 +60,22 @@
         End If
     End Sub
 
+    ''' <summary>
+    ''' Chiudi
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
     Private Sub Button7_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button7.Click
         Me.Dispose()
     End Sub
 
+    ''' <summary>
+    ''' Salva
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
     Private Sub Button5_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button5.Click
 
         With My.Settings
@@ -72,7 +85,8 @@
             .TipoOleDb = ComboBox1.SelectedIndex
             .conCredenziali = CheckBox2.CheckState
             .txtMod = CheckBox1.CheckState
-            'aggiungere tab 3
+            .MostraExcel = CheckBox3.CheckState
+            'aggiungere funzionalita di versione differenti
             .FlussoQuadro1 = Trim(TextBox6.Text)
             .FlussoQuadro2 = Trim(TextBox7.Text)
             .FlussoQuadro3 = Trim(TextBox8.Text)
@@ -100,6 +114,7 @@
         TextBox1.Text = OpenFileDialog9.FileName
     End Sub
 
+#Region "Selezione dei flussi vuoti excel"
     Private Sub Button4_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button4.Click
         OpenFileDialog1.FileName = Nothing
         OpenFileDialog1.Filter = "File Excel (*.xls)|*.xls|(*.xlms)|*.xlms|(*.xlsx)|*.xlsx|(*.csv)|*.csv"
@@ -155,7 +170,14 @@
         OpenFileDialog1.ShowDialog()
         TextBox13.Text = OpenFileDialog1.FileName
     End Sub
+#End Region
 
+    ''' <summary>
+    ''' Salva e chiudi
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
     Private Sub Button14_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button14.Click
         With My.Settings
             .PercorsoDB = Trim(TextBox1.Text)
@@ -164,6 +186,7 @@
             .TipoOleDb = ComboBox1.SelectedIndex
             .conCredenziali = CheckBox2.CheckState
             .txtMod = CheckBox1.CheckState
+            .MostraExcel = CheckBox3.CheckState
             'aggiungere tab 3
             .FlussoQuadro1 = Trim(TextBox6.Text)
             .FlussoQuadro2 = Trim(TextBox7.Text)
