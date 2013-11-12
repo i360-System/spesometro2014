@@ -1,8 +1,11 @@
 ﻿Public Class UserControlMenuXLS
 
     Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
-
+        Me.UserControl21.RadioButton2.BackColor = Color.Transparent
+        Me.UserControl21.RadioButton1.BackColor = Color.Red
         WorkflowBL.mainXls(0)
+        Me.UserControl21.RadioButton1.BackColor = Color.Transparent
+        Me.UserControl21.RadioButton2.BackColor = Color.Green
     End Sub
 
     Public Sub New()
@@ -24,7 +27,7 @@
             '.items.add("All")
             .SelectedIndex = 0
         End With
-
+        Me.UserControl21.RadioButton2.BackColor = Color.Green
     End Sub
 
     Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click

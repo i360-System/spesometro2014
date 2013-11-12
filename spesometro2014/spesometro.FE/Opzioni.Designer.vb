@@ -79,6 +79,7 @@ Partial Class Opzioni
         Me.OpenFileDialog7 = New System.Windows.Forms.OpenFileDialog()
         Me.OpenFileDialog8 = New System.Windows.Forms.OpenFileDialog()
         Me.OpenFileDialog9 = New System.Windows.Forms.OpenFileDialog()
+        Me.Button14 = New System.Windows.Forms.Button()
         Me.TabControl1.SuspendLayout()
         Me.TabPage2.SuspendLayout()
         Me.TabPage1.SuspendLayout()
@@ -521,18 +522,18 @@ Partial Class Opzioni
         '
         'Button5
         '
-        Me.Button5.Location = New System.Drawing.Point(339, 271)
+        Me.Button5.Location = New System.Drawing.Point(244, 271)
         Me.Button5.Name = "Button5"
-        Me.Button5.Size = New System.Drawing.Size(75, 23)
+        Me.Button5.Size = New System.Drawing.Size(81, 23)
         Me.Button5.TabIndex = 1
         Me.Button5.Text = "&Salva"
         Me.Button5.UseVisualStyleBackColor = True
         '
         'Button7
         '
-        Me.Button7.Location = New System.Drawing.Point(423, 271)
+        Me.Button7.Location = New System.Drawing.Point(417, 271)
         Me.Button7.Name = "Button7"
-        Me.Button7.Size = New System.Drawing.Size(75, 23)
+        Me.Button7.Size = New System.Drawing.Size(81, 23)
         Me.Button7.TabIndex = 3
         Me.Button7.Text = "&Esci"
         Me.Button7.UseVisualStyleBackColor = True
@@ -573,11 +574,21 @@ Partial Class Opzioni
         '
         Me.OpenFileDialog9.FileName = "OpenFileDialog1"
         '
+        'Button14
+        '
+        Me.Button14.Location = New System.Drawing.Point(331, 271)
+        Me.Button14.Name = "Button14"
+        Me.Button14.Size = New System.Drawing.Size(81, 23)
+        Me.Button14.TabIndex = 4
+        Me.Button14.Text = "S&alva ed esci"
+        Me.Button14.UseVisualStyleBackColor = True
+        '
         'Opzioni
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(510, 306)
+        Me.Controls.Add(Me.Button14)
         Me.Controls.Add(Me.Button7)
         Me.Controls.Add(Me.Button5)
         Me.Controls.Add(Me.TabControl1)
@@ -654,4 +665,5 @@ Partial Class Opzioni
     Friend WithEvents OpenFileDialog7 As System.Windows.Forms.OpenFileDialog
     Friend WithEvents OpenFileDialog8 As System.Windows.Forms.OpenFileDialog
     Friend WithEvents OpenFileDialog9 As System.Windows.Forms.OpenFileDialog
+    Friend WithEvents Button14 As System.Windows.Forms.Button
 End Class

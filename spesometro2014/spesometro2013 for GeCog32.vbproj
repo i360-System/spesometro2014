@@ -205,6 +205,9 @@
     <EmbeddedResource Include="spesometro.FE\ElaborazioneExcell.resx">
       <DependentUpon>ElaborazioneExcell.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="spesometro.FE\spesometro.FE.UCO\UserControl2.resx">
+      <DependentUpon>UserControl2.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="spesometro.FE\spesometro.FE.UCO\UserControlMenuXLS.resx">
       <DependentUpon>UserControlMenuXLS.vb</DependentUpon>
     </EmbeddedResource>

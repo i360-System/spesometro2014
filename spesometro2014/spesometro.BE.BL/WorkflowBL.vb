@@ -126,6 +126,8 @@ Module WorkflowBL
             MsgBox("Procedura abbandonata", vbCritical)
             Exit Sub
         End If
+        ElaborazioneExcell.Labelcompletato.Visible = False
+        ElaborazioneExcell.Labelattendere.Visible = True
         Dim lista = New List(Of String)
         Dim Criterio, anagrafica, quer, elab, tiporegistro, numeroregistro As String, i, j, k, t, tt, Riga, RigaExcel As Long
         Dim CodiceFiscaleAzienda, CodiceFiscale, PartitaIva, RagioneSociale, TipoConto, Azienda, _
@@ -136,7 +138,7 @@ Module WorkflowBL
         Dim counter As Long = 0
         Dim mainDb As New DataSet
         Dim mainAd As OleDbDataAdapter
-        ElaborazioneExcell.Labelattendere.Visible = True
+
         ElaborazioneExcell.ProgressBar1.Value = 0
         elab = Nothing : numeroregistro = Nothing : tiporegistro = Nothing
         comboInvolucro = ElaborazioneExcell.UserControlMenuXLS1.ComboBox2.SelectedIndex
