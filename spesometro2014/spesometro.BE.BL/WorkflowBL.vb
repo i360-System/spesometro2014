@@ -3,6 +3,7 @@ Imports System.Data.Common
 Imports System.Data.OleDb
 Imports Microsoft.Office.Interop.Excel
 Imports Microsoft.Office.Interop
+Imports System.Runtime.InteropServices
 
 Module WorkflowBL
     Const trentatre As Byte = 33
@@ -240,7 +241,7 @@ Module WorkflowBL
         mainAd.Fill(mainDb, "MovimentiIvaTestata")
 
         tableIvatestata = mainDb.Tables("MovimentiIvaTestata")
-        
+
         mainAd = Nothing
         p.Close() : p.Dispose()
         mainDb.Dispose()
@@ -260,7 +261,7 @@ Module WorkflowBL
             mainAd = New OleDbDataAdapter(quer, p)
             mainDb = New DataSet
             mainAd.FillSchema(mainDb, SchemaType.Source)
-           
+
             mainAd.Fill(mainDb, "MovimentiContabiliTestata")
             table2 = mainDb.Tables("MovimentiContabiliTestata")
             mainAd = Nothing
@@ -269,7 +270,7 @@ Module WorkflowBL
             ElaborazioneExcell.ProgressBar1.PerformStep()
             ElaborazioneExcell.ProgressBar1.Refresh()
             If table2.Rows.Count > 0 Then
-                
+
                 ' For Each ro As DataRow In tableIvatestata.Rows
                 Azienda = r("Azienda").ToString()
                 sottoconto = r("Sottoconto").ToString() : conto = (r("Conto").ToString())
@@ -372,7 +373,7 @@ Prossimo:
         Next
         ElaborazioneExcell.Labelattendere.Visible = False
         ElaborazioneExcell.Labelcompletato.Visible = True
-        lista.add(counter)
+        lista.Add(counter)
         ProduciXls(lista, comboInvolucro)
         ElaborazioneExcell.Labelxls.Visible = False
         ElaborazioneExcell.Labelcompletato.Visible = True
@@ -427,8 +428,8 @@ Prossimo:
         'End If
 
 
-        Dim oXL As Object 'Excel.Application
-        Dim oWB As Object 'Excel.Workbook
+        Dim oXL As Object 'Excel.Application '  
+        Dim oWB As Object 'Excel.Workbook '
         Dim oSheet As Object 'Excel.Worksheet
         Dim oRng As Object 'Excel.Range
 
@@ -488,11 +489,19 @@ Prossimo:
 
         Catch ex As Exception
             ex.ToString()
-        Finally
             oRng = Nothing
             oSheet = Nothing
             oWB = Nothing
+            oXL = Nothing
+        Finally
+
+            oRng = Nothing
+            oSheet = Nothing
+            'oXL.Quit()
+            oWB.close()
+            oWB = Nothing
             oXL.Quit()
+            Marshal.ReleaseComObject(oXL)
             oXL = Nothing
 
         End Try
