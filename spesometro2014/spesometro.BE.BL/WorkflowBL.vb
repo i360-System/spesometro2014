@@ -28,7 +28,7 @@ Module WorkflowBL
 
         Select Case val.ToString
 
-            Case 0 ' select
+            Case 0 ' analiticA
                 Try
                     'Dim t As New List(Of String) : Dim f As New List(Of String) : Dim p As New List(Of String)
                     'With t
@@ -40,10 +40,12 @@ Module WorkflowBL
                     MsgBox(ex.ToString())
                 End Try
 
-            Case "insert"
-            Case "update"
-            Case "delete"
-
+            Case 1 'aggregata
+                Try
+                    ElaboraDatiAggregati()
+                Catch ex As Exception
+                    MsgBox(ex.ToString())
+                End Try
         End Select
 
 
@@ -59,9 +61,9 @@ Module WorkflowBL
 
     End Sub
 
-    Private Function prepare2() As String
+    Private Sub ElaboraDatiAggregati()
 
-    End Function
+    End Sub
 
     ''' <summary>
     ''' Funzione che accetta in ingresso parametri list of string ed

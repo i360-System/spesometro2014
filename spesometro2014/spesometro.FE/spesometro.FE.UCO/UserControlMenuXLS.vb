@@ -3,7 +3,7 @@
     Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
         Me.UserControl21.RadioButton2.BackColor = Color.Transparent
         Me.UserControl21.RadioButton1.BackColor = Color.Red
-        WorkflowBL.mainXls(0)
+        WorkflowBL.mainXls(ComboBox1.SelectedIndex)
         Me.UserControl21.RadioButton1.BackColor = Color.Transparent
         Me.UserControl21.RadioButton2.BackColor = Color.Green
     End Sub

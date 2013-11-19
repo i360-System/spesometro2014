@@ -102,16 +102,6 @@ Namespace My
             End Set
         End Property
         
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.SpecialSettingAttribute(Global.System.Configuration.SpecialSetting.ConnectionString),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("Data Source=|DataDirectory|\spesometro.DAL.Database\Database1.sdf")>  _
-        Public ReadOnly Property Database1ConnectionString() As String
-            Get
-                Return CType(Me("Database1ConnectionString"),String)
-            End Get
-        End Property
-        
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
@@ -265,6 +255,16 @@ Namespace My
             Set
                 Me("MostraExcel") = value
             End Set
+        End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.SpecialSettingAttribute(Global.System.Configuration.SpecialSetting.ConnectionString),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Data Source=|DataDirectory|\spesometro.DAL.Database\Database2.sdf")>  _
+        Public ReadOnly Property Database1ConnectionString() As String
+            Get
+                Return CType(Me("Database1ConnectionString"),String)
+            End Get
         End Property
     End Class
 End Namespace

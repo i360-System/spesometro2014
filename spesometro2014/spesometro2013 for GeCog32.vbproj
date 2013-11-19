@@ -75,7 +75,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.SqlServerCe, Version=3.5.1.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
+    <Reference Include="System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -98,11 +98,6 @@
     <Compile Include="ApplicationEvents.vb" />
     <Compile Include="spesometro.BE.BL\Class1.vb" />
     <Compile Include="spesometro.BE.BL\WorkflowBL.vb" />
-    <Compile Include="spesometro.DAL.Database\Database1DataSet.Designer.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Database1DataSet.xsd</DependentUpon>
-    </Compile>
     <Compile Include="spesometro.DAL\DASL.vb" />
     <Compile Include="spesometro.FE\Info.Designer.vb">
       <DependentUpon>Info.vb</DependentUpon>
@@ -213,7 +208,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Manual\Manuale di utilizzo software Spesometro 2013.pdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -227,23 +224,15 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
-    <None Include="spesometro.DAL.Database\Database1DataSet.xsc">
-      <DependentUpon>Database1DataSet.xsd</DependentUpon>
-    </None>
-    <None Include="spesometro.DAL.Database\Database1DataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>Database1DataSet.Designer.vb</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="spesometro.DAL.Database\Database1DataSet.xss">
-      <DependentUpon>Database1DataSet.xsd</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Lente_conti_630x390_spesometro2014.jpg" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\logo i360 system.jpg" />
+    <Content Include="spesometro.DAL.Database\Database2.sdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="spesometro.DAL.Database\Database1.sdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

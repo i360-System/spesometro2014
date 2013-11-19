@@ -68,10 +68,6 @@ spesometro2013
 	<param name="sender"></param>
 	<param name="e"></param>
 	<remarks></remarks>
-</member><member name="T:spesometro2014.Database1DataSet">
-	<summary>
-Represents a strongly typed in-memory cache of data.
-</summary>
 </member><member name="P:spesometro2014.My.Resources.Resources.ResourceManager">
 	<summary>
   Restituisce l'istanza di ResourceManager nella cache utilizzata da questa classe.

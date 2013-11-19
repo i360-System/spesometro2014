@@ -14,13 +14,19 @@ Module DASL
     Public Function Credenziali(ByVal cred As List(Of String)) As Boolean
 
         Dim res As Boolean = False
+        Dim con As String = Nothing
 
         Try
 
             Dim Qstring As String = "select count(*) from Account where " _
-                                    & "Nome = @nome And Password = @password"
-
-            Using connection As New SqlCeConnection(My.Settings.Database1ConnectionString)
+                                    & "username = @nome And password = @password"
+            'If Environment.OSVersion.ToString = "6.0" Or Environment.OSVersion.ToString = "6.1" Then 'vista, seven
+            '    con = "Data Source=" & Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) & "\spesometro.DAL.Database\Database2.sdf"
+            ''elseif 'windows 8
+            'Else
+            '    con = "" ' todo xp version
+            'End If
+            Using connection As New SqlCeConnection("Data Source=" & Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) & "\spesometro.DAL.Database\Database2.sdf")
                 Dim command As New SqlCeCommand(Qstring, connection)
                 Dim param As SqlCeParameter = Nothing
 
@@ -32,6 +38,7 @@ Module DASL
                 command.Parameters.Add(param)
                 command.Parameters("@password").Value = cred(1).ToString
                 'MsgBox(cred(1).ToString)
+
                 connection.Open()
                 command.Prepare()
                 Dim i = command.ExecuteScalar()
@@ -56,7 +63,7 @@ Module DASL
             Return res
 
         Catch ex As Exception
-
+            MsgBox(ex.ToString)
             WorkflowBL.Err(ex)
             Return res
 
