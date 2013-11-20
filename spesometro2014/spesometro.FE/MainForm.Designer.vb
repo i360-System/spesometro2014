@@ -174,11 +174,25 @@ Partial Class MainForm
     Friend WithEvents mnOpzioni As System.Windows.Forms.MenuItem
     Friend WithEvents mnMostra As System.Windows.Forms.MenuItem
 
+    Private Sub MainForm_Deactivate(sender As Object, e As System.EventArgs) Handles Me.Deactivate
+        'todo qui passa prima di formclosing quando premi "X" per chiudere il form
+    End Sub
+
     Private Sub MainForm_Disposed(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Disposed
 
     End Sub
 
     Private Sub MainForm_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
-        LoginForm1.Dispose()
+        If flgCloseAllowed Then
+            e.Cancel = True
+            flgCloseAllowed = False
+        Else
+            LoginForm1.Dispose()
+        End If
+
+    End Sub
+
+    Private Sub MainForm_Leave(sender As Object, e As System.EventArgs) Handles Me.Leave
+
     End Sub
 End Class

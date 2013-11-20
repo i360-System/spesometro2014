@@ -1,5 +1,5 @@
 ﻿Public Class MainForm
-
+    Private flgCloseAllowed As Boolean = False
     Private Sub OpzioniToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OpzioniToolStripMenuItem.Click
         Opzioni.ShowDialog()
     End Sub
@@ -15,6 +15,7 @@
     End Sub
 
     Private Sub RiduciInSystemTrayToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RiduciInSystemTrayToolStripMenuItem.Click
+        flgCloseAllowed = True
         NotifyIcon1.Visible = True
         NotifyIcon1.ShowBalloonTip(4)
         Me.Hide()

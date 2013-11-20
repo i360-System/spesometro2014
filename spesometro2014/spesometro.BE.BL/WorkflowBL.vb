@@ -148,7 +148,7 @@ Module WorkflowBL
         Select Case comboInvolucro
             Case 0 ' FE
                 If Not controlloInvolucro(0) Then
-                    MsgBox("Il tipo di Quadro richiesto nell'eleaborazione, non ha un file corrispondente" & vbCrLf _
+                    MsgBox("Il tipo di Quadro richiesto nell'elaborazione, non ha un file corrispondente" & vbCrLf _
                            & " selezionato nel pannello ""Opzioni"" sul quale poter scrivere." & vbCrLf _
                            & "Si prega di selezionare un file vuoto nel pannello ""Opzioni"", salvare e ripetere l'elaborazione.")
                     ElaborazioneExcell.Labelattendere.Visible = False
@@ -160,7 +160,7 @@ Module WorkflowBL
                 numeroregistro = flusso.numeroRegistroFattureEmesse
             Case 1 ' NE
                 If Not controlloInvolucro(1) Then
-                    MsgBox("Il tipo di Quadro richiesto nell'eleaborazione, non ha un file corrispondente" & vbCrLf _
+                    MsgBox("Il tipo di Quadro richiesto nell'elaborazione, non ha un file corrispondente" & vbCrLf _
                            & " selezionato nel pannello ""Opzioni"" sul quale poter scrivere." & vbCrLf _
                            & "Si prega di selezionare un file vuoto nel pannello ""Opzioni"", salvare e ripetere l'elaborazione.")
                     ElaborazioneExcell.Labelattendere.Visible = False
@@ -184,7 +184,7 @@ Module WorkflowBL
                 numeroregistro = flusso.numeroRegistroFattureRicevute
             Case 3 ' NR
                 If Not controlloInvolucro(3) Then
-                    MsgBox("Il tipo di Quadro richiesto nell'eleaborazione, non ha un file corrispondente" & vbCrLf _
+                    MsgBox("Il tipo di Quadro richiesto nell'elaborazione, non ha un file corrispondente" & vbCrLf _
                            & " selezionato nel pannello ""Opzioni"" sul quale poter scrivere." & vbCrLf _
                            & "Si prega di selezionare un file vuoto nel pannello ""Opzioni"", salvare e ripetere l'elaborazione.")
                     ElaborazioneExcell.Labelattendere.Visible = False
@@ -382,6 +382,7 @@ Prossimo:
         MsgBox("E' terminata la fase di importazione documenti in Excel", vbInformation)
 
     End Sub
+
     Private Sub ProduciXls(ByVal obj As List(Of String), ByVal val As Byte)
         '#If EarlyBinding = 1 Then
         '    Rem VB IDE
