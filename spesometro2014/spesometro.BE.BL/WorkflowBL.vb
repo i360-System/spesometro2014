@@ -1,8 +1,8 @@
 ﻿Imports System.Text.RegularExpressions
 Imports System.Data.Common
 Imports System.Data.OleDb
-Imports Microsoft.Office.Interop.Excel
-Imports Microsoft.Office.Interop
+'Imports Microsoft.Office.Interop.Excel
+'Imports Microsoft.Office.Interop
 Imports System.Runtime.InteropServices
 
 Module WorkflowBL
