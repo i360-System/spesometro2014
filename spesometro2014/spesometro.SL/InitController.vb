@@ -53,6 +53,19 @@ Module InitController
 
     End Function
 
+    ''' <summary>
+    ''' Controlla che sia valorizzato l'output di csv nel pannello opzioni.
+    ''' </summary>
+    ''' <returns></returns>
+    ''' Se vuoto False
+    ''' Se pieno True
+    ''' <remarks></remarks>
+    Public Function OutputXLS() As Boolean
+
+        Return (Not My.Settings.OutPutXls = "")
+
+    End Function
+
 #End Region
 
 End Module

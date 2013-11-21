@@ -33,11 +33,13 @@ Partial Class UserControlMenuXLS
         Me.ComboBox2 = New System.Windows.Forms.ComboBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.UserControl21 = New spesometro2014.UserControl2()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.ComboBox3 = New System.Windows.Forms.ComboBox()
         Me.SuspendLayout()
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(566, 3)
+        Me.Button1.Location = New System.Drawing.Point(718, 3)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(80, 50)
         Me.Button1.TabIndex = 0
@@ -46,7 +48,7 @@ Partial Class UserControlMenuXLS
         '
         'Button2
         '
-        Me.Button2.Location = New System.Drawing.Point(652, 3)
+        Me.Button2.Location = New System.Drawing.Point(804, 2)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(80, 50)
         Me.Button2.TabIndex = 1
@@ -121,15 +123,34 @@ Partial Class UserControlMenuXLS
         '
         'UserControl21
         '
-        Me.UserControl21.Location = New System.Drawing.Point(738, -2)
+        Me.UserControl21.Location = New System.Drawing.Point(890, 0)
         Me.UserControl21.Name = "UserControl21"
         Me.UserControl21.Size = New System.Drawing.Size(58, 58)
         Me.UserControl21.TabIndex = 13
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(597, 12)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(105, 13)
+        Me.Label3.TabIndex = 14
+        Me.Label3.Text = "Tipo comunicazione:"
+        '
+        'ComboBox3
+        '
+        Me.ComboBox3.FormattingEnabled = True
+        Me.ComboBox3.Location = New System.Drawing.Point(600, 31)
+        Me.ComboBox3.Name = "ComboBox3"
+        Me.ComboBox3.Size = New System.Drawing.Size(102, 21)
+        Me.ComboBox3.TabIndex = 15
         '
         'UserControlMenuXLS
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.Controls.Add(Me.ComboBox3)
+        Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.UserControl21)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.ComboBox2)
@@ -142,7 +163,7 @@ Partial Class UserControlMenuXLS
         Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.Button1)
         Me.Name = "UserControlMenuXLS"
-        Me.Size = New System.Drawing.Size(800, 56)
+        Me.Size = New System.Drawing.Size(951, 56)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -158,5 +179,7 @@ Partial Class UserControlMenuXLS
     Friend WithEvents ComboBox2 As System.Windows.Forms.ComboBox
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents UserControl21 As spesometro2014.UserControl2
+    Friend WithEvents Label3 As System.Windows.Forms.Label
+    Friend WithEvents ComboBox3 As System.Windows.Forms.ComboBox
 
 End Class

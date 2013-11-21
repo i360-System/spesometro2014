@@ -47,6 +47,14 @@ spesometro2013
  </summary>
 	<returns>True or False</returns>
 	<remarks></remarks>
+</member><member name="M:spesometro2014.InitController.OutputXLS">
+	<summary>
+ Controlla che sia valorizzato l'output di csv nel pannello opzioni.
+ </summary>
+	<returns></returns>
+ Se vuoto False
+ Se pieno True
+ <remarks></remarks>
 </member><member name="M:spesometro2014.Opzioni.Button7_Click(System.Object,System.EventArgs)">
 	<summary>
  Chiudi
@@ -90,6 +98,23 @@ spesometro2013
  val = 3 --&gt; delete
  </summary>
 	<param name="val"></param>
+	<remarks></remarks>
+</member><member name="M:spesometro2014.WorkflowBL.Err(System.Exception)">
+	<summary>
+ Aggiunge errori alla lista di eccezzioni.
+ </summary>
+	<param name="ex"></param>
+	<remarks></remarks>
+</member><member name="M:spesometro2014.WorkflowBL.GeneraCSV(System.Collections.Generic.List{System.String})">
+	<summary>
+ Genera un file CSV
+ </summary>
+	<param name="obj"></param>
+	<remarks></remarks>
+</member><member name="M:spesometro2014.WorkflowBL.ElaboraDatiAggregati">
+	<summary>
+ elaborazione di tipo aggregato
+ </summary>
 	<remarks></remarks>
 </member><member name="M:spesometro2014.WorkflowBL.prepare(System.String,System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String})">
 	<summary>

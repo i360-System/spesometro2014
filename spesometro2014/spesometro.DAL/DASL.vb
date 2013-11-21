@@ -26,7 +26,21 @@ Module DASL
             'Else
             '    con = "" ' todo xp version
             'End If
-            Using connection As New SqlCeConnection("Data Source=" & Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) & "\spesometro.DAL.Database\Database2.sdf")
+            Dim dataSource As String = Nothing
+            Dim dataSourcedbg As String = My.Settings.Database1ConnectionString
+            Dim dataSourceexe As String = "Data Source=" & Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) & "\spesometro.DAL.Database\Database2.sdf"
+
+            If Debugger.IsAttached Then
+                '
+                dataSource = dataSourcedbg
+                '
+            Else
+                '
+                dataSource = dataSourceexe
+                '
+            End If
+
+            Using connection As New SqlCeConnection(dataSource)
                 Dim command As New SqlCeCommand(Qstring, connection)
                 Dim param As SqlCeParameter = Nothing
 

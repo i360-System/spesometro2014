@@ -27,6 +27,11 @@
             '.items.add("All")
             .SelectedIndex = 0
         End With
+        With ComboBox3
+            .Items.Add("Ordinaria")
+            .Items.Add("Sostitutiva")
+            .SelectedIndex = 0
+        End With
         Me.UserControl21.RadioButton2.BackColor = Color.Green
     End Sub
 
