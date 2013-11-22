@@ -4,8 +4,11 @@ Imports System.Data.OleDb
 'Imports Microsoft.Office.Interop.Excel
 'Imports Microsoft.Office.Interop
 Imports System.Runtime.InteropServices
+Imports System.IO
 
 Module WorkflowBL
+
+    Const sette As Byte = 7
     Const trentasette As Byte = 37 'fornitori
     Const dieci As Byte = 10 'clienti
     Const trentatre As Byte = 33
@@ -13,6 +16,7 @@ Module WorkflowBL
     Const noteRicevute As Byte = 30
     Dim NomeFoglio As String
     Dim riga As Integer = 1
+    Dim CodiceFiscaleContribuente, CodiceAttivita, PeriodicitaIva As String
 
 
     Dim exc As New List(Of Exception)
@@ -36,15 +40,28 @@ Module WorkflowBL
                     'With t
                     '    .Add("")
                     'End With
-                    riga = 1
-                    ElaboraDati()
+                    If InitController.OpzioniGeneraliXls Then
+                        ElaboraDati()
+                    Else
+                        MsgBox("Prima di iniziare l'elaborazione analitica," & vbCrLf & "devi inserire i file excel vuoti nel pannello ""Opzioni""," & _
+                               vbCrLf & "sotto il tab ""OutputXls"".")
+                        Exit Sub
+                    End If
+                    
                 Catch ex As Exception
                     MsgBox(ex.ToString())
                 End Try
 
             Case 1 'aggregata
                 Try
-                    ElaboraDatiAggregati()
+                    If InitController.OutputXLS Then
+                        ElaboraDatiAggregati()
+                    Else
+                        MsgBox("Prima di iniziare l'elaborazione aggregata," & vbCrLf & "devi inserire un percorso dove scrivere il file, nel pannello ""Opzioni""" & _
+                              vbCrLf & "sotto il tab ""Generale"".")
+                        Exit Sub
+                    End If
+
                 Catch ex As Exception
                     MsgBox(ex.ToString())
                 End Try
@@ -71,10 +88,66 @@ Module WorkflowBL
     ''' <remarks></remarks>
     Private Sub GeneraCSV(ByVal obj As List(Of String))
 
-        Dim oXL As Object 'Excel.Application '  
-        Dim oWB As Object 'Excel.Workbook '
-        Dim oSheet As Object 'Excel.Worksheet
-        Dim oRng As Object 'Excel.Range
+        Dim count As Integer
+        Dim righe As Integer = 0 : Dim p As Integer = 0
+        Dim nomeFile As String = Nothing
+
+        nomeFile = "spesometro_" & ElaborazioneExcell.UserControlMenuXLS1.TextBox1.ToString
+        ElaborazioneExcell.Labelcompletato.Visible = False
+        ElaborazioneExcell.Labelelaborazione.Visible = True
+        Cursor.Current = Cursors.WaitCursor
+        Dim tempFile2 = My.Settings.OutPutXls & nomeFile
+
+        Using sw = New StreamWriter(tempFile2)
+            Try
+
+
+
+                Try '' Record di testa
+                    sw.WriteLine("B;" & ElaborazioneExcell.UserControlMenuXLS1.TextBox2.ToString & ";" & CodiceFiscaleContribuente & ";" _
+                                 & IIf(ElaborazioneExcell.UserControlMenuXLS1.ComboBox3.SelectedIndex = 0, "O", "S") & ";" & CodiceAttivita & ";" & _
+                                 PeriodicitaIva & ";" & "1;")
+                    sw.WriteLine(vbCrLf)
+                Catch ex As Exception
+                    MsgBox("Line " & ex.Message & " is invalid.  Skipping")
+                End Try
+
+                'File.Delete(inputFile)'File.Move(tempfile, inputFile)
+                count = obj.Last()
+                obj.RemoveAt(obj.Count - 1)
+                righe = (obj.Count) / 19
+
+
+                For ciclo = 1 To righe 'righe
+
+                    For i = p To (ciclo * 19) - 1  'campi
+
+                        sw.WriteLine(obj(i).ToString() & ";")
+
+                    Next
+
+                    sw.WriteLine(vbCrLf)
+                    p = ciclo * 19
+
+                Next
+
+                ' release object references.
+                Cursor.Current = Cursors.Default
+
+                sw.Close()
+
+
+            Catch ex As Exception
+
+                ex.ToString()
+
+            Finally
+
+                sw.Dispose()
+
+            End Try
+
+        End Using
 
     End Sub
 
@@ -84,8 +157,8 @@ Module WorkflowBL
     ''' <remarks></remarks>
     Private Sub ElaboraDatiAggregati()
 
-        Dim CodiceFiscaleContribuente, CodiceAttivita, Criterio, quer, querysottoConti, anagrafica, azienda, esercizio As String
-        Dim TipoComunicazione, PeriodicitaIva As Char
+        Dim Criterio, quer, querysottoConti, anagrafica, azienda, esercizio As String
+        Dim TipoComunicazione As Char
         Dim comboInvolucro As Byte
         Dim mainDb As New DataSet
         Dim mainAd As OleDbDataAdapter : Dim importoFattureEmesse As Double = 0 : Dim importoNoteCreditoEmesse As Double = 0
@@ -390,10 +463,13 @@ Module WorkflowBL
 
                 Next
 
-                arrlista = {anagrafica, ArrFiveValue(0).ToString, ArrFiveValue(1).ToString, ArrFiveValue(2).ToString, ArrFiveValue(3).ToString, _
-                            ArrFiveValue(4).ToString, importoFattureEmesse, IvaFattureEmesse, numeroFattureEmesse, importoNoteCreditoEmesse, _
-                            IvaNoteCreditoEmesse, numeroNoteCreditoEmesse, importoFattureRicevute, IvaFattureRicevute, numeroFattureRicevute, _
-                            importoNoteCreditoRicevute, IvaNoteCreditoRicevute, numeroNoteCreditoRicevute}
+                arrlista = {"M", esercizio, CodiceFiscaleContribuente, ArrFiveValue(2).ToString, ArrFiveValue(3).ToString, "S", _
+                            IIf(numeroFattureEmesse = 0, "", numeroFattureEmesse), IIf(numeroFattureRicevute = 0, "", numeroFattureRicevute), _
+                            "", IIf(importoFattureEmesse = 0, "", importoFattureEmesse), IIf(IvaFattureEmesse = 0, "", IvaFattureEmesse), "", _
+                            IIf(importoNoteCreditoEmesse = 0, "", importoNoteCreditoEmesse), IIf(IvaNoteCreditoEmesse = 0, "", IvaNoteCreditoEmesse), _
+                            IIf(importoFattureRicevute = 0, "2", importoFattureRicevute), IIf(IvaFattureRicevute = 0, "", IvaFattureRicevute), "", _
+                            IIf(importoNoteCreditoRicevute = 0, "", importoNoteCreditoRicevute), IIf(IvaNoteCreditoRicevute = 0, "", IvaNoteCreditoRicevute)}
+
                 If (importoFattureEmesse + IvaFattureEmesse + importoNoteCreditoEmesse + IvaNoteCreditoEmesse + importoFattureRicevute + IvaFattureRicevute _
                     + importoNoteCreditoRicevute + IvaNoteCreditoRicevute) > 0 Then
                     lista.AddRange(arrlista)
@@ -720,6 +796,14 @@ Prossimo:
 
     End Sub
 
+    ''' <summary>
+    ''' Apre e popola un file excel
+    ''' </summary>
+    ''' <param name="obj"></param>
+    ''' obj = lista con i dati.
+    ''' val = dividendo
+    ''' <param name="val"></param>
+    ''' <remarks></remarks>
     Private Sub ProduciXls(ByVal obj As List(Of String), ByVal val As Byte)
         '#If EarlyBinding = 1 Then
         '    Rem VB IDE

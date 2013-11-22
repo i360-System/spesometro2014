@@ -203,4 +203,8 @@
         MsgBox("Impostazioni salvate con successo.")
         Me.Dispose()
     End Sub
+
+    Private Sub CheckBox2_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles CheckBox2.CheckedChanged
+
+    End Sub
 End Class

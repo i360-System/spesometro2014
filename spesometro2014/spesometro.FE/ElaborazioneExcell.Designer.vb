@@ -29,6 +29,7 @@ Partial Class ElaborazioneExcell
         Me.Labelcontrollo = New System.Windows.Forms.Label()
         Me.Labelxls = New System.Windows.Forms.Label()
         Me.Labelattendere = New System.Windows.Forms.Label()
+        Me.Labelelaborazione = New System.Windows.Forms.Label()
         Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -112,12 +113,27 @@ Partial Class ElaborazioneExcell
         Me.Labelattendere.TabIndex = 6
         Me.Labelattendere.Text = "Attendere, elaborazione in corso..."
         '
+        'Labelelaborazione
+        '
+        Me.Labelelaborazione.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Labelelaborazione.AutoSize = True
+        Me.Labelelaborazione.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Labelelaborazione.Location = New System.Drawing.Point(309, 81)
+        Me.Labelelaborazione.Name = "Labelelaborazione"
+        Me.Labelelaborazione.Size = New System.Drawing.Size(238, 25)
+        Me.Labelelaborazione.TabIndex = 10
+        Me.Labelelaborazione.Text = "Elaborazione in corso..."
+        Me.Labelelaborazione.Visible = False
+        '
         'ElaborazioneExcell
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(968, 187)
         Me.ControlBox = False
+        Me.Controls.Add(Me.Labelelaborazione)
         Me.Controls.Add(Me.Labelcompletato)
         Me.Controls.Add(Me.Labelcontrollo)
         Me.Controls.Add(Me.Labelxls)
@@ -142,5 +158,6 @@ Partial Class ElaborazioneExcell
     Friend WithEvents Labelcontrollo As System.Windows.Forms.Label
     Friend WithEvents Labelxls As System.Windows.Forms.Label
     Friend WithEvents Labelattendere As System.Windows.Forms.Label
+    Friend WithEvents Labelelaborazione As System.Windows.Forms.Label
 
 End Class

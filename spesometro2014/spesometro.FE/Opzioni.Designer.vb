@@ -25,6 +25,9 @@ Partial Class Opzioni
         Me.components = New System.ComponentModel.Container()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.CheckBox5 = New System.Windows.Forms.CheckBox()
+        Me.CheckBox4 = New System.Windows.Forms.CheckBox()
+        Me.CheckBox3 = New System.Windows.Forms.CheckBox()
         Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Button3 = New System.Windows.Forms.Button()
@@ -81,9 +84,6 @@ Partial Class Opzioni
         Me.OpenFileDialog8 = New System.Windows.Forms.OpenFileDialog()
         Me.OpenFileDialog9 = New System.Windows.Forms.OpenFileDialog()
         Me.Button14 = New System.Windows.Forms.Button()
-        Me.CheckBox3 = New System.Windows.Forms.CheckBox()
-        Me.CheckBox4 = New System.Windows.Forms.CheckBox()
-        Me.CheckBox5 = New System.Windows.Forms.CheckBox()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.TabControl1.SuspendLayout()
         Me.TabPage2.SuspendLayout()
@@ -121,6 +121,40 @@ Partial Class Opzioni
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "Generale"
         Me.TabPage2.UseVisualStyleBackColor = True
+        '
+        'CheckBox5
+        '
+        Me.CheckBox5.AutoSize = True
+        Me.CheckBox5.Enabled = False
+        Me.CheckBox5.Location = New System.Drawing.Point(225, 160)
+        Me.CheckBox5.Name = "CheckBox5"
+        Me.CheckBox5.Size = New System.Drawing.Size(246, 17)
+        Me.CheckBox5.TabIndex = 19
+        Me.CheckBox5.Text = "Chiudi il programma al termine dell'elaborazione"
+        Me.ToolTip1.SetToolTip(Me.CheckBox5, "Funzionalità non disponibile in questa versione.")
+        Me.CheckBox5.UseVisualStyleBackColor = True
+        '
+        'CheckBox4
+        '
+        Me.CheckBox4.AutoSize = True
+        Me.CheckBox4.Enabled = False
+        Me.CheckBox4.Location = New System.Drawing.Point(225, 137)
+        Me.CheckBox4.Name = "CheckBox4"
+        Me.CheckBox4.Size = New System.Drawing.Size(234, 17)
+        Me.CheckBox4.TabIndex = 18
+        Me.CheckBox4.Text = "Riduci in System Tray durante l'elaborazione"
+        Me.ToolTip1.SetToolTip(Me.CheckBox4, "Funzionalità non disponibile in questa versione.")
+        Me.CheckBox4.UseVisualStyleBackColor = True
+        '
+        'CheckBox3
+        '
+        Me.CheckBox3.AutoSize = True
+        Me.CheckBox3.Location = New System.Drawing.Point(225, 114)
+        Me.CheckBox3.Name = "CheckBox3"
+        Me.CheckBox3.Size = New System.Drawing.Size(188, 17)
+        Me.CheckBox3.TabIndex = 17
+        Me.CheckBox3.Text = "Mostra Excel durante le operazioni"
+        Me.CheckBox3.UseVisualStyleBackColor = True
         '
         'CheckBox1
         '
@@ -601,40 +635,6 @@ Partial Class Opzioni
         Me.Button14.TabIndex = 4
         Me.Button14.Text = "S&alva ed esci"
         Me.Button14.UseVisualStyleBackColor = True
-        '
-        'CheckBox3
-        '
-        Me.CheckBox3.AutoSize = True
-        Me.CheckBox3.Location = New System.Drawing.Point(225, 114)
-        Me.CheckBox3.Name = "CheckBox3"
-        Me.CheckBox3.Size = New System.Drawing.Size(188, 17)
-        Me.CheckBox3.TabIndex = 17
-        Me.CheckBox3.Text = "Mostra Excel durante le operazioni"
-        Me.CheckBox3.UseVisualStyleBackColor = True
-        '
-        'CheckBox4
-        '
-        Me.CheckBox4.AutoSize = True
-        Me.CheckBox4.Enabled = False
-        Me.CheckBox4.Location = New System.Drawing.Point(225, 137)
-        Me.CheckBox4.Name = "CheckBox4"
-        Me.CheckBox4.Size = New System.Drawing.Size(234, 17)
-        Me.CheckBox4.TabIndex = 18
-        Me.CheckBox4.Text = "Riduci in System Tray durante l'elaborazione"
-        Me.ToolTip1.SetToolTip(Me.CheckBox4, "Funzionalità non disponibile in questa versione.")
-        Me.CheckBox4.UseVisualStyleBackColor = True
-        '
-        'CheckBox5
-        '
-        Me.CheckBox5.AutoSize = True
-        Me.CheckBox5.Enabled = False
-        Me.CheckBox5.Location = New System.Drawing.Point(225, 160)
-        Me.CheckBox5.Name = "CheckBox5"
-        Me.CheckBox5.Size = New System.Drawing.Size(246, 17)
-        Me.CheckBox5.TabIndex = 19
-        Me.CheckBox5.Text = "Chiudi il programma al termine dell'elaborazione"
-        Me.ToolTip1.SetToolTip(Me.CheckBox5, "Funzionalità non disponibile in questa versione.")
-        Me.CheckBox5.UseVisualStyleBackColor = True
         '
         'ToolTip1
         '

@@ -72,13 +72,8 @@
     End Sub
 
     Private Sub ExcellToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ExcellToolStripMenuItem.Click
-        If InitController.OpzioniGeneraliXls Then
-            ElaborazioneExcell.ShowDialog()
-        Else
-            MsgBox("Impossibile eseguire l'elaborazione richiesta." & vbCrLf & "Controllare nelle opzioni del software," _
-                   & vbCrLf & "che tutti campi e le funzionalità siano valorizzati.")
-        End If
 
+        ElaborazioneExcell.ShowDialog()
     End Sub
 
    
