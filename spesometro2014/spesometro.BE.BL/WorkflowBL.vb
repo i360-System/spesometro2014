@@ -92,24 +92,28 @@ Module WorkflowBL
         Dim righe As Integer = 0 : Dim p As Integer = 0
         Dim nomeFile As String = Nothing
 
-        nomeFile = "spesometro_" & ElaborazioneExcell.UserControlMenuXLS1.TextBox1.ToString
+        ''if nomefile selezionato then metti quello altrimenti autocstruisco il nome
+        nomeFile = "spesometro_" & ElaborazioneExcell.UserControlMenuXLS1.TextBox1.Text.ToString & ".csv"
         ElaborazioneExcell.Labelcompletato.Visible = False
         ElaborazioneExcell.Labelelaborazione.Visible = True
         Cursor.Current = Cursors.WaitCursor
-        Dim tempFile2 = My.Settings.OutPutXls & nomeFile
+        Dim tempFile2 = My.Settings.OutPutXls & "\" & nomeFile
+
+        'File.Create(tempFile2)
 
         Using sw = New StreamWriter(tempFile2)
             Try
-
-
-
+                Dim eser, Tipoel As String
+                eser = ElaborazioneExcell.UserControlMenuXLS1.TextBox2.Text.ToString
+                Tipoel = IIf(ElaborazioneExcell.UserControlMenuXLS1.ComboBox3.SelectedIndex = 0, "O", "S")
                 Try '' Record di testa
-                    sw.WriteLine("B;" & ElaborazioneExcell.UserControlMenuXLS1.TextBox2.ToString & ";" & CodiceFiscaleContribuente & ";" _
-                                 & IIf(ElaborazioneExcell.UserControlMenuXLS1.ComboBox3.SelectedIndex = 0, "O", "S") & ";" & CodiceAttivita & ";" & _
+                    sw.WriteLine("B;" & eser & ";" & CodiceFiscaleContribuente & ";" _
+                                 & Tipoel & ";" & CodiceAttivita & ";" & _
                                  PeriodicitaIva & ";" & "1;")
-                    sw.WriteLine(vbCrLf)
+                    'sw.WriteLine(vbCrLf)
                 Catch ex As Exception
-                    MsgBox("Line " & ex.Message & " is invalid.  Skipping")
+                    MsgBox("Line " & ex.Message & " is invalid.  Skipping. Elaborazione terminata.")
+                    Exit Sub
                 End Try
 
                 'File.Delete(inputFile)'File.Move(tempfile, inputFile)
@@ -122,7 +126,7 @@ Module WorkflowBL
 
                     For i = p To (ciclo * 19) - 1  'campi
 
-                        sw.WriteLine(obj(i).ToString() & ";")
+                        sw.Write(obj(i).ToString() & ";")
 
                     Next
 
@@ -157,7 +161,7 @@ Module WorkflowBL
     ''' <remarks></remarks>
     Private Sub ElaboraDatiAggregati()
 
-        Dim Criterio, quer, querysottoConti, anagrafica, azienda, esercizio As String
+        Dim Criterio, quer, anagrafica, azienda, esercizio As String
         Dim TipoComunicazione As Char
         Dim comboInvolucro As Byte
         Dim mainDb As New DataSet
@@ -188,8 +192,8 @@ Module WorkflowBL
         ElaborazioneExcell.Labelattendere.Visible = True
         Dim lista = New List(Of String)
         comboInvolucro = ElaborazioneExcell.UserControlMenuXLS1.ComboBox2.SelectedIndex
-        Dim table, tableMovimentiIvaTestata As System.Data.DataTable : Dim tableEserciziContabili As System.Data.DataTable : Dim tableAnagrafiche As System.Data.DataTable
-        Dim tableSottoconti, tableMovimentiContabiliTestata, tableMovimentiIvaRighe As System.Data.DataTable
+        Dim table, tableMovimentiIvaTestata10, tableMovimentiIvaTestata37 As System.Data.DataTable : Dim tableEserciziContabili As System.Data.DataTable : Dim tableAnagrafiche As System.Data.DataTable
+        Dim tableMovimentiContabiliTestata, tableMovimentiIvaRighe As System.Data.DataTable
 
         Try
 
@@ -241,9 +245,10 @@ Module WorkflowBL
             mainAd = Nothing
             p.Close() : p.Dispose()
             mainDb.Dispose()
-
+            ObjectTableMovimentiIvaTestata.Nullable()
+            preProcessing(azienda, esercizio)
             ''Inizia l'elaborazione vera e propria con i dati ricavati fin qui.
-            quer = "SELECT * FROM Anagrafiche WHERE NOT (TipoConto = 'N')"
+            quer = "SELECT * FROM Anagrafiche WHERE NOT (TipoConto = 'N') or TipoConto Is Null order by anagrafica"
             p = DASL.OleDBcommandConn()
             p.Open()
             mainAd = New OleDbDataAdapter(quer, p)
@@ -257,9 +262,35 @@ Module WorkflowBL
             mainDb.Dispose()
             p.Close()
 
-            Dim ArrFiveValue() As String
+            Dim ArrFiveValue() As String : Dim flg As Boolean = True
+            ElaborazioneExcell.ProgressBar1.Value = Nothing : ElaborazioneExcell.ProgressBar1.Minimum = 0
+            ElaborazioneExcell.ProgressBar1.Maximum = tableAnagrafiche.Rows.Count : ElaborazioneExcell.ProgressBar1.Step = 1
+
+            Dim indiceArray As Integer : Dim countarr = arr.GetUpperBound(1)
 
             For Each r As DataRow In tableAnagrafiche.Rows
+
+                flg = True
+
+                indiceArray = 0 : Dim conter As Integer = 0
+
+                For n = 0 To countarr 'Match tra numero anagrafica da processare e tutti i record prelevati in anagrafiche
+
+
+                    If arr(0, n) = CLng(r("anagrafica").ToString()) Then
+
+                        indiceArray = n
+                        flg = False
+                        conter += 1
+                        Exit For
+
+                    End If
+
+                    conter += 1
+
+                Next n
+
+                If flg Then GoTo prossimo
 
                 importoFattureEmesse = 0 : importoNoteCreditoEmesse = 0
                 importoFattureRicevute = 0 : importoNoteCreditoRicevute = 0 : IvaFattureEmesse = 0
@@ -272,197 +303,147 @@ Module WorkflowBL
                                             IIf(IsNothing(r("PartitaIva").ToString), "", r("PartitaIva").ToString), _
                                             IIf(IsNothing(r("CodiceFiscale").ToString), "", r("CodiceFiscale").ToString), _
                                             IIf(IsNothing(UCase(r("TipoConto").ToString)), "", UCase(r("TipoConto").ToString))}
-                querysottoConti = "Select * from Sottoconti where azienda ='" & azienda & _
-                    "' AND anagrafica = " & anagrafica & " AND conto = " & dieci & " OR conto = " & trentasette
-                p = DASL.OleDBcommandConn()
-                p.Open()
-                mainAd = New OleDbDataAdapter(querysottoConti, p)
-                mainDb = New DataSet
-                mainAd.FillSchema(mainDb, SchemaType.Source)
 
-                mainAd.Fill(mainDb, "Sottoconti")
-                tableSottoconti = mainDb.Tables("Sottoconti")
-
-                mainAd = Nothing
-                mainDb.Dispose()
-                p.Close()
                 Dim arrlista() As String = Nothing
 
-                'ciclo sul risultato di Sottoconti
-                For Each ro As DataRow In tableSottoconti.Rows
+                If ObjectTableMovimentiIvaTestata.arr(1, indiceArray) = "10" Then
 
-                    Select Case ro("conto").ToString
-                        Case 10
-                            Dim queryIvaTestata = "Select * from MovimentiIvaTestata where azienda = '" & azienda & "' " _
-                                                  & "And esercizio = '" & esercizio & "' And tipoRegistro = 'V' And " _
-                                                  & "NumeroRegistro = 1 and Conto = " & dieci & " And Sottoconto = " _
-                                                  & ro("Sottoconto").ToString
-                            p = DASL.OleDBcommandConn()
-                            p.Open()
-                            mainAd = New OleDbDataAdapter(queryIvaTestata, p)
-                            mainDb = New DataSet
-                            mainAd.FillSchema(mainDb, SchemaType.Source)
+                    'restituiamo tableMovimentiIvaTestata
+                    tableMovimentiIvaTestata10 = ObjectTableMovimentiIvaTestata.tableMovimentiIvaTestata(conter - 1)
 
-                            mainAd.Fill(mainDb, "MovimentiIvaTestata")
-                            tableMovimentiIvaTestata = mainDb.Tables("MovimentiIvaTestata")
+                    For Each riga As DataRow In tableMovimentiIvaTestata10.Rows
 
-                            mainAd = Nothing
-                            mainDb.Dispose()
-                            p.Close()
+                        Dim queryMovimentiContabiliTestata = "Select * from MovimentiContabiliTestata where azienda = '" & azienda & "' " _
+                                          & "And esercizio = '" & esercizio & "' And NumeroPrimaNota = " & riga("NumeroPrimaNota").ToString
 
-                            For Each riga As DataRow In tableMovimentiIvaTestata.Rows
+                        p = DASL.OleDBcommandConn()
+                        p.Open()
+                        mainAd = New OleDbDataAdapter(queryMovimentiContabiliTestata, p)
+                        mainDb = New DataSet
+                        mainAd.FillSchema(mainDb, SchemaType.Source)
 
-                                Dim queryMovimentiContabiliTestata = "Select * from MovimentiContabiliTestata where azienda = '" & azienda & "' " _
-                                                  & "And esercizio = '" & esercizio & "' And NumeroPrimaNota = " & riga("NumeroPrimaNota").ToString
+                        mainAd.Fill(mainDb, "MovimentiContabiliTestata")
+                        tableMovimentiContabiliTestata = mainDb.Tables("MovimentiContabiliTestata")
 
-                                p = DASL.OleDBcommandConn()
-                                p.Open()
-                                mainAd = New OleDbDataAdapter(queryMovimentiContabiliTestata, p)
-                                mainDb = New DataSet
-                                mainAd.FillSchema(mainDb, SchemaType.Source)
+                        mainAd = Nothing
+                        mainDb.Dispose()
+                        p.Close()
 
-                                mainAd.Fill(mainDb, "MovimentiContabiliTestata")
-                                tableMovimentiContabiliTestata = mainDb.Tables("MovimentiContabiliTestata")
+                        Dim queryMovimentiIvaRighe = "Select * from MovimentiIvaRighe where azienda ='" & azienda & _
+                                  "' and esercizio = '" & esercizio & "' and tiporegistro = 'V' and numeroregistro = 1 and " _
+                                  & "numeroprotocollo = " & riga("NumeroProtocollo")
+                        p = DASL.OleDBcommandConn()
+                        p.Open()
+                        mainAd = New OleDbDataAdapter(queryMovimentiIvaRighe, p)
+                        mainDb = New DataSet
+                        mainAd.FillSchema(mainDb, SchemaType.Source)
 
-                                mainAd = Nothing
-                                mainDb.Dispose()
-                                p.Close()
+                        mainAd.Fill(mainDb, "MovimentiIvaRighe")
+                        tableMovimentiIvaRighe = mainDb.Tables("MovimentiIvaRighe")
 
-                                Dim queryMovimentiIvaRighe = "Select * from MovimentiIvaRighe where azienda ='" & azienda & _
-                                          "' and esercizio = " & esercizio & " and tiporegistro = 'V' and numeroregistro = 1 and " _
-                                          & "numeroprotocollo = " & riga("NumeroProtocollo")
-                                p = DASL.OleDBcommandConn()
-                                p.Open()
-                                mainAd = New OleDbDataAdapter(queryMovimentiIvaRighe, p)
-                                mainDb = New DataSet
-                                mainAd.FillSchema(mainDb, SchemaType.Source)
+                        mainAd = Nothing
+                        mainDb.Dispose()
+                        p.Close()
 
-                                mainAd.Fill(mainDb, "MovimentiIvaRighe")
-                                tableMovimentiIvaRighe = mainDb.Tables("MovimentiIvaRighe")
+                        Select Case tableMovimentiContabiliTestata.Rows(0)("Causale").ToString()
 
-                                mainAd = Nothing
-                                mainDb.Dispose()
-                                p.Close()
-
-                                Select Case tableMovimentiContabiliTestata.Rows(0)("Causale").ToString()
-
-                                    Case "001" 'Fattureemesse
-                                        'totalizzazione imponibili iva e numero documenti
+                            Case "001" 'Fattureemesse
+                                'totalizzazione imponibili iva e numero documenti
 
 
-                                        For Each rig As DataRow In tableMovimentiIvaRighe.Rows
+                                For Each rig As DataRow In tableMovimentiIvaRighe.Rows
 
-                                            importoFattureEmesse += rig("Imponibile").ToString
-                                            IvaFattureEmesse += rig("Iva").ToString
-                                            numeroFattureEmesse += 1
+                                    importoFattureEmesse += rig("Imponibile").ToString
+                                    IvaFattureEmesse += rig("Iva").ToString
+                                    numeroFattureEmesse += 1
 
-                                        Next
+                                Next
 
-                                    Case "003" 'NoteCreditoemesse
-                                        'totalizzazione imponibili iva e numero documenti
+                            Case "003" 'NoteCreditoemesse
+                                'totalizzazione imponibili iva e numero documenti
 
-                                        For Each rig As DataRow In tableMovimentiIvaRighe.Rows
+                                For Each rig As DataRow In tableMovimentiIvaRighe.Rows
 
-                                            importoNoteCreditoEmesse += rig("Imponibile").ToString
-                                            IvaNoteCreditoEmesse += rig("Iva").ToString
-                                            numeroNoteCreditoEmesse += 1
+                                    importoNoteCreditoEmesse += rig("Imponibile").ToString
+                                    IvaNoteCreditoEmesse += rig("Iva").ToString
+                                    numeroNoteCreditoEmesse += 1
 
-                                        Next
+                                Next
 
-                                End Select
+                        End Select
 
-                            Next
+                    Next
 
-                        Case 37 'fornitori
+                End If
 
-                            Dim queryIvaTestata = "Select * from MovimentiIvaTestata where azienda = '" & azienda & "' " _
-                                                  & "And esercizio = '" & esercizio & "' And tipoRegistro = 'A' And " _
-                                                  & "NumeroRegistro = 11 and Conto = " & trentasette & " And Sottoconto = " _
-                                                  & ro("Sottoconto").ToString
-                            p = DASL.OleDBcommandConn()
-                            p.Open()
-                            mainAd = New OleDbDataAdapter(queryIvaTestata, p)
-                            mainDb = New DataSet
-                            mainAd.FillSchema(mainDb, SchemaType.Source)
+                If ObjectTableMovimentiIvaTestata.arr(1, indiceArray) = "37" Then
 
-                            mainAd.Fill(mainDb, "MovimentiIvaTestata")
-                            tableMovimentiIvaTestata = mainDb.Tables("MovimentiIvaTestata")
+                    tableMovimentiIvaTestata37 = ObjectTableMovimentiIvaTestata.tableMovimentiIvaTestata(conter - 1)
 
-                            mainAd = Nothing
-                            mainDb.Dispose()
-                            p.Close()
+                    For Each riga As DataRow In tableMovimentiIvaTestata37.Rows
 
-                            For Each riga As DataRow In tableMovimentiIvaTestata.Rows
+                        Dim queryMovimentiContabiliTestata = "Select * from MovimentiContabiliTestata where azienda = '" & azienda & "' " _
+                                          & "And esercizio = '" & esercizio & "' And NumeroPrimaNota = " & riga("NumeroPrimaNota").ToString
 
-                                Dim queryMovimentiContabiliTestata = "Select * from MovimentiContabiliTestata where azienda = '" & azienda & "' " _
-                                                  & "And esercizio = '" & esercizio & "' And NumeroPrimaNota = " & riga("NumeroPrimaNota").ToString
+                        p = DASL.OleDBcommandConn()
+                        p.Open()
+                        mainAd = New OleDbDataAdapter(queryMovimentiContabiliTestata, p)
+                        mainDb = New DataSet
+                        mainAd.FillSchema(mainDb, SchemaType.Source)
 
-                                p = DASL.OleDBcommandConn()
-                                p.Open()
-                                mainAd = New OleDbDataAdapter(queryMovimentiContabiliTestata, p)
-                                mainDb = New DataSet
-                                mainAd.FillSchema(mainDb, SchemaType.Source)
+                        mainAd.Fill(mainDb, "MovimentiContabiliTestata")
+                        tableMovimentiContabiliTestata = mainDb.Tables("MovimentiContabiliTestata")
 
-                                mainAd.Fill(mainDb, "MovimentiContabiliTestata")
-                                tableMovimentiContabiliTestata = mainDb.Tables("MovimentiContabiliTestata")
+                        mainAd = Nothing
+                        mainDb.Dispose()
+                        p.Close()
 
-                                mainAd = Nothing
-                                mainDb.Dispose()
-                                p.Close()
+                        Dim queryMovimentiIvaRighe = "Select * from MovimentiIvaRighe where azienda ='" & azienda & _
+                                  "' and esercizio = '" & esercizio & "' and tiporegistro = 'V' and numeroregistro = 1 and " _
+                                  & "numeroprotocollo = " & riga("NumeroProtocollo")
+                        p = DASL.OleDBcommandConn()
+                        p.Open()
+                        mainAd = New OleDbDataAdapter(queryMovimentiIvaRighe, p)
+                        mainDb = New DataSet
+                        mainAd.FillSchema(mainDb, SchemaType.Source)
 
-                                Dim queryMovimentiIvaRighe = "Select * from MovimentiIvaRighe where azienda ='" & azienda & _
-                                          "' and esercizio = " & esercizio & " and tiporegistro = 'V' and numeroregistro = 1 and " _
-                                          & "numeroprotocollo = " & riga("NumeroProtocollo")
-                                p = DASL.OleDBcommandConn()
-                                p.Open()
-                                mainAd = New OleDbDataAdapter(queryMovimentiIvaRighe, p)
-                                mainDb = New DataSet
-                                mainAd.FillSchema(mainDb, SchemaType.Source)
+                        mainAd.Fill(mainDb, "MovimentiIvaRighe")
+                        tableMovimentiIvaRighe = mainDb.Tables("MovimentiIvaRighe")
 
-                                mainAd.Fill(mainDb, "MovimentiIvaRighe")
-                                tableMovimentiIvaRighe = mainDb.Tables("MovimentiIvaRighe")
+                        mainAd = Nothing
+                        mainDb.Dispose()
+                        p.Close()
 
-                                mainAd = Nothing
-                                mainDb.Dispose()
-                                p.Close()
+                        Select Case tableMovimentiContabiliTestata.Rows(0)("Causale").ToString()
 
-                                Select Case tableMovimentiContabiliTestata.Rows(0)("Causale").ToString()
-
-                                    Case "011" 'Fatturericevute
-                                        'totalizzazione imponibili iva e numero documenti
+                            Case "011" 'Fatturericevute
+                                'totalizzazione imponibili iva e numero documenti
 
 
-                                        For Each rig As DataRow In tableMovimentiIvaRighe.Rows
+                                For Each rig As DataRow In tableMovimentiIvaRighe.Rows
 
-                                            importoFattureRicevute += rig("Imponibile").ToString
-                                            IvaFattureRicevute += rig("Iva").ToString
-                                            numeroFattureRicevute += 1
+                                    importoFattureRicevute += rig("Imponibile").ToString
+                                    IvaFattureRicevute += rig("Iva").ToString
+                                    numeroFattureRicevute += 1
 
-                                        Next
+                                Next
 
-                                    Case "015" 'NoteCreditoRicevute
-                                        'totalizzazione imponibili iva e numero documenti
+                            Case "015" 'NoteCreditoRicevute
+                                'totalizzazione imponibili iva e numero documenti
 
-                                        For Each rig As DataRow In tableMovimentiIvaRighe.Rows
+                                For Each rig As DataRow In tableMovimentiIvaRighe.Rows
 
-                                            importoNoteCreditoRicevute += rig("Imponibile").ToString
-                                            IvaNoteCreditoRicevute += rig("Iva").ToString
-                                            numeroNoteCreditoRicevute += 1
+                                    importoNoteCreditoRicevute += rig("Imponibile").ToString
+                                    IvaNoteCreditoRicevute += rig("Iva").ToString
+                                    numeroNoteCreditoRicevute += 1
 
-                                        Next
+                                Next
 
-                                End Select
-                                'riga("").ToString()
+                        End Select
+                        'riga("").ToString()
 
-                            Next
-
-                        Case Else
-                            MsgBox("Nessun risultato corrispondente trovato in Sottoconti durante l'elaborazione.")
-                            Exit Sub
-                    End Select
-
-                Next
-
+                    Next
+                End If
                 arrlista = {"M", esercizio, CodiceFiscaleContribuente, ArrFiveValue(2).ToString, ArrFiveValue(3).ToString, "S", _
                             IIf(numeroFattureEmesse = 0, "", numeroFattureEmesse), IIf(numeroFattureRicevute = 0, "", numeroFattureRicevute), _
                             "", IIf(importoFattureEmesse = 0, "", importoFattureEmesse), IIf(IvaFattureEmesse = 0, "", IvaFattureEmesse), "", _
@@ -473,9 +454,13 @@ Module WorkflowBL
                 If (importoFattureEmesse + IvaFattureEmesse + importoNoteCreditoEmesse + IvaNoteCreditoEmesse + importoFattureRicevute + IvaFattureRicevute _
                     + importoNoteCreditoRicevute + IvaNoteCreditoRicevute) > 0 Then
                     lista.AddRange(arrlista)
-                    counter = counter + 1
+                    counter += 1
+                    'Else
+                    '    ObjectTableMovimentiIvaTestata.tableMovimentiIvaTestata.RemoveAt(conter - 1)
+                    '    ReDim Preserve arr(1, indiceArray)
                 End If
-
+prossimo:
+                ElaborazioneExcell.ProgressBar1.PerformStep() : ElaborazioneExcell.ProgressBar1.Refresh()
             Next
 
             ElaborazioneExcell.Labelattendere.Visible = False
@@ -483,15 +468,118 @@ Module WorkflowBL
             lista.Add(counter)
             GeneraCSV(lista)
             ElaborazioneExcell.Labelxls.Visible = False
+            ElaborazioneExcell.Labelelaborazione.Visible = False
             ElaborazioneExcell.Labelcompletato.Visible = True
             MsgBox("E' terminata la fase di importazione documenti in Excel", vbInformation)
 
         Catch ex As Exception
-
+            MsgBox(ex.ToString & vbCrLf & "Elaborazione terminata.")
         End Try
 
 
     End Sub
+
+    ''' <summary>
+    ''' Verifica che il record corrente della tabella anagrafiche abbia dei movimenti correlati nella tabella
+    ''' </summary>
+    ''' <remarks></remarks>
+    Private Sub preProcessing(ByVal az As String, ByVal es As String)
+
+        Dim mainDb As New DataSet
+        Dim mainAd As OleDbDataAdapter
+        Dim table, table2, table37 As System.Data.DataTable
+        Dim p As New OleDbConnection()
+        Dim ret As Boolean = False
+        Dim listaanagrafiche As New List(Of Long)
+
+        ElaborazioneExcell.Labelraccoltainfo.Visible = True
+        Dim querysottoconti = "Select * from sottoconti where azienda = '" & az & "' and conto = 10 or conto = 37"
+        p = DASL.OleDBcommandConn()
+        p.Open()
+        mainAd = New OleDbDataAdapter(querysottoconti, p)
+        mainDb = New DataSet
+        mainAd.FillSchema(mainDb, SchemaType.Source)
+
+        mainAd.Fill(mainDb, "sottoconti")
+        table = mainDb.Tables("sottoconti")
+
+        mainAd = Nothing
+        mainDb.Dispose()
+        p.Close()
+
+        '*******************************Progress bar e label attive***************************************
+        ElaborazioneExcell.ProgressBar2.Visible = True
+        ElaborazioneExcell.ProgressBar2.Value = Nothing : ElaborazioneExcell.ProgressBar2.Minimum = 0
+        ElaborazioneExcell.ProgressBar2.Maximum = table.Rows.Count : ElaborazioneExcell.ProgressBar2.Step = 1
+        '*************************************************************************************************
+        Dim con As Integer = 0
+        For Each ro As DataRow In table.Rows
+            Select Case ro("Conto")
+
+                Case 10
+
+                    Dim quer = "select * from movimentiivatestata where azienda = '" & az & "' and esercizio = '" & es & "' and conto = " _
+                       & ro("Conto").ToString & " and sottoconto = " & ro("Sottoconto").ToString
+                    p = DASL.OleDBcommandConn()
+                    p.Open()
+                    mainAd = New OleDbDataAdapter(quer, p)
+                    mainDb = New DataSet
+                    mainAd.FillSchema(mainDb, SchemaType.Source)
+
+                    mainAd.Fill(mainDb, "movimentiivatestata")
+                    table2 = mainDb.Tables("movimentiivatestata")
+
+                    mainAd = Nothing
+                    mainDb.Dispose()
+                    p.Close()
+                    If IsDBNull(ro("anagrafica")) Then
+                        MsgBox("Attenzione: non è stata assegnata un'anagrafica al conto = 10, sottoconto =" & ro("sottoconto").ToString _
+                               & "." & vbCrLf & "Si prega di inserire l'anagrafica nel sottoconto, tramite l'applicativo GeCog.", MsgBoxStyle.Critical)
+                        Exit Sub
+                    End If
+                    ObjectTableMovimentiIvaTestata.CreateMatrice(ro("anagrafica").ToString, "10")
+                    ObjectTableMovimentiIvaTestata.tableMovimentiIvaTestata.Add(table2)
+
+                Case 37
+
+                    Dim queryIvaTestata = "Select * from MovimentiIvaTestata where azienda = '" & az & "' " _
+                                          & "And esercizio = '" & es & "' And tipoRegistro = 'A' And " _
+                                          & "NumeroRegistro = 11 and Conto = " & trentasette & " And Sottoconto = " _
+                                          & ro("Sottoconto").ToString
+                    p = DASL.OleDBcommandConn()
+                    p.Open()
+                    mainAd = New OleDbDataAdapter(queryIvaTestata, p)
+                    mainDb = New DataSet
+                    mainAd.FillSchema(mainDb, SchemaType.Source)
+
+                    mainAd.Fill(mainDb, "MovimentiIvaTestata")
+                    table37 = mainDb.Tables("MovimentiIvaTestata")
+
+                    mainAd = Nothing
+                    mainDb.Dispose()
+                    p.Close()
+
+                    If IsDBNull(ro("anagrafica")) Then
+                        MsgBox("Attenzione: non è stata assegnata un'anagrafica al conto = 37, sottoconto =" & ro("sottoconto").ToString _
+                               & "." & vbCrLf & "Si prega di inserire l'anagrafica nel sottoconto, tramite l'applicativo GeCog.", MsgBoxStyle.Critical)
+                        Exit Sub
+                    End If
+
+                    ObjectTableMovimentiIvaTestata.CreateMatrice(ro("anagrafica").ToString, "37")
+                    ObjectTableMovimentiIvaTestata.tableMovimentiIvaTestata.Add(table37)
+
+            End Select
+
+            'listaanagrafiche.Add(ro("anagrafica").ToString)
+
+            ElaborazioneExcell.ProgressBar2.PerformStep() : ElaborazioneExcell.ProgressBar2.Refresh()
+
+        Next
+
+        ElaborazioneExcell.ProgressBar2.Visible = False : ElaborazioneExcell.Labelraccoltainfo.Visible = False
+
+    End Sub
+
 
     ''' <summary>
     ''' Funzione che accetta in ingresso parametri list of string ed

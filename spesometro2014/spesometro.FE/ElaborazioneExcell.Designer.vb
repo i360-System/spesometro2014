@@ -24,12 +24,14 @@ Partial Class ElaborazioneExcell
     Private Sub InitializeComponent()
         Me.ProgressBar1 = New System.Windows.Forms.ProgressBar()
         Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.UserControlMenuXLS1 = New spesometro2014.UserControlMenuXLS()
         Me.Labelcompletato = New System.Windows.Forms.Label()
         Me.Labelcontrollo = New System.Windows.Forms.Label()
         Me.Labelxls = New System.Windows.Forms.Label()
         Me.Labelattendere = New System.Windows.Forms.Label()
         Me.Labelelaborazione = New System.Windows.Forms.Label()
+        Me.UserControlMenuXLS1 = New spesometro2014.UserControlMenuXLS()
+        Me.Labelraccoltainfo = New System.Windows.Forms.Label()
+        Me.ProgressBar2 = New System.Windows.Forms.ProgressBar()
         Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -38,7 +40,7 @@ Partial Class ElaborazioneExcell
         Me.ProgressBar1.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.ProgressBar1.Location = New System.Drawing.Point(0, 164)
         Me.ProgressBar1.Name = "ProgressBar1"
-        Me.ProgressBar1.Size = New System.Drawing.Size(968, 23)
+        Me.ProgressBar1.Size = New System.Drawing.Size(989, 23)
         Me.ProgressBar1.TabIndex = 0
         '
         'Panel1
@@ -47,16 +49,8 @@ Partial Class ElaborazioneExcell
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(968, 66)
+        Me.Panel1.Size = New System.Drawing.Size(989, 66)
         Me.Panel1.TabIndex = 5
-        '
-        'UserControlMenuXLS1
-        '
-        Me.UserControlMenuXLS1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.UserControlMenuXLS1.Location = New System.Drawing.Point(0, 0)
-        Me.UserControlMenuXLS1.Name = "UserControlMenuXLS1"
-        Me.UserControlMenuXLS1.Size = New System.Drawing.Size(968, 66)
-        Me.UserControlMenuXLS1.TabIndex = 0
         '
         'Labelcompletato
         '
@@ -127,12 +121,44 @@ Partial Class ElaborazioneExcell
         Me.Labelelaborazione.Text = "Elaborazione in corso..."
         Me.Labelelaborazione.Visible = False
         '
+        'UserControlMenuXLS1
+        '
+        Me.UserControlMenuXLS1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.UserControlMenuXLS1.Location = New System.Drawing.Point(0, 0)
+        Me.UserControlMenuXLS1.Name = "UserControlMenuXLS1"
+        Me.UserControlMenuXLS1.Size = New System.Drawing.Size(989, 66)
+        Me.UserControlMenuXLS1.TabIndex = 0
+        '
+        'Labelraccoltainfo
+        '
+        Me.Labelraccoltainfo.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Labelraccoltainfo.AutoSize = True
+        Me.Labelraccoltainfo.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Labelraccoltainfo.Location = New System.Drawing.Point(309, 106)
+        Me.Labelraccoltainfo.Name = "Labelraccoltainfo"
+        Me.Labelraccoltainfo.Size = New System.Drawing.Size(236, 25)
+        Me.Labelraccoltainfo.TabIndex = 11
+        Me.Labelraccoltainfo.Text = "Raccolta informazioni..."
+        Me.Labelraccoltainfo.Visible = False
+        '
+        'ProgressBar2
+        '
+        Me.ProgressBar2.Location = New System.Drawing.Point(306, 135)
+        Me.ProgressBar2.Name = "ProgressBar2"
+        Me.ProgressBar2.Size = New System.Drawing.Size(344, 23)
+        Me.ProgressBar2.TabIndex = 12
+        Me.ProgressBar2.Visible = False
+        '
         'ElaborazioneExcell
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(968, 187)
+        Me.ClientSize = New System.Drawing.Size(989, 187)
         Me.ControlBox = False
+        Me.Controls.Add(Me.ProgressBar2)
+        Me.Controls.Add(Me.Labelraccoltainfo)
         Me.Controls.Add(Me.Labelelaborazione)
         Me.Controls.Add(Me.Labelcompletato)
         Me.Controls.Add(Me.Labelcontrollo)
@@ -159,5 +185,7 @@ Partial Class ElaborazioneExcell
     Friend WithEvents Labelxls As System.Windows.Forms.Label
     Friend WithEvents Labelattendere As System.Windows.Forms.Label
     Friend WithEvents Labelelaborazione As System.Windows.Forms.Label
+    Friend WithEvents Labelraccoltainfo As System.Windows.Forms.Label
+    Friend WithEvents ProgressBar2 As System.Windows.Forms.ProgressBar
 
 End Class

@@ -46,7 +46,7 @@ Partial Class MainForm
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.StrumentiToolStripMenuItem, Me.ToolStripMenuItem1})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(967, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(991, 24)
         Me.MenuStrip1.TabIndex = 0
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -93,7 +93,7 @@ Partial Class MainForm
         '
         Me.ExcellToolStripMenuItem.Name = "ExcellToolStripMenuItem"
         Me.ExcellToolStripMenuItem.Size = New System.Drawing.Size(185, 22)
-        Me.ExcellToolStripMenuItem.Text = "Excell"
+        Me.ExcellToolStripMenuItem.Text = "Excell/CSV"
         '
         'TracciatoTelematicoToolStripMenuItem
         '
@@ -139,7 +139,7 @@ Partial Class MainForm
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackgroundImage = Global.spesometro2014.My.Resources.Resources.logo_i360_system
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
-        Me.ClientSize = New System.Drawing.Size(967, 687)
+        Me.ClientSize = New System.Drawing.Size(991, 687)
         Me.Controls.Add(Me.MenuStrip1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)

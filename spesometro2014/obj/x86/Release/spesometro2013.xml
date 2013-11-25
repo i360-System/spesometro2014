@@ -116,6 +116,11 @@ spesometro2013
  elaborazione di tipo aggregato
  </summary>
 	<remarks></remarks>
+</member><member name="M:spesometro2014.WorkflowBL.preProcessing(System.String,System.String)">
+	<summary>
+ Verifica che il record corrente della tabella anagrafiche abbia dei movimenti correlati nella tabella
+ </summary>
+	<remarks></remarks>
 </member><member name="M:spesometro2014.WorkflowBL.prepare(System.String,System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String})">
 	<summary>
  Funzione che accetta in ingresso parametri list of string ed

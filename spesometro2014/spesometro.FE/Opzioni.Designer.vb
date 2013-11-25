@@ -203,9 +203,9 @@ Partial Class Opzioni
         Me.Label2.AutoSize = True
         Me.Label2.Location = New System.Drawing.Point(6, 26)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(65, 13)
+        Me.Label2.Size = New System.Drawing.Size(66, 13)
         Me.Label2.TabIndex = 5
-        Me.Label2.Text = "Output XLS:"
+        Me.Label2.Text = "Output CSV:"
         '
         'Button2
         '

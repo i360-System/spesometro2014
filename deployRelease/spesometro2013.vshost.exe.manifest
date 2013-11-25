@@ -48,14 +48,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="spesometro2013.exe" size="2189312">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="spesometro2013.exe" size="2192896">
       <assemblyIdentity name="spesometro2013" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>FnsELt/SZ/vzjYMUdXe6oBL71wc=</dsig:DigestValue>
+        <dsig:DigestValue>3pOwF8Vm4FjYPgpffczCcoMy0IU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
