@@ -130,7 +130,7 @@ Module WorkflowBL
 
                     Next
 
-                    sw.WriteLine(vbCrLf)
+                    sw.Write(vbCrLf)
                     p = ciclo * 19
 
                 Next
@@ -445,11 +445,11 @@ Module WorkflowBL
                     Next
                 End If
                 arrlista = {"M", esercizio, CodiceFiscaleContribuente, ArrFiveValue(2).ToString, ArrFiveValue(3).ToString, "S", _
-                            IIf(numeroFattureEmesse = 0, "", numeroFattureEmesse), IIf(numeroFattureRicevute = 0, "", numeroFattureRicevute), _
-                            "", IIf(importoFattureEmesse = 0, "", importoFattureEmesse), IIf(IvaFattureEmesse = 0, "", IvaFattureEmesse), "", _
-                            IIf(importoNoteCreditoEmesse = 0, "", importoNoteCreditoEmesse), IIf(IvaNoteCreditoEmesse = 0, "", IvaNoteCreditoEmesse), _
-                            IIf(importoFattureRicevute = 0, "2", importoFattureRicevute), IIf(IvaFattureRicevute = 0, "", IvaFattureRicevute), "", _
-                            IIf(importoNoteCreditoRicevute = 0, "", importoNoteCreditoRicevute), IIf(IvaNoteCreditoRicevute = 0, "", IvaNoteCreditoRicevute)}
+                            IIf(numeroFattureEmesse = 0, " ", numeroFattureEmesse), IIf(numeroFattureRicevute = 0, " ", numeroFattureRicevute), _
+                            " ", IIf(importoFattureEmesse = 0, " ", importoFattureEmesse), IIf(IvaFattureEmesse = 0, " ", IvaFattureEmesse), " ", _
+                            IIf(importoNoteCreditoEmesse = 0, " ", importoNoteCreditoEmesse), IIf(IvaNoteCreditoEmesse = 0, " ", IvaNoteCreditoEmesse), _
+                            IIf(importoFattureRicevute = 0, "2", importoFattureRicevute), IIf(IvaFattureRicevute = 0, " ", IvaFattureRicevute), " ", _
+                            IIf(importoNoteCreditoRicevute = 0, " ", importoNoteCreditoRicevute), IIf(IvaNoteCreditoRicevute = 0, " ", IvaNoteCreditoRicevute)}
 
                 If (importoFattureEmesse + IvaFattureEmesse + importoNoteCreditoEmesse + IvaNoteCreditoEmesse + importoFattureRicevute + IvaFattureRicevute _
                     + importoNoteCreditoRicevute + IvaNoteCreditoRicevute) > 0 Then
