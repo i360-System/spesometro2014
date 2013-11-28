@@ -109,8 +109,9 @@ Module WorkflowBL
                 Try '' Record di testa
                     sw.WriteLine("B;" & eser & ";" & CodiceFiscaleContribuente & ";" _
                                  & Tipoel & ";" & CodiceAttivita & ";" & _
-                                 PeriodicitaIva & ";" & "1;")
+                                 PeriodicitaIva & ";" & "1;;;;;;;;;;;;;;;;;")
                     'sw.WriteLine(vbCrLf)
+                    sw.WriteLine(";;;;;;;;;;;;;;;;;;;;;;;")
                 Catch ex As Exception
                     MsgBox("Line " & ex.Message & " is invalid.  Skipping. Elaborazione terminata.")
                     Exit Sub
@@ -120,17 +121,60 @@ Module WorkflowBL
                 count = obj.Last()
                 obj.RemoveAt(obj.Count - 1)
                 righe = (obj.Count) / 19
+                Dim colonnaD As Boolean = False
+                Dim colonnaE As Boolean = False
+                Dim colonnaF As Boolean = False
 
 
                 For ciclo = 1 To righe 'righe
 
                     For i = p To (ciclo * 19) - 1  'campi
 
-                        sw.Write(obj(i).ToString() & ";")
+                        If ((i + 1) Mod 4 = 0) Then ' centro la quarta posizione o indice 3
+
+                            If Not obj(i).ToString() = "" Then
+                                sw.Write(obj(i).ToString() & ";") ' compilo colonna D
+                                colonnaD = True
+                                colonnaE = False
+                                colonnaF = False
+                            Else
+                                sw.Write(";") 'metto vuoto e controllo colnne E ed F
+                                colonnaD = False
+                                colonnaE = True
+                            End If
+
+                        ElseIf ((i + 1) Mod 5 = 0) Then ' centro la quinta posizione o indice 4
+
+                            If colonnaE Then
+                                If Not obj(i).ToString() = "" Then
+                                    sw.Write(obj(i).ToString() & ";") ' compilo colonna E
+                                    colonnaF = False
+                                Else
+                                    sw.Write(";") 'metto vuoto e compilo F
+                                    colonnaE = False
+                                    colonnaF = True
+                                End If
+                            End If
+
+                        ElseIf ((i + 1) Mod 6 = 0) Then ' centro la sesta posizione o indice 5
+
+                            If colonnaF Then
+
+                                sw.Write(obj(i).ToString() & ";") ' compilo colonna F
+                                colonnaF = False
+
+                            End If
+
+                        Else ' lascio correre per tutte le altre posizioni
+
+                            sw.Write(obj(i).ToString() & ";")
+
+                        End If
 
                     Next
 
-                    sw.Write(vbCrLf)
+                    sw.Write(";;;;") ' aggiungo i campi vuoti
+                    sw.Write(vbCrLf) ' vado a capo
                     p = ciclo * 19
 
                 Next
@@ -445,11 +489,11 @@ Module WorkflowBL
                     Next
                 End If
                 arrlista = {"M", esercizio, CodiceFiscaleContribuente, ArrFiveValue(2).ToString, ArrFiveValue(3).ToString, "S", _
-                            IIf(numeroFattureEmesse = 0, " ", numeroFattureEmesse), IIf(numeroFattureRicevute = 0, " ", numeroFattureRicevute), _
-                            " ", IIf(importoFattureEmesse = 0, " ", importoFattureEmesse), IIf(IvaFattureEmesse = 0, " ", IvaFattureEmesse), " ", _
-                            IIf(importoNoteCreditoEmesse = 0, " ", importoNoteCreditoEmesse), IIf(IvaNoteCreditoEmesse = 0, " ", IvaNoteCreditoEmesse), _
-                            IIf(importoFattureRicevute = 0, "2", importoFattureRicevute), IIf(IvaFattureRicevute = 0, " ", IvaFattureRicevute), " ", _
-                            IIf(importoNoteCreditoRicevute = 0, " ", importoNoteCreditoRicevute), IIf(IvaNoteCreditoRicevute = 0, " ", IvaNoteCreditoRicevute)}
+                            IIf(numeroFattureEmesse = 0, "", numeroFattureEmesse), IIf(numeroFattureRicevute = 0, "", numeroFattureRicevute), _
+                            "", IIf(importoFattureEmesse = 0, "", importoFattureEmesse), IIf(IvaFattureEmesse = 0, "", IvaFattureEmesse), "", _
+                            IIf(importoNoteCreditoEmesse = 0, "", importoNoteCreditoEmesse), IIf(IvaNoteCreditoEmesse = 0, "", IvaNoteCreditoEmesse), _
+                            IIf(importoFattureRicevute = 0, "2", importoFattureRicevute), IIf(IvaFattureRicevute = 0, "", IvaFattureRicevute), "", _
+                            IIf(importoNoteCreditoRicevute = 0, "", importoNoteCreditoRicevute), IIf(IvaNoteCreditoRicevute = 0, "", IvaNoteCreditoRicevute)}
 
                 If (importoFattureEmesse + IvaFattureEmesse + importoNoteCreditoEmesse + IvaNoteCreditoEmesse + importoFattureRicevute + IvaFattureRicevute _
                     + importoNoteCreditoRicevute + IvaNoteCreditoRicevute) > 0 Then
