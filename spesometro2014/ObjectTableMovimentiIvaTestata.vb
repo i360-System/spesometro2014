@@ -2,6 +2,7 @@
 
     Public arr(,) As String
     Dim con As Integer = 0
+    Dim tabella As New DataTable
 
     Public Property tableMovimentiIvaTestata As New List(Of System.Data.DataTable)
 
@@ -28,5 +29,8 @@
         _tableMovimentiIvaTestata = New List(Of System.Data.DataTable)
 
     End Sub
+
+    Public Property tabellaLista As New List(Of List(Of String))
+
 
 End Module

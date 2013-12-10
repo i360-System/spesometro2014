@@ -130,46 +130,46 @@ Module WorkflowBL
 
                     For i = p To (ciclo * 19) - 1  'campi
 
-                        If ((i + 1) Mod 4 = 0) Then ' centro la quarta posizione o indice 3
+                        'If ((i + 1) Mod 4 = 0) Then ' centro la quarta posizione o indice 3
 
-                            If Not obj(i).ToString() = "" Then
-                                sw.Write(obj(i).ToString() & ";") ' compilo colonna D
-                                colonnaD = True
-                                colonnaE = False
-                                colonnaF = False
-                            Else
-                                sw.Write(";") 'metto vuoto e controllo colnne E ed F
-                                colonnaD = False
-                                colonnaE = True
-                            End If
+                        '    If Not obj(i).ToString() = "" Then
+                        '        sw.Write(obj(i).ToString() & ";") ' compilo colonna D
+                        '        colonnaD = True
+                        '        colonnaE = False
+                        '        colonnaF = False
+                        '    Else
+                        '        sw.Write(";") 'metto vuoto e controllo colnne E ed F
+                        '        colonnaD = False
+                        '        colonnaE = True
+                        '    End If
 
-                        ElseIf ((i + 1) Mod 5 = 0) Then ' centro la quinta posizione o indice 4
+                        'ElseIf ((i + 1) Mod 5 = 0) Then ' centro la quinta posizione o indice 4
 
-                            If colonnaE Then
-                                If Not obj(i).ToString() = "" Then
-                                    sw.Write(obj(i).ToString() & ";") ' compilo colonna E
-                                    colonnaF = False
-                                Else
-                                    sw.Write(";") 'metto vuoto e compilo F
-                                    colonnaE = False
-                                    colonnaF = True
-                                End If
-                            End If
+                        '    If colonnaE Then
+                        '        If Not obj(i).ToString() = "" Then
+                        '            sw.Write(obj(i).ToString() & ";") ' compilo colonna E
+                        '            colonnaF = False
+                        '        Else
+                        '            sw.Write(";") 'metto vuoto e compilo F
+                        '            colonnaE = False
+                        '            colonnaF = True
+                        '        End If
+                        '    End If
 
-                        ElseIf ((i + 1) Mod 6 = 0) Then ' centro la sesta posizione o indice 5
+                        'ElseIf ((i + 1) Mod 6 = 0) Then ' centro la sesta posizione o indice 5
 
-                            If colonnaF Then
+                        '    If colonnaF Then
 
-                                sw.Write(obj(i).ToString() & ";") ' compilo colonna F
-                                colonnaF = False
+                        '        sw.Write(obj(i).ToString() & ";") ' compilo colonna F
+                        '        colonnaF = False
 
-                            End If
+                        '    End If
 
-                        Else ' lascio correre per tutte le altre posizioni
+                        'Else ' lascio correre per tutte le altre posizioni
 
-                            sw.Write(obj(i).ToString() & ";")
+                        sw.Write(obj(i).ToString() & ";")
 
-                        End If
+                        'End If
 
                     Next
 
@@ -238,6 +238,7 @@ Module WorkflowBL
         comboInvolucro = ElaborazioneExcell.UserControlMenuXLS1.ComboBox2.SelectedIndex
         Dim table, tableMovimentiIvaTestata10, tableMovimentiIvaTestata37 As System.Data.DataTable : Dim tableEserciziContabili As System.Data.DataTable : Dim tableAnagrafiche As System.Data.DataTable
         Dim tableMovimentiContabiliTestata, tableMovimentiIvaRighe As System.Data.DataTable
+        Dim listaAnagraficheSommatoria As New List(Of String)
 
         Try
 
@@ -499,9 +500,6 @@ Module WorkflowBL
                     + importoNoteCreditoRicevute + IvaNoteCreditoRicevute) > 0 Then
                     lista.AddRange(arrlista)
                     counter += 1
-                    'Else
-                    '    ObjectTableMovimentiIvaTestata.tableMovimentiIvaTestata.RemoveAt(conter - 1)
-                    '    ReDim Preserve arr(1, indiceArray)
                 End If
 prossimo:
                 ElaborazioneExcell.ProgressBar1.PerformStep() : ElaborazioneExcell.ProgressBar1.Refresh()
@@ -509,8 +507,9 @@ prossimo:
 
             ElaborazioneExcell.Labelattendere.Visible = False
             ElaborazioneExcell.Labelcompletato.Visible = True
-            lista.Add(counter)
-            GeneraCSV(lista)
+            Dim appo = ElaboraStringa(lista)
+            appo.Add(counter)
+            GeneraCSV(appo)
             ElaborazioneExcell.Labelxls.Visible = False
             ElaborazioneExcell.Labelelaborazione.Visible = False
             ElaborazioneExcell.Labelcompletato.Visible = True
@@ -522,6 +521,80 @@ prossimo:
 
 
     End Sub
+
+    'Private Function ControlloLista(ByVal ListaValore As List(Of String)) As List(Of String)
+
+    '    Dim listaFinale As New List(Of String)
+
+    '    For Each it In ListaValore
+
+    '        listaFinale.Add(ElaboraStringa(it))
+
+    '    Next
+
+    '    Return listaFinale
+
+    'End Function
+
+    ''' <summary>
+    ''' Elabora le stringhe di output e restituisce l'output stesso con i dati formattati secondo
+    ''' controllo.
+    ''' </summary>
+    ''' <param name="valor"></param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Private Function ElaboraStringa(ByVal valor As List(Of String)) As List(Of String)
+
+        Dim p As Integer = 0
+        Dim strin As New List(Of String)
+        Dim arrIndiceStringa As New List(Of String)
+        Dim codfisc, partiv, sestacolonna As String
+
+        'For Each chrct In valor
+        '    If chrct = ";" Then
+        '        arrIndiceStringa.Add(var1)
+        '    End If
+        '    var1 += 1
+        Dim righe = valor.Count / 19
+
+        For i = 1 To righe
+
+            For n = p To (i * 19) - 1
+
+                If (((n - ((i - 1) * 19)) / 3) = 1) Then
+
+                    partiv = valor(n).ToString '4
+                    codfisc = valor(n + 1).ToString '5
+                    sestacolonna = valor(n + 2).ToString '6
+
+                    If (codfisc = partiv) And (Not codfisc = "" Or Not partiv = "") Then
+
+                        valor(n) = ""
+                        valor(n + 2) = " "
+
+                    ElseIf (Not codfisc = "") Or (Not partiv = "") Then
+
+                        valor(n + 2) = " "
+
+                    End If
+
+                End If
+
+            Next
+
+            p = i * 19
+
+        Next
+
+      
+
+        'imnplemento qui l'eventaule somma
+
+        strin = valor
+        Return strin
+
+    End Function
+
 
     ''' <summary>
     ''' Verifica che il record corrente della tabella anagrafiche abbia dei movimenti correlati nella tabella
