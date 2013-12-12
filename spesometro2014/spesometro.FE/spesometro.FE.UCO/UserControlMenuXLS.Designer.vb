@@ -32,9 +32,9 @@ Partial Class UserControlMenuXLS
         Me.Label1 = New System.Windows.Forms.Label()
         Me.ComboBox2 = New System.Windows.Forms.ComboBox()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.UserControl21 = New spesometro2014.UserControl2()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.ComboBox3 = New System.Windows.Forms.ComboBox()
+        Me.UserControl21 = New spesometro2014.UserControl2()
         Me.SuspendLayout()
         '
         'Button1
@@ -89,6 +89,7 @@ Partial Class UserControlMenuXLS
         '
         'ComboBox1
         '
+        Me.ComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.ComboBox1.FormattingEnabled = True
         Me.ComboBox1.Location = New System.Drawing.Point(279, 9)
         Me.ComboBox1.Name = "ComboBox1"
@@ -106,6 +107,7 @@ Partial Class UserControlMenuXLS
         '
         'ComboBox2
         '
+        Me.ComboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.ComboBox2.FormattingEnabled = True
         Me.ComboBox2.Location = New System.Drawing.Point(279, 32)
         Me.ComboBox2.Name = "ComboBox2"
@@ -121,13 +123,6 @@ Partial Class UserControlMenuXLS
         Me.Label2.TabIndex = 12
         Me.Label2.Text = "Tipo quadro:"
         '
-        'UserControl21
-        '
-        Me.UserControl21.Location = New System.Drawing.Point(890, 0)
-        Me.UserControl21.Name = "UserControl21"
-        Me.UserControl21.Size = New System.Drawing.Size(58, 58)
-        Me.UserControl21.TabIndex = 13
-        '
         'Label3
         '
         Me.Label3.AutoSize = True
@@ -139,11 +134,19 @@ Partial Class UserControlMenuXLS
         '
         'ComboBox3
         '
+        Me.ComboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.ComboBox3.FormattingEnabled = True
         Me.ComboBox3.Location = New System.Drawing.Point(600, 31)
         Me.ComboBox3.Name = "ComboBox3"
         Me.ComboBox3.Size = New System.Drawing.Size(102, 21)
         Me.ComboBox3.TabIndex = 15
+        '
+        'UserControl21
+        '
+        Me.UserControl21.Location = New System.Drawing.Point(890, 0)
+        Me.UserControl21.Name = "UserControl21"
+        Me.UserControl21.Size = New System.Drawing.Size(58, 58)
+        Me.UserControl21.TabIndex = 13
         '
         'UserControlMenuXLS
         '

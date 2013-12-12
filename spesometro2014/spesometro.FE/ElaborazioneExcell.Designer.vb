@@ -29,9 +29,9 @@ Partial Class ElaborazioneExcell
         Me.Labelxls = New System.Windows.Forms.Label()
         Me.Labelattendere = New System.Windows.Forms.Label()
         Me.Labelelaborazione = New System.Windows.Forms.Label()
-        Me.UserControlMenuXLS1 = New spesometro2014.UserControlMenuXLS()
         Me.Labelraccoltainfo = New System.Windows.Forms.Label()
         Me.ProgressBar2 = New System.Windows.Forms.ProgressBar()
+        Me.UserControlMenuXLS1 = New spesometro2014.UserControlMenuXLS()
         Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -58,10 +58,10 @@ Partial Class ElaborazioneExcell
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Labelcompletato.AutoSize = True
-        Me.Labelcompletato.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Labelcompletato.Font = New System.Drawing.Font("Times New Roman", 15.75!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Labelcompletato.Location = New System.Drawing.Point(309, 81)
         Me.Labelcompletato.Name = "Labelcompletato"
-        Me.Labelcompletato.Size = New System.Drawing.Size(139, 25)
+        Me.Labelcompletato.Size = New System.Drawing.Size(125, 23)
         Me.Labelcompletato.TabIndex = 9
         Me.Labelcompletato.Text = "Completato..."
         Me.Labelcompletato.Visible = False
@@ -72,10 +72,10 @@ Partial Class ElaborazioneExcell
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Labelcontrollo.AutoSize = True
-        Me.Labelcontrollo.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Labelcontrollo.Font = New System.Drawing.Font("Times New Roman", 15.75!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Labelcontrollo.Location = New System.Drawing.Point(309, 81)
         Me.Labelcontrollo.Name = "Labelcontrollo"
-        Me.Labelcontrollo.Size = New System.Drawing.Size(252, 25)
+        Me.Labelcontrollo.Size = New System.Drawing.Size(227, 23)
         Me.Labelcontrollo.TabIndex = 8
         Me.Labelcontrollo.Text = "Controllo coerenza dati..."
         Me.Labelcontrollo.Visible = False
@@ -86,10 +86,10 @@ Partial Class ElaborazioneExcell
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Labelxls.AutoSize = True
-        Me.Labelxls.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Labelxls.Font = New System.Drawing.Font("Times New Roman", 15.75!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Labelxls.Location = New System.Drawing.Point(309, 81)
         Me.Labelxls.Name = "Labelxls"
-        Me.Labelxls.Size = New System.Drawing.Size(323, 25)
+        Me.Labelxls.Size = New System.Drawing.Size(287, 23)
         Me.Labelxls.TabIndex = 7
         Me.Labelxls.Text = "Elaborazione Excell, attendere..."
         Me.Labelxls.Visible = False
@@ -100,10 +100,10 @@ Partial Class ElaborazioneExcell
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Labelattendere.AutoSize = True
-        Me.Labelattendere.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Labelattendere.Font = New System.Drawing.Font("Times New Roman", 15.75!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Labelattendere.Location = New System.Drawing.Point(309, 81)
         Me.Labelattendere.Name = "Labelattendere"
-        Me.Labelattendere.Size = New System.Drawing.Size(341, 25)
+        Me.Labelattendere.Size = New System.Drawing.Size(301, 23)
         Me.Labelattendere.TabIndex = 6
         Me.Labelattendere.Text = "Attendere, elaborazione in corso..."
         '
@@ -113,21 +113,13 @@ Partial Class ElaborazioneExcell
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Labelelaborazione.AutoSize = True
-        Me.Labelelaborazione.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Labelelaborazione.Font = New System.Drawing.Font("Times New Roman", 15.75!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Labelelaborazione.Location = New System.Drawing.Point(309, 81)
         Me.Labelelaborazione.Name = "Labelelaborazione"
-        Me.Labelelaborazione.Size = New System.Drawing.Size(238, 25)
+        Me.Labelelaborazione.Size = New System.Drawing.Size(215, 23)
         Me.Labelelaborazione.TabIndex = 10
         Me.Labelelaborazione.Text = "Elaborazione in corso..."
         Me.Labelelaborazione.Visible = False
-        '
-        'UserControlMenuXLS1
-        '
-        Me.UserControlMenuXLS1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.UserControlMenuXLS1.Location = New System.Drawing.Point(0, 0)
-        Me.UserControlMenuXLS1.Name = "UserControlMenuXLS1"
-        Me.UserControlMenuXLS1.Size = New System.Drawing.Size(989, 66)
-        Me.UserControlMenuXLS1.TabIndex = 0
         '
         'Labelraccoltainfo
         '
@@ -135,10 +127,10 @@ Partial Class ElaborazioneExcell
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Labelraccoltainfo.AutoSize = True
-        Me.Labelraccoltainfo.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Labelraccoltainfo.Font = New System.Drawing.Font("Times New Roman", 15.75!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Labelraccoltainfo.Location = New System.Drawing.Point(309, 106)
         Me.Labelraccoltainfo.Name = "Labelraccoltainfo"
-        Me.Labelraccoltainfo.Size = New System.Drawing.Size(236, 25)
+        Me.Labelraccoltainfo.Size = New System.Drawing.Size(216, 23)
         Me.Labelraccoltainfo.TabIndex = 11
         Me.Labelraccoltainfo.Text = "Raccolta informazioni..."
         Me.Labelraccoltainfo.Visible = False
@@ -150,6 +142,14 @@ Partial Class ElaborazioneExcell
         Me.ProgressBar2.Size = New System.Drawing.Size(344, 23)
         Me.ProgressBar2.TabIndex = 12
         Me.ProgressBar2.Visible = False
+        '
+        'UserControlMenuXLS1
+        '
+        Me.UserControlMenuXLS1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.UserControlMenuXLS1.Location = New System.Drawing.Point(0, 0)
+        Me.UserControlMenuXLS1.Name = "UserControlMenuXLS1"
+        Me.UserControlMenuXLS1.Size = New System.Drawing.Size(989, 66)
+        Me.UserControlMenuXLS1.TabIndex = 0
         '
         'ElaborazioneExcell
         '

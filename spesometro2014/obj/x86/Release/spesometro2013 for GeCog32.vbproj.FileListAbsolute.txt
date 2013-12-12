@@ -25,3 +25,12 @@ C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\spesometr
 C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\spesometro2014\obj\x86\Release\spesometro2013.pdb
 C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\deployRelease\spesometro2013.pdb
 C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\deployRelease\spesometro2013.xml
+C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\deployRelease\R\spesometro2013.exe.config
+C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\deployRelease\R\spesometro.DAL.Database\Database2.sdf
+C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\deployRelease\R\spesometro.DAL.Database\Database1.sdf
+C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\deployRelease\R\Manual\Manuale di utilizzo software Spesometro 2013.pdf
+C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\deployRelease\R\spesometro2013.exe.manifest
+C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\deployRelease\R\spesometro2013.application
+C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\deployRelease\R\spesometro2013.exe
+C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\deployRelease\R\spesometro2013.pdb
+C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\deployRelease\R\spesometro2013.xml

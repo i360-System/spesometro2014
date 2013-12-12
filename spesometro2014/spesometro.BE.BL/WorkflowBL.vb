@@ -93,7 +93,7 @@ Module WorkflowBL
         Dim nomeFile As String = Nothing
 
         ''if nomefile selezionato then metti quello altrimenti autocstruisco il nome
-        nomeFile = "spesometro_" & ElaborazioneExcell.UserControlMenuXLS1.TextBox1.Text.ToString & ".csv"
+        nomeFile = "spesometro_" & ElaborazioneExcell.UserControlMenuXLS1.TextBox1.Text.ToString & "_" & ElaborazioneExcell.UserControlMenuXLS1.TextBox2.Text.ToString & ".csv"
         ElaborazioneExcell.Labelcompletato.Visible = False
         ElaborazioneExcell.Labelelaborazione.Visible = True
         Cursor.Current = Cursors.WaitCursor
@@ -491,9 +491,9 @@ Module WorkflowBL
                 End If
                 arrlista = {"M", esercizio, CodiceFiscaleContribuente, ArrFiveValue(2).ToString, ArrFiveValue(3).ToString, "S", _
                             IIf(numeroFattureEmesse = 0, "", numeroFattureEmesse), IIf(numeroFattureRicevute = 0, "", numeroFattureRicevute), _
-                            "", IIf(importoFattureEmesse = 0, "", importoFattureEmesse), IIf(IvaFattureEmesse = 0, "", IvaFattureEmesse), "", _
+                            " ", IIf(importoFattureEmesse = 0, "", importoFattureEmesse), IIf(IvaFattureEmesse = 0, "", IvaFattureEmesse), "", _
                             IIf(importoNoteCreditoEmesse = 0, "", importoNoteCreditoEmesse), IIf(IvaNoteCreditoEmesse = 0, "", IvaNoteCreditoEmesse), _
-                            IIf(importoFattureRicevute = 0, "2", importoFattureRicevute), IIf(IvaFattureRicevute = 0, "", IvaFattureRicevute), "", _
+                            IIf(importoFattureRicevute = 0, "", importoFattureRicevute), IIf(IvaFattureRicevute = 0, "", IvaFattureRicevute), "", _
                             IIf(importoNoteCreditoRicevute = 0, "", importoNoteCreditoRicevute), IIf(IvaNoteCreditoRicevute = 0, "", IvaNoteCreditoRicevute)}
 
                 If (importoFattureEmesse + IvaFattureEmesse + importoNoteCreditoEmesse + IvaNoteCreditoEmesse + importoFattureRicevute + IvaFattureRicevute _
@@ -522,19 +522,6 @@ prossimo:
 
     End Sub
 
-    'Private Function ControlloLista(ByVal ListaValore As List(Of String)) As List(Of String)
-
-    '    Dim listaFinale As New List(Of String)
-
-    '    For Each it In ListaValore
-
-    '        listaFinale.Add(ElaboraStringa(it))
-
-    '    Next
-
-    '    Return listaFinale
-
-    'End Function
 
     ''' <summary>
     ''' Elabora le stringhe di output e restituisce l'output stesso con i dati formattati secondo
@@ -546,15 +533,9 @@ prossimo:
     Private Function ElaboraStringa(ByVal valor As List(Of String)) As List(Of String)
 
         Dim p As Integer = 0
-        Dim strin As New List(Of String)
-        Dim arrIndiceStringa As New List(Of String)
+        Dim strin, strin2 As New List(Of String)
+        Dim arrIndiceStringa, insidefloater As New List(Of String)
         Dim codfisc, partiv, sestacolonna As String
-
-        'For Each chrct In valor
-        '    If chrct = ";" Then
-        '        arrIndiceStringa.Add(var1)
-        '    End If
-        '    var1 += 1
         Dim righe = valor.Count / 19
 
         For i = 1 To righe
@@ -565,6 +546,7 @@ prossimo:
 
                     partiv = valor(n).ToString '4
                     codfisc = valor(n + 1).ToString '5
+                    insidefloater.Add(codfisc)
                     sestacolonna = valor(n + 2).ToString '6
 
                     If (codfisc = partiv) And (Not codfisc = "" Or Not partiv = "") Then
@@ -586,15 +568,173 @@ prossimo:
 
         Next
 
-      
-
-        'imnplemento qui l'eventaule somma
-
+        p = 0
         strin = valor
+        Dim floater As New List(Of List(Of String))
+        Dim insideFloaterFinal As New List(Of String)
+
+        insideFloaterFinal = insidefloater
+        Dim contenitoreUno = insidefloater.Count - 1
+        Dim contenitoreFinale As New List(Of String)
+
+        For i = 0 To contenitoreUno
+
+            If i < contenitoreUno Then
+                For we = i + 1 To contenitoreUno
+
+
+                    If Not insidefloater(i).ToString = "" Then
+
+                        If (insidefloater(i).ToString = insideFloaterFinal(we).ToString) Then
+
+                            If Not contenitoreFinale.Contains(insidefloater(i)) Then
+
+                                contenitoreFinale.Add(insidefloater(i))
+
+                            End If
+
+                        End If
+
+                    End If
+
+
+                Next
+            End If
+           
+            '
+        Next
+        Dim importo1, importo2, importo3, importo4, importo5, importo6 As Double
+        Dim rigacorrente As Integer = 1
+        Dim listina As New List(Of Double)
+        Dim listinaIndici, listinaPrimiIndici As New List(Of Integer)
+        Dim listona As New List(Of List(Of Double))
+        Dim listonaIndici, listonaPrimiIndici As New List(Of List(Of Integer))
+        Dim numeroVolteentra As Integer
+        If contenitoreFinale.Count > 0 Then
+            Dim index As Integer = 0
+            'elaboroindici
+            For n = 0 To contenitoreFinale.Count - 1
+
+
+
+                For Each itl In strin
+
+                    If (index Mod 19 = 0) And (index > 0) Then rigacorrente += 1
+
+                    If itl = contenitoreFinale(n) And ((index - ((rigacorrente - 1) * 19)) / 4 = 1) Then 'codice fiscale quinta colonna
+
+
+                        importo1 += IIf(strin(index + 5) = "", 0, strin(index + 5))
+                        importo2 += IIf(strin(index + 6) = "", 0, strin(index + 6))
+                        importo3 += IIf(strin(index + 10) = "", 0, strin(index + 10))
+                        importo4 += IIf(strin(index + 11) = "", 0, strin(index + 11))
+                        importo5 += IIf(strin(index + 2) = "", 0, strin(index + 2))
+                        importo6 += IIf(strin(index + 3) = "", 0, strin(index + 3))
+
+                        If numeroVolteentra > 0 Then
+                            listinaIndici.Add(index)
+                        ElseIf (Not listinaPrimiIndici.Contains(index)) And (Not listinaIndici.Contains(index)) Then
+                            listinaPrimiIndici.Add(index)
+                        End If
+
+                        numeroVolteentra += 1
+
+                    End If
+
+                    index += 1
+
+                Next
+
+                rigacorrente = 1
+                numeroVolteentra = 0
+                index = 0
+
+                With listina
+
+                    .Add(importo1)
+                    .Add(importo2)
+                    .Add(importo3)
+                    .Add(importo4)
+                    .Add(importo5)
+                    .Add(importo6)
+
+                End With
+
+                listona.Add(listina)
+                listonaIndici.Add(listinaIndici)
+                importo1 = 0
+                importo2 = 0
+                importo3 = 0
+                importo4 = 0
+                importo5 = 0
+                importo6 = 0
+                listina = New List(Of Double)
+                listinaIndici = New List(Of Integer)
+            Next
+
+            'sostituisco importi e cancello righe
+            Dim cnt = listinaPrimiIndici.Count
+
+            For w = 0 To cnt - 1 'sostituisco gli importi in ogni primo record
+
+                Dim itkl = listinaPrimiIndici(w)
+                Dim itklListona = listona(w)
+                strin(Convert.ToInt32(itkl + 5)) = IIf(itklListona(0) = 0, "", itklListona(0))
+                strin(Convert.ToInt32(itkl + 6)) = IIf(itklListona(1) = 0, "", itklListona(1))
+                strin(Convert.ToInt32(itkl + 10)) = IIf(itklListona(2) = 0, "", itklListona(2))
+                strin(Convert.ToInt32(itkl + 11)) = IIf(itklListona(3) = 0, "", itklListona(3))
+                strin(Convert.ToInt32(itkl + 2)) = IIf(itklListona(4) = 0, "", itklListona(4))
+                strin(Convert.ToInt32(itkl + 3)) = IIf(itklListona(5) = 0, "", itklListona(5))
+
+            Next
+
+            Dim listonaUltimaLista As New List(Of Integer)
+
+            'ricavo tutti gli indici doppi in una lista
+            For Each mento In listonaIndici
+                For Each itemMento In mento
+                    listonaUltimaLista.Add(itemMento)
+                Next
+            Next
+
+            listonaUltimaLista.Sort() 'ordino in maniera crescente
+            listonaUltimaLista.Reverse() ' e poi inverto l'ordine
+
+            'ricavo i range da cancellare
+            Dim inizioRange, fineRange As Integer
+            Dim EccoUnaLista As New List(Of List(Of Integer))
+            Dim appoggiolista As New List(Of Integer)
+
+            For Each valorelista In listonaUltimaLista
+                inizioRange = valorelista - 4
+                fineRange = valorelista + 14
+                appoggiolista.Add(inizioRange)
+                appoggiolista.Add(fineRange)
+                EccoUnaLista.Add(appoggiolista)
+                appoggiolista = New List(Of Integer)
+            Next
+
+            'per ogni range cancello gli elementi
+            Dim rng = EccoUnaLista.Count
+            For nm = 0 To rng - 1
+                Dim qList = EccoUnaLista(nm)
+                strin.RemoveRange(qList(0), (qList(1) - qList(0)) + 1)
+
+            Next
+
+
+        End If
+      
         Return strin
 
     End Function
 
+
+    ' Indirizzo.RemoveAll(AddressOf(IsInteger))
+
+    Public Function IsInteger(o As Object) As Boolean
+        Return TypeOf (o) Is Integer
+    End Function
 
     ''' <summary>
     ''' Verifica che il record corrente della tabella anagrafiche abbia dei movimenti correlati nella tabella
