@@ -322,7 +322,7 @@ Module WorkflowBL
                 For n = 0 To countarr 'Match tra numero anagrafica da processare e tutti i record prelevati in anagrafiche
 
 
-                    If arr(0, n) = CLng(r("anagrafica").ToString()) Then
+                    If arr(0, n) = r("anagrafica").ToString() Then
 
                         indiceArray = n
                         flg = False
@@ -398,8 +398,8 @@ Module WorkflowBL
 
                                 For Each rig As DataRow In tableMovimentiIvaRighe.Rows
 
-                                    importoFattureEmesse += rig("Imponibile").ToString
-                                    IvaFattureEmesse += rig("Iva").ToString
+                                    importoFattureEmesse += CDbl(rig("Imponibile").ToString)
+                                    IvaFattureEmesse += CDbl(rig("Iva").ToString)
                                     numeroFattureEmesse += 1
 
                                 Next
@@ -444,7 +444,7 @@ Module WorkflowBL
                         p.Close()
 
                         Dim queryMovimentiIvaRighe = "Select * from MovimentiIvaRighe where azienda ='" & azienda & _
-                                  "' and esercizio = '" & esercizio & "' and tiporegistro = 'V' and numeroregistro = 1 and " _
+                                  "' and esercizio = '" & esercizio & "' and tiporegistro = 'A' and numeroregistro = 11 and " _
                                   & "numeroprotocollo = " & riga("NumeroProtocollo")
                         p = DASL.OleDBcommandConn()
                         p.Open()
@@ -467,8 +467,8 @@ Module WorkflowBL
 
                                 For Each rig As DataRow In tableMovimentiIvaRighe.Rows
 
-                                    importoFattureRicevute += rig("Imponibile").ToString
-                                    IvaFattureRicevute += rig("Iva").ToString
+                                    importoFattureRicevute += CDbl(rig("Imponibile").ToString)
+                                    IvaFattureRicevute += CDbl(rig("Iva").ToString)
                                     numeroFattureRicevute += 1
 
                                 Next
@@ -478,8 +478,8 @@ Module WorkflowBL
 
                                 For Each rig As DataRow In tableMovimentiIvaRighe.Rows
 
-                                    importoNoteCreditoRicevute += rig("Imponibile").ToString
-                                    IvaNoteCreditoRicevute += rig("Iva").ToString
+                                    importoNoteCreditoRicevute += CDbl(rig("Imponibile").ToString)
+                                    IvaNoteCreditoRicevute += CDbl(rig("Iva").ToString)
                                     numeroNoteCreditoRicevute += 1
 
                                 Next
