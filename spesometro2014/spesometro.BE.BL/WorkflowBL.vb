@@ -100,7 +100,6 @@ Module WorkflowBL
         Dim tempFile2 = My.Settings.OutPutXls & "\" & nomeFile
 
         'File.Create(tempFile2)
-
         Using sw = New StreamWriter(tempFile2)
             Try
                 Dim eser, Tipoel As String
@@ -111,7 +110,7 @@ Module WorkflowBL
                                  & Tipoel & ";" & CodiceAttivita & ";" & _
                                  PeriodicitaIva & ";" & "1;;;;;;;;;;;;;;;;;")
                     'sw.WriteLine(vbCrLf)
-                    sw.WriteLine(";;;;;;;;;;;;;;;;;;;;;;;")
+                    'record vuoto'sw.WriteLine(";;;;;;;;;;;;;;;;;;;;;;;")
                 Catch ex As Exception
                     MsgBox("Line " & ex.Message & " is invalid.  Skipping. Elaborazione terminata.")
                     Exit Sub
@@ -552,11 +551,17 @@ prossimo:
                     If (codfisc = partiv) And (Not codfisc = "" Or Not partiv = "") Then
 
                         valor(n) = ""
-                        valor(n + 2) = " "
+                        valor(n + 2) = " " ' e metto F vuoto
 
-                    ElseIf (Not codfisc = "") Or (Not partiv = "") Then
+                    ElseIf (Not Trim(partiv) = "") Then 'se la piva non è null metto la piva e non metto cf
 
-                        valor(n + 2) = " "
+                        'la piva non la tocco
+                        valor(n + 1) = "" 'invece il cf lo metto null
+                        valor(n + 2) = " " ' e metto F vuoto
+
+                    ElseIf (Not Trim(codfisc) = "") Then ' se cf non è null metto il cf
+
+                        valor(n + 2) = " " ' e metto F vuoto
 
                     End If
 
