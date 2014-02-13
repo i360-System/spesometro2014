@@ -755,12 +755,12 @@ prossimo:
         Dim listaanagrafiche As New List(Of Long)
 
         ElaborazioneExcell.Labelraccoltainfo.Visible = True
-        Dim querysottoconti = "Select * from sottoconti where azienda = '" & az & "' and conto = 10 or conto = 37"
+        Dim querysottoconti = "Select * from sottoconti where azienda = '" & az & "' and (conto = 10 or conto = 37)"
         p = DASL.OleDBcommandConn()
         p.Open()
         mainAd = New OleDbDataAdapter(querysottoconti, p)
         mainDb = New DataSet
-        mainAd.FillSchema(mainDb, SchemaType.Source)
+        mainAd.FillSchema(mainDb, SchemaType.Source, "sottoconti")
 
         mainAd.Fill(mainDb, "sottoconti")
         table = mainDb.Tables("sottoconti")
