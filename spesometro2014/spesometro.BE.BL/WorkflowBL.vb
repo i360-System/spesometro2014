@@ -944,6 +944,7 @@ prossimo:
                         Mid(StrinDariempire, 1898) = "A"
                         Mid(StrinDariempire, 1899) = Chr(13) & Chr(10)
                         sw.WriteLine(StrinDariempire)
+                        StrinDariempire = strin
                         'sw.WriteLine(vbCrLf)
                         'record vuoto'sw.WriteLine(";;;;;;;;;;;;;;;;;;;;;;;")
                     End With
@@ -1030,7 +1031,7 @@ prossimo:
 
                     Dim entraPosizionale As Boolean = True
                     p = 0
-                    Dim counterGiro As Integer = 1
+                    Dim counterGiro As Integer = 0
 
                     For ciclo = 1 To righe 'numero di clienti/fornitori da processare
 
