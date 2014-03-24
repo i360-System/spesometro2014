@@ -92,7 +92,7 @@
             .OutPutXls = Trim(TextBox2.Text)
             .OutPutTxt = Trim(TextBox3.Text)
             .TipoOleDb = ComboBox1.SelectedIndex
-            .conCredenziali = CheckBox2.CheckState
+            .conCredenziali = CheckBox2.Checked
             .txtMod = CheckBox1.Checked
             .MostraExcel = CheckBox3.Checked
             'aggiungere funzionalita di versione differenti
@@ -202,7 +202,7 @@
             .OutPutXls = Trim(TextBox2.Text)
             .OutPutTxt = Trim(TextBox3.Text)
             .TipoOleDb = ComboBox1.SelectedIndex
-            .conCredenziali = CheckBox2.CheckState
+            .conCredenziali = CheckBox2.Checked
             .txtMod = CheckBox1.Checked
             .MostraExcel = CheckBox3.Checked
             'aggiungere tab 3

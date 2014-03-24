@@ -1,0 +1,173 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+spesometro2013
+</name>
+</assembly>
+<members>
+<member name="M:spesometro2014.Class1.mainXls(System.String)">
+	<summary>
+ MEtodo main di elaborazione del tracciato excell.
+ val = 0 --&gt; select
+ val = 1 --&gt; insert
+ val = 2 --&gt; update
+ val = 3 --&gt; delete
+ </summary>
+	<param name="val"></param>
+	<remarks></remarks>
+</member><member name="M:spesometro2014.Class1.prepare(System.String,System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String})">
+	<summary>
+ Funzione che accetta in ingresso parametri list of string ed
+ elabora la query sostituendoli
+ </summary>
+	<param name="query"></param>
+	<param name="table"></param>
+	<param name="field"></param>
+	<param name="param"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:spesometro2014.InitController.NotCampiVuotiAll(System.Object@)">
+	<summary>
+ Funzione di SL per il controllo dei campi vuoti del form in questione, viene passata una list of controls
+ </summary>
+	<param name="obj"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:spesometro2014.InitController.Credenziali(System.Collections.Generic.List{System.String})">
+	<summary>
+ Funzione di SL chiamante la funzione di DASL per la convalida di accesso credenziali
+ </summary>
+	<param name="obj"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:spesometro2014.InitController.OpzioniGeneraliXls">
+	<summary>
+ Funzione di service layer per il controllo di esistenza dei percorsi di database e di output di xls
+ </summary>
+	<returns>True or False</returns>
+	<remarks></remarks>
+</member><member name="M:spesometro2014.InitController.OutputXLS">
+	<summary>
+ Controlla che sia valorizzato l'output di csv nel pannello opzioni.
+ </summary>
+	<returns></returns>
+ Se vuoto False
+ Se pieno True
+ <remarks></remarks>
+</member><member name="M:spesometro2014.Opzioni.Button7_Click(System.Object,System.EventArgs)">
+	<summary>
+ Chiudi
+ </summary>
+	<param name="sender"></param>
+	<param name="e"></param>
+	<remarks></remarks>
+</member><member name="M:spesometro2014.Opzioni.Button5_Click(System.Object,System.EventArgs)">
+	<summary>
+ Salva
+ </summary>
+	<param name="sender"></param>
+	<param name="e"></param>
+	<remarks></remarks>
+</member><member name="M:spesometro2014.Opzioni.Button14_Click(System.Object,System.EventArgs)">
+	<summary>
+ Salva e chiudi
+ </summary>
+	<param name="sender"></param>
+	<param name="e"></param>
+	<remarks></remarks>
+</member><member name="P:spesometro2014.My.Resources.Resources.ResourceManager">
+	<summary>
+  Restituisce l'istanza di ResourceManager nella cache utilizzata da questa classe.
+</summary>
+</member><member name="P:spesometro2014.My.Resources.Resources.Culture">
+	<summary>
+  Esegue l'override della proprietà CurrentUICulture del thread corrente per tutte le
+  ricerche di risorse eseguite utilizzando questa classe di risorse fortemente tipizzata.
+</summary>
+</member><member name="T:spesometro2014.My.Resources.Resources">
+	<summary>
+  Classe di risorse fortemente tipizzata per la ricerca di stringhe localizzate e così via.
+</summary>
+</member><member name="M:spesometro2014.WorkflowBL.mainXls(System.String)">
+	<summary>
+ MEtodo main di elaborazione del tracciato excell.
+ val = 0 --&gt; select
+ val = 1 --&gt; insert
+ val = 2 --&gt; update
+ val = 3 --&gt; delete
+ </summary>
+	<param name="val"></param>
+	<remarks></remarks>
+</member><member name="M:spesometro2014.WorkflowBL.Err(System.Exception)">
+	<summary>
+ Aggiunge errori alla lista di eccezzioni.
+ </summary>
+	<param name="ex"></param>
+	<remarks></remarks>
+</member><member name="M:spesometro2014.WorkflowBL.GeneraCSV(System.Collections.Generic.List{System.String})">
+	<summary>
+ Genera un file CSV
+ </summary>
+	<param name="obj"></param>
+	<remarks></remarks>
+</member><member name="M:spesometro2014.WorkflowBL.ElaboraDatiAggregati">
+	<summary>
+ elaborazione di tipo aggregato
+ </summary>
+	<remarks></remarks>
+</member><member name="M:spesometro2014.WorkflowBL.GeneraCSVTelematico(System.Collections.Generic.List{System.String})">
+	<summary>
+ Genera un file CSV
+ </summary>
+	<param name="obj"></param>
+	<remarks></remarks>
+</member><member name="M:spesometro2014.WorkflowBL.ElaboraStringa(System.Collections.Generic.List{System.String})">
+	<summary>
+ Elabora le stringhe di output e restituisce l'output stesso con i dati formattati secondo
+ controllo.
+ </summary>
+	<param name="valor"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:spesometro2014.WorkflowBL.preProcessing(System.String,System.String)">
+	<summary>
+ Verifica che il record corrente della tabella anagrafiche abbia dei movimenti correlati nella tabella
+ </summary>
+	<remarks></remarks>
+</member><member name="M:spesometro2014.WorkflowBL.prepare(System.String,System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String})">
+	<summary>
+ Funzione che accetta in ingresso parametri list of string ed
+ elabora la query sostituendoli
+ </summary>
+	<param name="query"></param>
+	<param name="table"></param>
+	<param name="field"></param>
+	<param name="param"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:spesometro2014.WorkflowBL.ProduciXls(System.Collections.Generic.List{System.String},System.Byte)">
+	<summary>
+ Apre e popola un file excel
+ </summary>
+	<param name="obj"></param>
+ obj = lista con i dati.
+ val = dividendo
+ <param name="val"></param>
+	<remarks></remarks>
+</member><member name="M:spesometro2014.DASL.Credenziali(System.Collections.Generic.List{System.String})">
+	<summary>
+ Funzione di DASL per la convalida delle credenziali di accesso 
+ </summary>
+	<param name="cred"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:spesometro2014.DASL.OleDBcommandConn">
+	<summary>
+ Funzione che restituisce un oggetto SQLCEconnection
+ </summary>
+	<returns></returns>
+	<remarks></remarks>
+</member>
+</members>
+</doc>
