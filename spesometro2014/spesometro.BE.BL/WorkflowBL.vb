@@ -960,7 +960,7 @@ prossimo:
                     Mid(StrinDariempire, 2) = CodiceFiscaleContribuente
                     Mid(StrinDariempire, 18) = "       1"
                     With My.Settings
-                        Mid(StrinDariempire, 74) = .CodiceFiscaleProduttoreSW
+                        'Mid(StrinDariempire, 74) = .CodiceFiscaleProduttoreSW
                         If ElaborazioneExcell.Tipocomunicazione = 0 Then
                             Mid(StrinDariempire, 90) = "1" 'ordinaria
                         ElseIf ElaborazioneExcell.Tipocomunicazione = 1 Then
@@ -998,12 +998,12 @@ prossimo:
                         Mid(StrinDariempire, 316) = denominazioneAzienda
                         Mid(StrinDariempire, 376) = eser
                         Mid(StrinDariempire, 382) = .CodiceFisacaleFornitore
-                        Mid(StrinDariempire, 398) = .CodiceCarica
-                        Mid(StrinDariempire, 400) = .DataInizioProcedura
-                        Mid(StrinDariempire, 408) = .DataFineProcedura
+                        'Mid(StrinDariempire, 398) = .CodiceCarica
+                        'Mid(StrinDariempire, 400) = .DataInizioProcedura
+                        'Mid(StrinDariempire, 408) = .DataFineProcedura
                         Mid(StrinDariempire, 511) = denominazioneAzienda
                         Mid(StrinDariempire, 571) = .CodiceFisacaleFornitore
-                        Mid(StrinDariempire, 587) = .NumeroCAF
+                        'Mid(StrinDariempire, 587) = .NumeroCAF
                         Mid(StrinDariempire, 592) = .ImpegnoATrasmettere
                         Mid(StrinDariempire, 594) = .DataImpegno
                         Mid(StrinDariempire, 1898) = "A"
@@ -1050,7 +1050,7 @@ prossimo:
                                     Mid(StrinDariempire, 2) = CodiceFiscaleContribuente
                                     numeroModuli += 1
                                     Mid(StrinDariempire, 18) = Right("        " & numeroModuli, 8)
-                                    Mid(StrinDariempire, 74) = .CodiceFiscaleProduttoreSW
+                                    'Mid(StrinDariempire, 74) = .CodiceFiscaleProduttoreSW
 
                                 End If 'fine posizionale
 
