@@ -116,6 +116,12 @@ spesometro2013
  elaborazione di tipo aggregato
  </summary>
 	<remarks></remarks>
+</member><member name="M:spesometro2014.WorkflowBL.GeneraCSVTelematico(System.Collections.Generic.List{System.String})">
+	<summary>
+ Genera un file CSV
+ </summary>
+	<param name="obj"></param>
+	<remarks></remarks>
 </member><member name="M:spesometro2014.WorkflowBL.ElaboraStringa(System.Collections.Generic.List{System.String})">
 	<summary>
  Elabora le stringhe di output e restituisce l'output stesso con i dati formattati secondo

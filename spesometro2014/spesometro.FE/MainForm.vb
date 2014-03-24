@@ -1,5 +1,6 @@
 ﻿Public Class MainForm
     Private flgCloseAllowed As Boolean = False
+    Public Telematico As Boolean = False
     Private Sub OpzioniToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OpzioniToolStripMenuItem.Click
         Opzioni.ShowDialog()
     End Sub
@@ -64,10 +65,13 @@
    
 
     Private Sub TracciatoTelematicoToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TracciatoTelematicoToolStripMenuItem.Click
-        If My.Settings.txtMod Then
+        If Not My.Settings.txtMod Then
             MsgBox("La funzione di elaborazione tracciato txt telematico," & vbCrLf & "non è stata attivata dal pannello Opzioni.")
+            Telematico = False
         Else
-            'elabora
+            Telematico = True
+            ElaborazioneExcell.ShowDialog()
+            Telematico = False
         End If
     End Sub
 

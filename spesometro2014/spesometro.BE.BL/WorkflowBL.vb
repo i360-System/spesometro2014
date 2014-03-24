@@ -16,8 +16,9 @@ Module WorkflowBL
     Const noteRicevute As Byte = 30
     Dim NomeFoglio As String
     Dim riga As Integer = 1
-    Dim CodiceFiscaleContribuente, CodiceAttivita, PeriodicitaIva As String
-
+    Dim CodiceFiscaleContribuente, denominazioneAzienda, CodiceAttivita, PeriodicitaIva, partitaIva, numeroTel, Fx, emai As String
+    Dim descrizioneAttivitaIva As String
+    Dim indirizzo, Cap, localita, provincia As String
 
     Dim exc As New List(Of Exception)
 
@@ -32,40 +33,68 @@ Module WorkflowBL
     ''' <remarks></remarks>
     Public Sub mainXls(ByVal val As String)
 
-        Select Case val.ToString
+        If My.Settings.txtMod = False Then
+            Select Case val.ToString
 
-            Case 0 ' analiticA
-                Try
-                    'Dim t As New List(Of String) : Dim f As New List(Of String) : Dim p As New List(Of String)
-                    'With t
-                    '    .Add("")
-                    'End With
-                    If InitController.OpzioniGeneraliXls Then
-                        ElaboraDati()
-                    Else
-                        MsgBox("Prima di iniziare l'elaborazione analitica," & vbCrLf & "devi inserire i file excel vuoti nel pannello ""Opzioni""," & _
-                               vbCrLf & "sotto il tab ""OutputXls"".")
-                        Exit Sub
-                    End If
-                    
-                Catch ex As Exception
-                    MsgBox(ex.ToString())
-                End Try
+                Case 0 ' analiticA
+                    Try
+                        'Dim t As New List(Of String) : Dim f As New List(Of String) : Dim p As New List(Of String)
+                        'With t
+                        '    .Add("")
+                        'End With
+                        If InitController.OpzioniGeneraliXls Then
+                            ElaboraDati()
+                        Else
+                            MsgBox("Prima di iniziare l'elaborazione analitica," & vbCrLf & "devi inserire i file excel vuoti nel pannello ""Opzioni""," & _
+                                   vbCrLf & "sotto il tab ""OutputXls"".")
+                            Exit Sub
+                        End If
 
-            Case 1 'aggregata
-                Try
-                    If InitController.OutputXLS Then
-                        ElaboraDatiAggregati()
-                    Else
-                        MsgBox("Prima di iniziare l'elaborazione aggregata," & vbCrLf & "devi inserire un percorso dove scrivere il file, nel pannello ""Opzioni""" & _
-                              vbCrLf & "sotto il tab ""Generale"".")
-                        Exit Sub
-                    End If
+                    Catch ex As Exception
+                        MsgBox(ex.ToString())
+                    End Try
 
-                Catch ex As Exception
-                    MsgBox(ex.ToString())
-                End Try
-        End Select
+                Case 1 'aggregata
+                    Try
+                        If InitController.OutputXLS Then
+                            ElaboraDatiAggregati()
+                        Else
+                            MsgBox("Prima di iniziare l'elaborazione aggregata," & vbCrLf & "devi inserire un percorso dove scrivere il file, nel pannello ""Opzioni""" & _
+                                  vbCrLf & "sotto il tab ""Generale"".")
+                            Exit Sub
+                        End If
+
+                    Catch ex As Exception
+                        MsgBox(ex.ToString())
+                    End Try
+            End Select
+        Else
+
+            Select Case val.ToString
+
+                Case 0 'analitico telematico
+
+                    MsgBox("Funzione non implementata")
+                    Exit Sub
+
+                Case 1 'aggregato telematico
+                    Try
+                        If InitController.OutputXLS Then
+                            ElaboraDatiAggregatiTelematici()
+                        Else
+                            MsgBox("Prima di iniziare l'elaborazione aggregata," & vbCrLf & "devi inserire un percorso dove scrivere il file, nel pannello ""Opzioni""" & _
+                                  vbCrLf & "sotto il tab ""Generale"".")
+                            Exit Sub
+                        End If
+                    Catch ex As Exception
+                        MsgBox(ex.ToString())
+                    End Try
+
+            End Select
+
+
+        End If
+
 
 
     End Sub
@@ -78,6 +107,355 @@ Module WorkflowBL
     Public Sub Err(ByVal ex As Exception)
 
         exc.Add(ex)
+
+    End Sub
+
+    Private Sub ElaboraDatiAggregatiTelematici()
+
+        Dim comboInvolucro As Byte
+        Dim Criterio, quer, anagrafica, azienda, esercizio As String
+
+
+        'Dim sitointernet, descrizioneAttivitaIva As String
+        Dim TipoComunicazione As Char
+        Dim mainDb As New DataSet
+        Dim mainAd As OleDbDataAdapter
+        Dim importoFattureEmesse As Double = 0 : Dim importoNoteCreditoEmesse As Double = 0
+        Dim importoFattureRicevute As Double = 0 : Dim importoNoteCreditoRicevute As Double = 0 : Dim IvaFattureEmesse As Double = 0
+
+        Dim IvaNoteCreditoEmesse As Double = 0 : Dim IvaNoteCreditoRicevute As Double = 0 : Dim IvaFattureRicevute As Double = 0
+        Dim numeroFattureEmesse As Long = 0 : Dim numeroNoteCreditoEmesse As Long = 0 : Dim numeroFattureRicevute As Long = 0
+        Dim numeroNoteCreditoRicevute As Long = 0 : Dim counter As Long = 0
+
+        If Not InitController.OutputXLS Then
+            MsgBox("Non è stato inserito un percorso di Output, dove verrà creato il file CSV.")
+            Exit Sub
+        End If
+        If (ElaborazioneExcell.UserControlMenuXLS1.TextBox2.Text = "") Then
+            MsgBox("Campo esercizio vuoto.", vbCritical)
+            Exit Sub
+        ElseIf Not IsNumeric(ElaborazioneExcell.UserControlMenuXLS1.TextBox2.Text) Then
+            MsgBox("Campo esercizio non valorizzato correttamente.", vbCritical)
+            Exit Sub
+        End If
+        If MsgBox("Procedere con l'inserimento in Excel: Azienda " & _
+           ElaborazioneExcell.UserControlMenuXLS1.TextBox1.Text & " Esercizio " & ElaborazioneExcell.UserControlMenuXLS1.TextBox2.Text & " ?", vbYesNo + vbQuestion + vbDefaultButton2, "Azienda") = vbNo Then
+            MsgBox("Procedura abbandonata", vbCritical)
+            Exit Sub
+        End If
+
+        ElaborazioneExcell.Labelcompletato.Visible = False
+        ElaborazioneExcell.Labelattendere.Visible = True
+
+        Dim lista = New List(Of String)
+
+        comboInvolucro = ElaborazioneExcell.UserControlMenuXLS1.ComboBox2.SelectedIndex
+
+        Dim table, tableMovimentiIvaTestata10, tableMovimentiIvaTestata37 As System.Data.DataTable : Dim tableEserciziContabili As System.Data.DataTable : Dim tableAnagrafiche As System.Data.DataTable
+        Dim tableMovimentiContabiliTestata, tableMovimentiIvaRighe As System.Data.DataTable
+        Dim listaAnagraficheSommatoria As New List(Of String)
+
+  
+        Try 'main elab
+
+            azienda = ElaborazioneExcell.UserControlMenuXLS1.TextBox1.Text
+            esercizio = ElaborazioneExcell.UserControlMenuXLS1.TextBox2.Text
+
+            ''lancio query select con input utente
+            Dim pp As New OleDb.OleDbConnection(DASL.MakeConnectionstring)
+            pp.Open()
+            Dim command As New OleDbCommand("SELECT * FROM Aziende WHERE Azienda='" & azienda & "'")
+            command.Connection = pp
+            Dim rslset = command.ExecuteReader()
+
+            If Not rslset.HasRows Then
+                MsgBox("Azienda non codificata: " & ElaborazioneExcell.UserControlMenuXLS1.TextBox1.Text & "." & _
+                       vbCrLf & "Oppure non sono stati impostati correttamente i parametri nel pannello opzioni:" & vbCrLf & _
+                       " credenziali, database, tipo di database. Non è stato possibile eseguire la query" & vbCrLf & _
+                       " di ricerca o la query di ricerca non ha prodotto risultati.")
+                ElaborazioneExcell.Labelattendere.Visible = False
+                pp.Close()
+                Exit Sub
+            Else
+
+                mainAd = New OleDbDataAdapter(command.CommandText.ToString, pp)
+                mainAd.FillSchema(mainDb, SchemaType.Source)
+                mainAd.Fill(mainDb, "Aziende")
+                table = mainDb.Tables("Aziende")
+                CodiceFiscaleContribuente = table.Rows(0)("CodiceFiscale").ToString()
+                TipoComunicazione = IIf(ElaborazioneExcell.UserControlMenuXLS1.ComboBox3.SelectedIndex = 0, "O", "S")
+                CodiceAttivita = table.Rows(0)("CodiceAttivitaIva").ToString()
+                partitaIva = table.Rows(0)("PartitaIva").ToString()
+                numeroTel = table.Rows(0)("Telefono").ToString()
+
+                Fx = table.Rows(0)("Fax").ToString()
+                emai = table.Rows(0)("EMail").ToString()
+                denominazioneAzienda = table.Rows(0)("Denominazione1").ToString()
+                indirizzo = table.Rows(0)("Indirizzo").ToString()
+                Cap = table.Rows(0)("Cap").ToString()
+                localita = table.Rows(0)("Localita").ToString()
+                provincia = table.Rows(0)("Provincia").ToString()
+                'sitointernet = table.Rows(0)("SitoInternet").ToString()
+                descrizioneAttivitaIva = table.Rows(0)("DescrizioneAttivitaIva").ToString()
+                pp.Close()
+                mainDb.Dispose()
+
+            End If
+            '''''''fine record A e B
+
+            Dim text1 = ElaborazioneExcell.UserControlMenuXLS1.TextBox1.Text
+            Dim text2 = ElaborazioneExcell.UserControlMenuXLS1.TextBox2.Text
+            ''''''eventualmente   qui recuperiamo periodicitaIva
+            Dim p As New OleDb.OleDbConnection(DASL.MakeConnectionstring)
+
+
+            '''''''''''fine periodicitaiva
+            ObjectTableMovimentiIvaTestata.Nullable()
+            preProcessing(azienda, esercizio)
+
+            ''Inizia l'elaborazione vera e propria con i dati ricavati fin qui.
+            quer = "SELECT * FROM Anagrafiche WHERE NOT (TipoConto = 'N') or TipoConto Is Null order by anagrafica"
+            p = DASL.OleDBcommandConn()
+            p.Open()
+            mainAd = New OleDbDataAdapter(quer, p)
+            mainDb = New DataSet
+            mainAd.FillSchema(mainDb, SchemaType.Source)
+
+            mainAd.Fill(mainDb, "Anagrafiche")
+            tableAnagrafiche = mainDb.Tables("Anagrafiche")
+
+            mainAd = Nothing
+            mainDb.Dispose()
+            p.Close()
+            ''''''''''''''''*'*****''**'***'*'*'**'*'*'**'*'*'*'*'*'*'*'*'**'*'*'*
+
+
+            '''''elaborazione dei risultati ottenuti
+            Dim ArrFiveValue() As String : Dim flg As Boolean = True
+            ElaborazioneExcell.ProgressBar1.Value = Nothing : ElaborazioneExcell.ProgressBar1.Minimum = 0
+            ElaborazioneExcell.ProgressBar1.Maximum = tableAnagrafiche.Rows.Count : ElaborazioneExcell.ProgressBar1.Step = 1
+
+            Dim indiceArray As Integer : Dim countarr = arr.GetUpperBound(1)
+
+            For Each r As DataRow In tableAnagrafiche.Rows
+
+                flg = True
+
+                indiceArray = 0 : Dim conter As Integer = 0
+
+                For n = 0 To countarr 'Match tra numero anagrafica da processare e tutti i record prelevati in anagrafiche
+
+
+                    If arr(0, n) = r("anagrafica").ToString() Then
+
+                        indiceArray = n
+                        flg = False
+                        conter += 1
+                        Exit For
+
+                    End If
+
+                    conter += 1
+
+                Next n
+
+                If flg Then GoTo prossimo
+
+                importoFattureEmesse = 0 : importoNoteCreditoEmesse = 0
+                importoFattureRicevute = 0 : importoNoteCreditoRicevute = 0 : IvaFattureEmesse = 0
+                IvaNoteCreditoEmesse = 0 : IvaNoteCreditoRicevute = 0 : IvaFattureRicevute = 0
+                numeroFattureEmesse = 0 : numeroNoteCreditoEmesse = 0 : numeroFattureRicevute = 0
+                numeroNoteCreditoRicevute = 0
+                anagrafica = r("anagrafica").ToString()
+                ArrFiveValue = {r("Denominazione1").ToString, _
+                                            IIf(IsNothing(r("Denominazione2").ToString), "", r("Denominazione2").ToString), _
+                                            IIf(IsNothing(r("PartitaIva").ToString), "", r("PartitaIva").ToString), _
+                                            IIf(IsNothing(r("CodiceFiscale").ToString), "", r("CodiceFiscale").ToString), _
+                                            IIf(IsNothing(UCase(r("TipoConto").ToString)), "", UCase(r("TipoConto").ToString))}
+
+                Dim arrlista() As String = Nothing
+
+                If ObjectTableMovimentiIvaTestata.arr(1, indiceArray) = "10" Then
+
+                    'restituiamo tableMovimentiIvaTestata
+                    tableMovimentiIvaTestata10 = ObjectTableMovimentiIvaTestata.tableMovimentiIvaTestata(conter - 1)
+
+                    For Each riga As DataRow In tableMovimentiIvaTestata10.Rows
+
+                        Dim queryMovimentiContabiliTestata = "Select * from MovimentiContabiliTestata where azienda = '" & azienda & "' " _
+                                          & "And esercizio = '" & esercizio & "' And NumeroPrimaNota = " & riga("NumeroPrimaNota").ToString
+
+                        p = DASL.OleDBcommandConn()
+                        p.Open()
+                        mainAd = New OleDbDataAdapter(queryMovimentiContabiliTestata, p)
+                        mainDb = New DataSet
+                        mainAd.FillSchema(mainDb, SchemaType.Source)
+
+                        mainAd.Fill(mainDb, "MovimentiContabiliTestata")
+                        tableMovimentiContabiliTestata = mainDb.Tables("MovimentiContabiliTestata")
+
+                        mainAd = Nothing
+                        mainDb.Dispose()
+                        p.Close()
+
+                        Dim queryMovimentiIvaRighe = "Select * from MovimentiIvaRighe where azienda ='" & azienda & _
+                                  "' and esercizio = '" & esercizio & "' and tiporegistro = 'V' and numeroregistro = 1 and " _
+                                  & "numeroprotocollo = " & riga("NumeroProtocollo")
+                        p = DASL.OleDBcommandConn()
+                        p.Open()
+                        mainAd = New OleDbDataAdapter(queryMovimentiIvaRighe, p)
+                        mainDb = New DataSet
+                        mainAd.FillSchema(mainDb, SchemaType.Source)
+
+                        mainAd.Fill(mainDb, "MovimentiIvaRighe")
+                        tableMovimentiIvaRighe = mainDb.Tables("MovimentiIvaRighe")
+
+                        mainAd = Nothing
+                        mainDb.Dispose()
+                        p.Close()
+
+                        Select Case tableMovimentiContabiliTestata.Rows(0)("Causale").ToString()
+
+                            Case "001" 'Fattureemesse
+                                'totalizzazione imponibili iva e numero documenti
+
+
+                                For Each rig As DataRow In tableMovimentiIvaRighe.Rows
+
+                                    importoFattureEmesse += CDbl(rig("Imponibile").ToString)
+                                    IvaFattureEmesse += CDbl(rig("Iva").ToString)
+                                    numeroFattureEmesse += 1
+
+                                Next
+
+                            Case "003" 'NoteCreditoemesse
+                                'totalizzazione imponibili iva e numero documenti
+
+                                For Each rig As DataRow In tableMovimentiIvaRighe.Rows
+
+                                    importoNoteCreditoEmesse += rig("Imponibile").ToString
+                                    IvaNoteCreditoEmesse += rig("Iva").ToString
+                                    numeroNoteCreditoEmesse += 1
+
+                                Next
+
+                        End Select
+
+                    Next
+
+                End If
+
+                If ObjectTableMovimentiIvaTestata.arr(1, indiceArray) = "37" Then
+
+                    tableMovimentiIvaTestata37 = ObjectTableMovimentiIvaTestata.tableMovimentiIvaTestata(conter - 1)
+
+                    For Each riga As DataRow In tableMovimentiIvaTestata37.Rows
+
+                        Dim queryMovimentiContabiliTestata = "Select * from MovimentiContabiliTestata where azienda = '" & azienda & "' " _
+                                          & "And esercizio = '" & esercizio & "' And NumeroPrimaNota = " & riga("NumeroPrimaNota").ToString
+
+                        p = DASL.OleDBcommandConn()
+                        p.Open()
+                        mainAd = New OleDbDataAdapter(queryMovimentiContabiliTestata, p)
+                        mainDb = New DataSet
+                        mainAd.FillSchema(mainDb, SchemaType.Source)
+
+                        mainAd.Fill(mainDb, "MovimentiContabiliTestata")
+                        tableMovimentiContabiliTestata = mainDb.Tables("MovimentiContabiliTestata")
+
+                        mainAd = Nothing
+                        mainDb.Dispose()
+                        p.Close()
+
+                        Dim queryMovimentiIvaRighe = "Select * from MovimentiIvaRighe where azienda ='" & azienda & _
+                                  "' and esercizio = '" & esercizio & "' and tiporegistro = 'A' and numeroregistro = 11 and " _
+                                  & "numeroprotocollo = " & riga("NumeroProtocollo")
+                        p = DASL.OleDBcommandConn()
+                        p.Open()
+                        mainAd = New OleDbDataAdapter(queryMovimentiIvaRighe, p)
+                        mainDb = New DataSet
+                        mainAd.FillSchema(mainDb, SchemaType.Source)
+
+                        mainAd.Fill(mainDb, "MovimentiIvaRighe")
+                        tableMovimentiIvaRighe = mainDb.Tables("MovimentiIvaRighe")
+
+                        mainAd = Nothing
+                        mainDb.Dispose()
+                        p.Close()
+
+                        Select Case tableMovimentiContabiliTestata.Rows(0)("Causale").ToString()
+
+                            Case "011" 'Fatturericevute
+                                'totalizzazione imponibili iva e numero documenti
+
+
+                                For Each rig As DataRow In tableMovimentiIvaRighe.Rows
+
+                                    importoFattureRicevute += CDbl(rig("Imponibile").ToString)
+                                    IvaFattureRicevute += CDbl(rig("Iva").ToString)
+                                    numeroFattureRicevute += 1
+
+                                Next
+
+                            Case "015" 'NoteCreditoRicevute
+                                'totalizzazione imponibili iva e numero documenti
+
+                                For Each rig As DataRow In tableMovimentiIvaRighe.Rows
+
+                                    importoNoteCreditoRicevute += CDbl(rig("Imponibile").ToString)
+                                    IvaNoteCreditoRicevute += CDbl(rig("Iva").ToString)
+                                    numeroNoteCreditoRicevute += 1
+
+                                Next
+
+                        End Select
+                        'riga("").ToString()
+
+                    Next
+                End If                          'piva                   'CF
+                arrlista = {esercizio, ArrFiveValue(2).ToString, ArrFiveValue(3).ToString, _
+                            numeroFattureEmesse, numeroFattureRicevute, importoFattureEmesse, _
+                            IvaFattureEmesse, importoNoteCreditoEmesse, IvaNoteCreditoEmesse, _
+                            importoFattureRicevute, IvaFattureRicevute, importoNoteCreditoRicevute, _
+                            IvaNoteCreditoRicevute}
+                'anno esercizio             0
+                'piva societa in questione  1
+                'Cf societa in questione    2
+                'NFE                        3
+                'NFR                        4
+                'IFE                        5
+                'IvFE                       6
+                'INE                        7
+                'IvNE                       8
+                'IFR                        9
+                'IvFR                      10
+                'INR                       11
+                'IvNR                      13
+
+                If (importoFattureEmesse + IvaFattureEmesse + importoNoteCreditoEmesse + IvaNoteCreditoEmesse + importoFattureRicevute + IvaFattureRicevute _
+                    + importoNoteCreditoRicevute + IvaNoteCreditoRicevute) > 0 Then
+                    lista.AddRange(arrlista)
+                    counter += 1
+                End If
+prossimo:
+                ElaborazioneExcell.ProgressBar1.PerformStep() : ElaborazioneExcell.ProgressBar1.Refresh()
+            Next
+
+            ElaborazioneExcell.Labelattendere.Visible = False
+            ElaborazioneExcell.Labelcompletato.Visible = True
+            'Dim appo = ElaboraStringa(lista)
+            Dim appo As New List(Of String)
+            appo.AddRange(lista)
+            appo.Add(counter.ToString)
+            GeneraCSVTelematico(appo)
+            ElaborazioneExcell.Labelxls.Visible = False
+            ElaborazioneExcell.Labelelaborazione.Visible = False
+            ElaborazioneExcell.Labelcompletato.Visible = True
+            MsgBox("E' terminata la fase di importazione documenti Telematici", vbInformation)
+
+        Catch ex As Exception
+
+        End Try
 
     End Sub
 
@@ -129,46 +507,46 @@ Module WorkflowBL
 
                     For i = p To (ciclo * 19) - 1  'campi
 
-                        'If ((i + 1) Mod 4 = 0) Then ' centro la quarta posizione o indice 3
+                        If ((i + 1) Mod 4 = 0) Then ' centro la quarta posizione o indice 3
 
-                        '    If Not obj(i).ToString() = "" Then
-                        '        sw.Write(obj(i).ToString() & ";") ' compilo colonna D
-                        '        colonnaD = True
-                        '        colonnaE = False
-                        '        colonnaF = False
-                        '    Else
-                        '        sw.Write(";") 'metto vuoto e controllo colnne E ed F
-                        '        colonnaD = False
-                        '        colonnaE = True
-                        '    End If
+                            If Not obj(i).ToString() = "" Then
+                                sw.Write(obj(i).ToString() & ";") ' compilo colonna D
+                                colonnaD = True
+                                colonnaE = False
+                                colonnaF = False
+                            Else
+                                sw.Write(";") 'metto vuoto e controllo colnne E ed F
+                                colonnaD = False
+                                colonnaE = True
+                            End If
 
-                        'ElseIf ((i + 1) Mod 5 = 0) Then ' centro la quinta posizione o indice 4
+                        ElseIf ((i + 1) Mod 5 = 0) Then ' centro la quinta posizione o indice 4
 
-                        '    If colonnaE Then
-                        '        If Not obj(i).ToString() = "" Then
-                        '            sw.Write(obj(i).ToString() & ";") ' compilo colonna E
-                        '            colonnaF = False
-                        '        Else
-                        '            sw.Write(";") 'metto vuoto e compilo F
-                        '            colonnaE = False
-                        '            colonnaF = True
-                        '        End If
-                        '    End If
+                            If colonnaE Then
+                                If Not obj(i).ToString() = "" Then
+                                    sw.Write(obj(i).ToString() & ";") ' compilo colonna E
+                                    colonnaF = False
+                                Else
+                                    sw.Write(";") 'metto vuoto e compilo F
+                                    colonnaE = False
+                                    colonnaF = True
+                                End If
+                            End If
 
-                        'ElseIf ((i + 1) Mod 6 = 0) Then ' centro la sesta posizione o indice 5
+                        ElseIf ((i + 1) Mod 6 = 0) Then ' centro la sesta posizione o indice 5
 
-                        '    If colonnaF Then
+                            If colonnaF Then
 
-                        '        sw.Write(obj(i).ToString() & ";") ' compilo colonna F
-                        '        colonnaF = False
+                                sw.Write(obj(i).ToString() & ";") ' compilo colonna F
+                                colonnaF = False
 
-                        '    End If
+                            End If
 
-                        'Else ' lascio correre per tutte le altre posizioni
+                        Else ' lascio correre per tutte le altre posizioni
 
-                        sw.Write(obj(i).ToString() & ";")
+                            sw.Write(obj(i).ToString() & ";")
 
-                        'End If
+                        End If
 
                     Next
 
@@ -291,6 +669,7 @@ Module WorkflowBL
             mainDb.Dispose()
             ObjectTableMovimentiIvaTestata.Nullable()
             preProcessing(azienda, esercizio)
+
             ''Inizia l'elaborazione vera e propria con i dati ricavati fin qui.
             quer = "SELECT * FROM Anagrafiche WHERE NOT (TipoConto = 'N') or TipoConto Is Null order by anagrafica"
             p = DASL.OleDBcommandConn()
@@ -516,8 +895,385 @@ prossimo:
 
         Catch ex As Exception
             MsgBox(ex.ToString & vbCrLf & "Elaborazione terminata.")
+            If ElaborazioneExcell.Labelattendere.Visible = True Then ElaborazioneExcell.Labelattendere.Visible = False
         End Try
 
+
+    End Sub
+
+    ''' <summary>
+    ''' Genera un file CSV
+    ''' </summary>
+    ''' <param name="obj"></param>
+    ''' <remarks></remarks>
+    Private Sub GeneraCSVTelematico(ByVal obj As List(Of String))
+
+        Dim numeroQuadri As Integer = 0
+        Dim strin As String = Nothing
+        Dim totalizzazioneRighe As Integer = 0
+        For i = 1 To 1900
+            strin &= " "
+        Next
+        Dim blank As String = "                " '16 spazi
+        Dim StrinDariempire As String = strin
+
+
+        Dim count, contatore As Integer
+        Dim righe As Integer = 0 : Dim p As Integer = 0
+        Dim nomeFile As String = Nothing
+
+        ''if nomefile selezionato then metti quello altrimenti autocstruisco il nome
+        nomeFile = "spesometro_" & ElaborazioneExcell.UserControlMenuXLS1.TextBox1.Text.ToString & "_" & ElaborazioneExcell.UserControlMenuXLS1.TextBox2.Text.ToString & ".txt"
+        ElaborazioneExcell.Labelcompletato.Visible = False
+        ElaborazioneExcell.Labelelaborazione.Visible = True
+        Cursor.Current = Cursors.WaitCursor
+        Dim tempFile2 = My.Settings.OutPutXls & "\" & nomeFile
+
+        'File.Create(tempFile2)
+        Using sw = New StreamWriter(tempFile2)
+            Try
+                Dim eser, Tipoel As String
+                eser = ElaborazioneExcell.UserControlMenuXLS1.TextBox2.Text.ToString
+                Tipoel = IIf(ElaborazioneExcell.UserControlMenuXLS1.ComboBox3.SelectedIndex = 0, "O", "S")
+                Try '' Record di testa A
+                    Mid(StrinDariempire, 1) = "A"
+                    Mid(StrinDariempire, 16) = "NSP00"
+                    With My.Settings
+                        Mid(StrinDariempire, 21) = .TipoFornitore
+                        Mid(StrinDariempire, 23) = .CodiceFisacaleFornitore
+                        Mid(StrinDariempire, 1898) = "A"
+                        Mid(StrinDariempire, 1899) = Chr(13) & Chr(10)
+                        sw.WriteLine(StrinDariempire)
+                        'sw.WriteLine(vbCrLf)
+                        'record vuoto'sw.WriteLine(";;;;;;;;;;;;;;;;;;;;;;;")
+                    End With
+                Catch ex As Exception
+                    MsgBox("Line " & ex.Message & " is invalid.  Skipping. Elaborazione terminata.")
+                    Exit Sub
+                End Try
+
+                StrinDariempire = strin
+
+                Try '' Record di testa B
+                    Mid(StrinDariempire, 1) = "B"
+                    Mid(StrinDariempire, 2) = CodiceFiscaleContribuente
+                    Mid(StrinDariempire, 18) = "00000001"
+                    With My.Settings
+                        Mid(StrinDariempire, 74) = .CodiceFiscaleProduttoreSW
+                        If ElaborazioneExcell.Tipocomunicazione = 0 Then
+                            Mid(StrinDariempire, 90) = "1" 'ordinaria
+                        ElseIf ElaborazioneExcell.Tipocomunicazione = 1 Then
+                            Mid(StrinDariempire, 91) = "0" 'sostitutiva 
+                        ElseIf ElaborazioneExcell.Tipocomunicazione = 2 Then
+                            Mid(StrinDariempire, 92) = "0" 'sostitutiva (not implemented)
+                        End If
+                        Mid(StrinDariempire, 116) = "1" 'dati aggregati, quindi valore fisso perche siamo nell'aelaborazione aggregata
+                        Mid(StrinDariempire, 117) = "0" 'dati analatici, mettiamo 0 perche non siamo nell'eleaborazione analitica
+                        Mid(StrinDariempire, 118) = "1" 'Quadro FA (avendo scelto aggregato mettiamo 1)
+                        Mid(StrinDariempire, 119) = "0" 'Quadro SA enumera le somme ricevute o dat senza fattura (non esiste)
+                        Mid(StrinDariempire, 120) = "0" 'Quadro BL clienti/fornitori black list (stati canaglia)
+                        Mid(StrinDariempire, 121) = "0" 'Quadro FE fatture emesse
+                        Mid(StrinDariempire, 122) = "0" 'Quadro FR ricevute
+                        Mid(StrinDariempire, 123) = "0" 'Quadro NE note credito emesse
+                        Mid(StrinDariempire, 124) = "0" 'Quadro NR note credito ricevute
+                        Mid(StrinDariempire, 125) = "0" 'Quadro DF 
+                        Mid(StrinDariempire, 126) = "0" 'Quadro fn
+                        Mid(StrinDariempire, 127) = "0" 'quadro SE
+                        Mid(StrinDariempire, 128) = "0" 'quadro TU
+                        Mid(StrinDariempire, 129) = "0" 'quadro TA, riepilogo!
+                        Mid(StrinDariempire, 130) = partitaIva
+                        Mid(StrinDariempire, 141) = CodiceAttivita
+                        For Each charac As Char In numeroTel
+                            If Not IsNumeric(charac) Then Replace(charac, charac, "")
+                        Next
+                        If numeroTel.Length > 12 Then numeroTel = Mid(numeroTel, 1, 12)
+                        Mid(StrinDariempire, 147) = numeroTel
+                        For Each chrt As Char In Fx
+                            If Not IsNumeric(chrt) Then Replace(chrt, chrt, "")
+                        Next
+                        If Fx.Length > 12 Then Fx = Mid(Fx, 1, 12)
+                        Mid(StrinDariempire, 159) = Fx
+                        Mid(StrinDariempire, 171) = emai
+                        Mid(StrinDariempire, 316) = denominazioneAzienda
+                        Mid(StrinDariempire, 376) = eser
+                        Mid(StrinDariempire, 382) = .CodiceFisacaleFornitore
+                        Mid(StrinDariempire, 398) = .CodiceCarica
+                        Mid(StrinDariempire, 400) = .DataInizioProcedura
+                        Mid(StrinDariempire, 408) = .DataFineProcedura
+                        Mid(StrinDariempire, 511) = denominazioneAzienda
+                        Mid(StrinDariempire, 571) = .CodiceFisacaleFornitore
+                        Mid(StrinDariempire, 587) = .NumeroCAF
+                        Mid(StrinDariempire, 592) = .ImpegnoATrasmettere
+                        Mid(StrinDariempire, 594) = .DataImpegno
+                        Mid(StrinDariempire, 1898) = "A"
+                        Mid(StrinDariempire, 1899) = Chr(13) & Chr(10)
+                        sw.WriteLine(StrinDariempire)
+
+                        'sw.WriteLine(vbCrLf)
+                        'record vuoto'sw.WriteLine(";;;;;;;;;;;;;;;;;;;;;;;")
+                    End With
+                Catch ex As Exception
+                    MsgBox("Line " & ex.Message & " is invalid.  Skipping. Elaborazione terminata.")
+                    Exit Sub
+                End Try
+
+                Try '' Record C - Dati
+                    count = obj.Last()
+                    obj.RemoveAt(obj.Count - 1)
+                    righe = (obj.Count) / 13
+                    Dim numeroModuli As Integer = 0
+                    StrinDariempire = strin
+                    Dim i = 1
+                    Dim colonnaD As Boolean = False
+                    Dim colonnaE As Boolean = False
+                    Dim colonnaF As Boolean = False
+
+                    Dim entraPosizionale As Boolean = True
+                    p = 0
+                    Dim counterGiro As Integer = 1
+
+                    For ciclo = 1 To righe 'numero di clienti/fornitori da processare
+
+
+                        For i = p To (ciclo * 13) - 1 'ciclo sui 13 variabili '39 --->52
+
+                            If (i > (obj.Count - 1)) Then Exit For
+
+
+                            With My.Settings
+                                If entraPosizionale Then
+
+                                    'parte posizionale
+                                    entraPosizionale = False
+                                    Mid(StrinDariempire, 1) = "C"
+                                    Mid(StrinDariempire, 2) = CodiceFiscaleContribuente
+                                    numeroModuli += 1
+                                    Mid(StrinDariempire, 18) = Right("        " & numeroModuli, 8)
+                                    Mid(StrinDariempire, 74) = .CodiceFiscaleProduttoreSW
+
+                                End If 'fine posizionale
+
+                                'righe/ciclo                1   2    3   <----ciclo
+
+                                'anno esercizio             0   13   26   <------i          '''
+                                'piva societa in questione  1   14   27                     '''FA001
+                                'Cf societa in questione    2   15   28                     '''FA002
+                                'NFE                        3   16   29                     '''FA004
+                                'NFR                        4   17   30                     '''FA005
+                                'IFE                        5   18   31                     '''FA007
+                                'IvFE                       6   19   32                     '''FA008
+                                'INE                        7   20   33                     '''FA010
+                                'IvNE                       8   21   34                     '''FA011
+                                'IFR                        9   22   35                     '''FA012
+                                'IvFR                      10   23   36                     '''FA013
+                                'INR                       11   24   37                     '''FA015
+                                'IvNR                      12   25   38                     '''FA016
+                                '                                                           '''FA003 -> vale 1 costante
+                                Select Case i - (13 * (ciclo - 1))
+                                    Case 1 'piva
+                                        If Not obj(i).ToString() = "" Then
+                                            Mid(StrinDariempire, 90 + (24 * contatore)) = "FA00" & Trim(Str(counterGiro)) & "001" & Left(obj(i).ToString() & blank, 16) & "FA00" & Trim(Str(counterGiro)) & "003" & Left(blank, 15) & "1"
+                                            contatore += 2
+                                            numeroQuadri += 2
+                                            'sw.Write(obj(i).ToString() & ";") ' compilo colonna D
+                                            colonnaD = True
+                                            colonnaE = False
+                                            'colonnaF = False
+                                        Else
+                                            ' sw.Write(";") 'metto vuoto e controllo colnne E ed F
+                                            colonnaD = False
+                                            colonnaE = True
+                                        End If
+
+                                    Case 2 'CF
+
+                                        If colonnaE Then
+                                            If Not obj(i).ToString() = "" Then
+                                                Mid(StrinDariempire, 90 + (24 * contatore)) = "FA00" & Trim(Str(counterGiro)) & "002" & Left(obj(i).ToString() & blank, 16) & "FA00" & Trim(Str(counterGiro)) & "003" & Left(blank, 15) & "1"
+                                                contatore += 2
+                                                numeroQuadri += 2
+                                                'sw.Write(obj(i).ToString() & ";") ' compilo colonna E
+                                                'colonnaF = False
+                                            Else
+                                                'sw.Write(";") 'metto vuoto e compilo F
+                                                colonnaE = False
+                                                'colonnaF = True
+                                            End If
+
+                                        End If
+
+                                    Case 3 'NFE
+
+                                        If Not obj(i).ToString() = "0" Then
+                                            Mid(StrinDariempire, 90 + (24 * contatore)) = "FA00" & Trim(Str(counterGiro)) & "004" & Right(blank & obj(i).ToString(), 16)
+                                            contatore += 1
+                                            numeroQuadri += 1
+                                        End If
+
+                                    Case 4 'NFR
+
+                                        If Not obj(i).ToString() = "0" Then
+                                            Mid(StrinDariempire, 90 + (24 * contatore)) = "FA00" & Trim(Str(counterGiro)) & "005" & Right(blank & obj(i).ToString(), 16)
+                                            contatore += 1
+                                            numeroQuadri += 1
+                                        End If
+
+                                    Case 5 'IFE
+
+                                        If Not obj(i).ToString() = "0" Then
+                                            Mid(StrinDariempire, 90 + (24 * contatore)) = "FA00" & Trim(Str(counterGiro)) & "007" & Right(blank & obj(i).ToString(), 16)
+                                            contatore += 1
+                                            numeroQuadri += 1
+                                        End If
+
+                                    Case 6 'IvFE
+
+                                        If Not obj(i).ToString() = "0" Then
+                                            Mid(StrinDariempire, 90 + (24 * contatore)) = "FA00" & Trim(Str(counterGiro)) & "008" & Right(blank & obj(i).ToString(), 16)
+                                            contatore += 1
+                                            numeroQuadri += 1
+                                        End If
+
+                                    Case 7 'INE
+
+                                        If Not obj(i).ToString() = "0" Then 'tot importo note credito emesse
+                                            Mid(StrinDariempire, 90 + (24 * contatore)) = "FA00" & Trim(Str(counterGiro)) & "010" & Left(blank & obj(i).ToString(), 16)
+                                            contatore += 1
+                                            numeroQuadri += 1
+                                        End If
+
+                                    Case 8 'IvNE
+
+                                        If Not obj(i).ToString() = "0" Then
+                                            Mid(StrinDariempire, 90 + (24 * contatore)) = "FA00" & Trim(Str(counterGiro)) & "011" & Right(blank & obj(i).ToString(), 16)
+                                            contatore += 1
+                                            numeroQuadri += 1
+                                        End If
+
+                                    Case 9 'IFR
+
+                                        If Not obj(i).ToString() = "0" Then
+                                            Mid(StrinDariempire, 90 + (24 * contatore)) = "FA00" & Trim(Str(counterGiro)) & "012" & Right(blank & obj(i).ToString(), 16)
+                                            contatore += 1
+                                            numeroQuadri += 1
+                                        End If
+
+                                    Case 10 'IvFR
+
+                                        If Not obj(i).ToString() = "0" Then
+                                            Mid(StrinDariempire, 90 + (24 * contatore)) = "FA00" & Trim(Str(counterGiro)) & "013" & Right(blank & obj(i).ToString(), 16)
+                                            contatore += 1
+                                            numeroQuadri += 1
+                                        End If
+
+                                    Case 11 'INR    
+
+                                        If Not obj(i).ToString() = "0" Then
+                                            Mid(StrinDariempire, 90 + (24 * contatore)) = "FA00" & Trim(Str(counterGiro)) & "015" & Right(blank & obj(i).ToString(), 16)
+                                            contatore += 1
+                                            numeroQuadri += 1
+                                        End If
+
+                                    Case 12  'IvNR
+
+                                        If Not obj(i).ToString() = "0" Then
+                                            Mid(StrinDariempire, 90 + (24 * contatore)) = "FA00" & Trim(Str(counterGiro)) & "016" & Right(blank & obj(i).ToString(), 16)
+                                            contatore += 1
+                                            numeroQuadri += 1
+                                        End If
+
+                                End Select
+
+                            End With
+
+                        Next
+
+                        p = ciclo * 13 '39
+                        counterGiro += 1
+
+                        If counterGiro Mod 3 = 0 Then
+
+                            ' sw.WriteLine(StrinDariempire)
+                            entraPosizionale = True
+                            contatore = 0 ' per il prossimo giro
+                            counterGiro = 0
+                            Mid(StrinDariempire, 1898) = "A"
+                            Mid(StrinDariempire, 1899) = Chr(13) & Chr(10)
+                            'scrive record
+                            sw.WriteLine(StrinDariempire)
+                            totalizzazioneRighe += 1
+                            StrinDariempire = strin
+                        ElseIf ciclo = righe Then ' caso in cui: record finale, e diverso da 3
+                            Mid(StrinDariempire, 1898) = "A"
+                            Mid(StrinDariempire, 1899) = Chr(13) & Chr(10)
+                            sw.WriteLine(StrinDariempire)
+                            totalizzazioneRighe += 1
+                            StrinDariempire = strin
+
+                        End If
+
+                    Next
+
+
+
+                Catch ex As Exception
+                    MsgBox("Line " & ex.Message & " is invalid.  Skipping. Elaborazione terminata.")
+                    sw.Close()
+                    sw.Dispose()
+                    Exit Sub
+                End Try
+
+                Try 'Record E
+                    With My.Settings
+                        StrinDariempire = strin
+                        Mid(StrinDariempire, 1) = "E"
+                        Mid(StrinDariempire, 2) = CodiceFiscaleContribuente
+                        Mid(StrinDariempire, 18) = "       1" ' 7 space and number one
+                        Mid(StrinDariempire, 90) = "TA001001" & Right(blank & numeroQuadri.ToString, 16)
+                        Mid(StrinDariempire, 1898) = "A"
+                        Mid(StrinDariempire, 1899) = Chr(13) & Chr(10)
+                        sw.WriteLine(StrinDariempire)
+                        StrinDariempire = strin
+                    End With
+                Catch ex As Exception
+                    MsgBox("Line " & ex.Message & " is invalid.  Skipping. Elaborazione terminata.")
+                    sw.Close()
+                    sw.Dispose()
+                    Exit Sub
+                End Try
+
+
+                Try 'record Z
+                    Mid(StrinDariempire, 1) = "Z"
+                    'Mid(StrinDariempire, 2) = CodiceFiscaleContribuente
+                    Mid(StrinDariempire, 16) = "        1" ' 8 space and number one
+                    Mid(StrinDariempire, 25) = Right("         " & totalizzazioneRighe.ToString, 9)
+                    Mid(StrinDariempire, 43) = "        1" ' 8 space and number one
+                    Mid(StrinDariempire, 1898) = "A"
+                    Mid(StrinDariempire, 1899) = Chr(13) & Chr(10)
+                    sw.WriteLine(StrinDariempire)
+                    StrinDariempire = strin
+
+                Catch ex As Exception
+                    MsgBox("Line " & ex.Message & " is invalid.  Skipping. Elaborazione terminata.")
+                    sw.Close()
+                    sw.Dispose()
+                    Exit Sub
+                End Try
+                Cursor.Current = Cursors.Default
+                sw.Close()
+
+            Catch ex As Exception
+
+                ex.ToString()
+
+            Finally
+
+                sw.Dispose()
+
+            End Try
+
+        End Using
 
     End Sub
 
@@ -605,7 +1361,7 @@ prossimo:
 
                 Next
             End If
-           
+
             '
         Next
         Dim importo1, importo2, importo3, importo4, importo5, importo6 As Double
@@ -729,7 +1485,7 @@ prossimo:
 
 
         End If
-      
+
         Return strin
 
     End Function
@@ -1356,6 +2112,72 @@ Prossimo:
         Shared FieldX = "@fieldX"
         Shared ParamX = "@paramX"
     End Structure
+
+
 #End Region
 
+    '<ObsoleteAttribute("Microsoft.VisualBasic.Compatibility.* classes are obsolete and supported within 32 bit processes only. http://go.microsoft.com/fwlink/?linkid=160862")> _
+    'Public Class FixedLengthString
+
+    'End Class
+
+
 End Module
+'File.Delete(inputFile)'File.Move(tempfile, inputFile)
+'count = obj.Last()
+'obj.RemoveAt(obj.Count - 1)
+'righe = (obj.Count) / 19
+'Dim colonnaD As Boolean = False
+'Dim colonnaE As Boolean = False
+'Dim colonnaF As Boolean = False
+'If ElaborazioneExcell.Tipocomunicazione = 0 Then
+'    Mid(StrinDariempire, 90) = "1" 'ordinaria
+'ElseIf ElaborazioneExcell.Tipocomunicazione = 1 Then
+'    Mid(StrinDariempire, 91) = "0" 'sostitutiva 
+'ElseIf ElaborazioneExcell.Tipocomunicazione = 2 Then
+'    Mid(StrinDariempire, 92) = "0" 'sostitutiva (not implemented)
+'End If
+
+'Mid(StrinDariempire, 116) = "1" 'dati aggregati, quindi valore fisso perche siamo nell'aelaborazione aggregata
+'Mid(StrinDariempire, 117) = "0" 'dati analatici, mettiamo 0 perche non siamo nell'eleaborazione analitica
+'Mid(StrinDariempire, 118) = "1" 'Quadro FA (avendo scelto aggregato mettiamo 1)
+'Mid(StrinDariempire, 119) = "0" 'Quadro SA enumera le somme ricevute o dat senza fattura (non esiste)
+'Mid(StrinDariempire, 120) = "0" 'Quadro BL clienti/fornitori black list (stati canaglia)
+'Mid(StrinDariempire, 121) = "0" 'Quadro FE fatture emesse
+'Mid(StrinDariempire, 122) = "0" 'Quadro FR ricevute
+'Mid(StrinDariempire, 123) = "0" 'Quadro NE note credito emesse
+'Mid(StrinDariempire, 124) = "0" 'Quadro NR note credito ricevute
+'Mid(StrinDariempire, 125) = "0" 'Quadro DF 
+'Mid(StrinDariempire, 126) = "0" 'Quadro fn
+'Mid(StrinDariempire, 127) = "0" 'quadro SE
+'Mid(StrinDariempire, 128) = "0" 'quadro TU
+'Mid(StrinDariempire, 129) = "0" 'quadro TA, riepilogo!
+'Mid(StrinDariempire, 130) = partitaIva
+'Mid(StrinDariempire, 141) = CodiceAttivita
+'For Each charac In numeroTel
+'    If Not IsNumeric(charac) Then Replace(charac, charac, "")
+'Next
+'If numeroTel.Length > 12 Then numeroTel = Mid(numeroTel, 1, 12)
+'Mid(StrinDariempire, 147) = numeroTel
+'For Each chrt In Fx
+'    If Not IsNumeric(chrt) Then Replace(chrt, chrt, "")
+'Next
+'If Fx.Length > 12 Then Fx = Mid(Fx, 1, 12)
+'Mid(StrinDariempire, 159) = Fx
+'Mid(StrinDariempire, 171) = emai
+'Mid(StrinDariempire, 316) = denominazioneAzienda
+'Mid(StrinDariempire, 376) = eser
+'Mid(StrinDariempire, 382) = .CodiceFisacaleFornitore
+'Mid(StrinDariempire, 398) = .CodiceCarica
+'Mid(StrinDariempire, 400) = .DataInizioProcedura
+'Mid(StrinDariempire, 408) = .DataFineProcedura
+'Mid(StrinDariempire, 511) = denominazioneAzienda
+'Mid(StrinDariempire, 571) = .CodiceFisacaleFornitore
+'Mid(StrinDariempire, 587) = .NumeroCAF
+'Mid(StrinDariempire, 592) = .ImpegnoATrasmettere
+'Mid(StrinDariempire, 594) = .DataImpegno
+'Mid(StrinDariempire, 1898) = "A"
+'Mid(StrinDariempire, 1899) = Chr(13) & Chr(10)
+'sw.WriteLine(StrinDariempire)
+'sw.WriteLine(vbCrLf)
+'record vuoto'sw.WriteLine(";;;;;;;;;;;;;;;;;;;;;;;")

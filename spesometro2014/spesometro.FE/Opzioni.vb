@@ -21,7 +21,7 @@
         If Not My.Settings.PercorsoDB.ToString = "" Then TextBox1.Text = My.Settings.PercorsoDB
         If Not My.Settings.OutPutXls = "" Then TextBox2.Text = My.Settings.OutPutXls
         If Not My.Settings.OutPutTxt = "" Then TextBox3.Text = My.Settings.OutPutTxt
-        If Not IsNothing(My.Settings.txtMod) Then CheckBox1.CheckState = My.Settings.txtMod
+        If Not IsNothing(My.Settings.txtMod) Then CheckBox1.Checked = My.Settings.txtMod
         If Not IsNothing(My.Settings.conCredenziali) Then CheckBox2.Checked = My.Settings.conCredenziali
         'aggiungere tab 3
         TextBox6.Text = My.Settings.FlussoQuadro1
@@ -32,6 +32,15 @@
         TextBox11.Text = My.Settings.FlussoQuadro6
         TextBox12.Text = My.Settings.FlussoQuadro7
         TextBox13.Text = My.Settings.FlussoQuadro8
+        TextBox14.Text = My.Settings.TipoFornitore
+        TextBox15.Text = My.Settings.CodiceFisacaleFornitore
+        TextBox16.Text = My.Settings.CodiceFiscaleProduttoreSW
+        TextBox17.Text = My.Settings.CodiceCarica
+        TextBox18.Text = My.Settings.DataInizioProcedura
+        TextBox19.Text = My.Settings.DataFineProcedura
+        TextBox20.Text = My.Settings.NumeroCAF
+        TextBox21.Text = My.Settings.ImpegnoATrasmettere
+        TextBox22.Text = My.Settings.DataImpegno
         If Not IsNothing(My.Settings.MostraExcel) Then CheckBox3.CheckState = My.Settings.MostraExcel
         'todo
         If CheckBox2.Checked = True Then
@@ -84,8 +93,8 @@
             .OutPutTxt = Trim(TextBox3.Text)
             .TipoOleDb = ComboBox1.SelectedIndex
             .conCredenziali = CheckBox2.CheckState
-            .txtMod = CheckBox1.CheckState
-            .MostraExcel = CheckBox3.CheckState
+            .txtMod = CheckBox1.Checked
+            .MostraExcel = CheckBox3.Checked
             'aggiungere funzionalita di versione differenti
             .FlussoQuadro1 = Trim(TextBox6.Text)
             .FlussoQuadro2 = Trim(TextBox7.Text)
@@ -97,6 +106,15 @@
             .FlussoQuadro8 = Trim(TextBox13.Text)
             .NomeCred = TextBox4.Text
             .PassCred = TextBox5.Text
+            .TipoFornitore = Trim(TextBox14.Text)
+            .CodiceFisacaleFornitore = Trim(TextBox15.Text)
+            .CodiceFiscaleProduttoreSW = Trim(TextBox16.Text)
+            .CodiceCarica = Trim(TextBox17.Text)
+            .DataInizioProcedura = Trim(TextBox18.Text)
+            .DataFineProcedura = Trim(TextBox19.Text)
+            .NumeroCAF = Trim(TextBox20.Text)
+            .ImpegnoATrasmettere = Trim(TextBox21.Text)
+            .DataImpegno = Trim(TextBox22.Text)
             .Save()
         End With
         MsgBox("Impostazioni salvate con successo.")
@@ -185,8 +203,8 @@
             .OutPutTxt = Trim(TextBox3.Text)
             .TipoOleDb = ComboBox1.SelectedIndex
             .conCredenziali = CheckBox2.CheckState
-            .txtMod = CheckBox1.CheckState
-            .MostraExcel = CheckBox3.CheckState
+            .txtMod = CheckBox1.Checked
+            .MostraExcel = CheckBox3.Checked
             'aggiungere tab 3
             .FlussoQuadro1 = Trim(TextBox6.Text)
             .FlussoQuadro2 = Trim(TextBox7.Text)
@@ -198,6 +216,15 @@
             .FlussoQuadro8 = Trim(TextBox13.Text)
             .NomeCred = TextBox4.Text
             .PassCred = TextBox5.Text
+            .TipoFornitore = Trim(TextBox14.Text)
+            .CodiceFisacaleFornitore = Trim(TextBox15.Text)
+            .CodiceFiscaleProduttoreSW = Trim(TextBox16.Text)
+            .CodiceCarica = Trim(TextBox17.Text)
+            .DataInizioProcedura = Trim(TextBox18.Text)
+            .DataFineProcedura = Trim(TextBox19.Text)
+            .NumeroCAF = Trim(TextBox20.Text)
+            .ImpegnoATrasmettere = Trim(TextBox21.Text)
+            .DataImpegno = Trim(TextBox22.Text)
             .Save()
         End With
         MsgBox("Impostazioni salvate con successo.")
@@ -207,4 +234,98 @@
     Private Sub CheckBox2_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles CheckBox2.CheckedChanged
 
     End Sub
+
+    Private Sub TextBox20_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles TextBox20.Validating
+
+        Dim stringappoggio = TextBox20.Text
+
+        If stringappoggio.Length > 5 Then
+            MsgBox("Il numero del CAF deve essere lungo 5 caratteri")
+            TextBox20.Text = String.Empty
+        ElseIf stringappoggio.Length < 5 Then
+            Dim cinqueZeri = "00000"
+            '' str = Left(str, length) equivalent
+            'Str = Str.Substring(0, Math.Min(length, Str.Length))
+            '' str = Right(str, length) equivalent
+            'Str = Str.Substring(Math.Max(Str.Length, length) - length)
+            TextBox20.Text = (cinqueZeri & stringappoggio).Substring(Math.Max((cinqueZeri & stringappoggio).Length, 5) - 5)
+        End If
+
+    End Sub
+
+    Private Sub TextBox22_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles TextBox22.Validating
+        Dim stringappoggio As String = TextBox22.Text
+
+        If stringappoggio.Length > 8 Then
+            MsgBox("La data deve essere espressa nella forma GGMMAAAA")
+            TextBox22.Text = String.Empty
+        ElseIf stringappoggio.Length < 8 Then
+            MsgBox("La data deve essere espressa nella forma GGMMAAAA")
+            TextBox22.Text = String.Empty
+        ElseIf stringappoggio.Length = 8 Then
+            For Each chrt In stringappoggio
+                If Not IsNumeric(chrt) Then
+                    MsgBox("La data deve essere espressa nella forma GGMMAAAA")
+                    TextBox22.Text = String.Empty
+                    Exit For
+                End If
+            Next
+        End If
+
+
+    End Sub
+
+    Private Sub TextBox15_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles TextBox15.Validating
+        Dim stringappoggio As String = TextBox15.Text
+
+        If stringappoggio.Length > 16 Then
+            MsgBox("Il codice fiscale deve essere al massimo di 16 caratteri")
+            TextBox15.Text = String.Empty
+        End If
+
+    End Sub
+
+    Private Sub TextBox18_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles TextBox18.Validating
+        Dim stringappoggio As String = TextBox18.Text
+
+        If stringappoggio.Length > 8 Then
+            MsgBox("La data deve essere espressa nella forma GGMMAAAA")
+            TextBox18.Text = String.Empty
+        ElseIf stringappoggio.Length < 8 Then
+            MsgBox("La data deve essere espressa nella forma GGMMAAAA")
+            TextBox18.Text = String.Empty
+        ElseIf stringappoggio.Length = 8 Then
+            For Each chrt In stringappoggio
+                If Not IsNumeric(chrt) Then
+                    MsgBox("La data deve essere espressa nella forma GGMMAAAA")
+                    TextBox18.Text = String.Empty
+                    Exit For
+                End If
+            Next
+        End If
+
+    End Sub
+
+    Private Sub TextBox19_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles TextBox19.Validating
+        Dim stringappoggio As String = TextBox19.Text
+
+        If stringappoggio.Length > 8 Then
+            MsgBox("La data deve essere espressa nella forma GGMMAAAA")
+            TextBox19.Text = String.Empty
+        ElseIf stringappoggio.Length < 8 Then
+            MsgBox("La data deve essere espressa nella forma GGMMAAAA")
+            TextBox19.Text = String.Empty
+        ElseIf stringappoggio.Length = 8 Then
+            For Each chrt In stringappoggio
+                If Not IsNumeric(chrt) Then
+                    MsgBox("La data deve essere espressa nella forma GGMMAAAA")
+                    TextBox19.Text = String.Empty
+                    Exit For
+                End If
+            Next
+        End If
+
+    End Sub
+
 End Class
+
