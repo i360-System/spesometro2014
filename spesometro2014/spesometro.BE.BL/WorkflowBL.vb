@@ -957,7 +957,7 @@ prossimo:
                 Try '' Record di testa B
                     Mid(StrinDariempire, 1) = "B"
                     Mid(StrinDariempire, 2) = CodiceFiscaleContribuente
-                    Mid(StrinDariempire, 18) = "00000001"
+                    Mid(StrinDariempire, 18) = "       1"
                     With My.Settings
                         Mid(StrinDariempire, 74) = .CodiceFiscaleProduttoreSW
                         If ElaborazioneExcell.Tipocomunicazione = 0 Then
@@ -1034,7 +1034,7 @@ prossimo:
 
                     For ciclo = 1 To righe 'numero di clienti/fornitori da processare
 
-
+                        counterGiro += 1
                         For i = p To (ciclo * 13) - 1 'ciclo sui 13 variabili '39 --->52
 
                             If (i > (obj.Count - 1)) Then Exit For
@@ -1189,7 +1189,7 @@ prossimo:
                         Next
 
                         p = ciclo * 13 '39
-                        counterGiro += 1
+
 
                         If counterGiro Mod 3 = 0 Then
 
