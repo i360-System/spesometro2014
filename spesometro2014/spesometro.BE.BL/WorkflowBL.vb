@@ -941,9 +941,11 @@ prossimo:
                     With My.Settings
                         Mid(StrinDariempire, 21) = .TipoFornitore
                         Mid(StrinDariempire, 23) = .CodiceFisacaleFornitore
+                        Mid(StrinDariempire, 522) = "0000"
+                        Mid(StrinDariempire, 526) = "0000"
                         Mid(StrinDariempire, 1898) = "A"
                         Mid(StrinDariempire, 1899) = Chr(13) & Chr(10)
-                        sw.WriteLine(StrinDariempire)
+                        sw.Write(StrinDariempire)
                         StrinDariempire = strin
                         'sw.WriteLine(vbCrLf)
                         'record vuoto'sw.WriteLine(";;;;;;;;;;;;;;;;;;;;;;;")
@@ -958,7 +960,7 @@ prossimo:
                 Try '' Record di testa B
                     Mid(StrinDariempire, 1) = "B"
                     Mid(StrinDariempire, 2) = CodiceFiscaleContribuente
-                    Mid(StrinDariempire, 18) = "       1"
+                    Mid(StrinDariempire, 18) = "00000001"
                     With My.Settings
                         'Mid(StrinDariempire, 74) = .CodiceFiscaleProduttoreSW
                         If ElaborazioneExcell.Tipocomunicazione = 0 Then
@@ -998,17 +1000,18 @@ prossimo:
                         Mid(StrinDariempire, 316) = denominazioneAzienda
                         Mid(StrinDariempire, 376) = eser
                         Mid(StrinDariempire, 382) = .CodiceFisacaleFornitore
-                        'Mid(StrinDariempire, 398) = .CodiceCarica
+                        Mid(StrinDariempire, 398) = "000000000000000000" '.CodiceCarica
                         'Mid(StrinDariempire, 400) = .DataInizioProcedura
                         'Mid(StrinDariempire, 408) = .DataFineProcedura
+                        Mid(StrinDariempire, 461) = "00000000"
                         Mid(StrinDariempire, 511) = denominazioneAzienda
                         Mid(StrinDariempire, 571) = .CodiceFisacaleFornitore
-                        'Mid(StrinDariempire, 587) = .NumeroCAF
+                        Mid(StrinDariempire, 587) = "00000" '.NumeroCAF
                         Mid(StrinDariempire, 592) = .ImpegnoATrasmettere
                         Mid(StrinDariempire, 594) = .DataImpegno
                         Mid(StrinDariempire, 1898) = "A"
                         Mid(StrinDariempire, 1899) = Chr(13) & Chr(10)
-                        sw.WriteLine(StrinDariempire)
+                        sw.Write(StrinDariempire)
 
                         'sw.WriteLine(vbCrLf)
                         'record vuoto'sw.WriteLine(";;;;;;;;;;;;;;;;;;;;;;;")
@@ -1049,7 +1052,7 @@ prossimo:
                                     Mid(StrinDariempire, 1) = "C"
                                     Mid(StrinDariempire, 2) = CodiceFiscaleContribuente
                                     numeroModuli += 1
-                                    Mid(StrinDariempire, 18) = Right("        " & numeroModuli, 8)
+                                    Mid(StrinDariempire, 18) = Right("00000000" & numeroModuli, 8)
                                     'Mid(StrinDariempire, 74) = .CodiceFiscaleProduttoreSW
 
                                 End If 'fine posizionale
@@ -1201,13 +1204,13 @@ prossimo:
                             Mid(StrinDariempire, 1898) = "A"
                             Mid(StrinDariempire, 1899) = Chr(13) & Chr(10)
                             'scrive record
-                            sw.WriteLine(StrinDariempire)
+                            sw.Write(StrinDariempire)
                             totalizzazioneRighe += 1
                             StrinDariempire = strin
                         ElseIf ciclo = righe Then ' caso in cui: record finale, e diverso da 3
                             Mid(StrinDariempire, 1898) = "A"
                             Mid(StrinDariempire, 1899) = Chr(13) & Chr(10)
-                            sw.WriteLine(StrinDariempire)
+                            sw.Write(StrinDariempire)
                             totalizzazioneRighe += 1
                             StrinDariempire = strin
 
@@ -1229,11 +1232,11 @@ prossimo:
                         StrinDariempire = strin
                         Mid(StrinDariempire, 1) = "E"
                         Mid(StrinDariempire, 2) = CodiceFiscaleContribuente
-                        Mid(StrinDariempire, 18) = "       1" ' 7 space and number one
+                        Mid(StrinDariempire, 18) = "00000001" ' 7 space and number one 00000001
                         Mid(StrinDariempire, 90) = "TA001001" & Right(blank & numeroQuadri.ToString, 16)
                         Mid(StrinDariempire, 1898) = "A"
                         Mid(StrinDariempire, 1899) = Chr(13) & Chr(10)
-                        sw.WriteLine(StrinDariempire)
+                        sw.Write(StrinDariempire)
                         StrinDariempire = strin
                     End With
                 Catch ex As Exception
@@ -1247,12 +1250,13 @@ prossimo:
                 Try 'record Z
                     Mid(StrinDariempire, 1) = "Z"
                     'Mid(StrinDariempire, 2) = CodiceFiscaleContribuente
-                    Mid(StrinDariempire, 16) = "        1" ' 8 space and number one
-                    Mid(StrinDariempire, 25) = Right("         " & totalizzazioneRighe.ToString, 9)
-                    Mid(StrinDariempire, 43) = "        1" ' 8 space and number one
+                    Mid(StrinDariempire, 16) = "000000001" ' 8 space and number one 000000001
+                    Mid(StrinDariempire, 25) = Right("000000000" & totalizzazioneRighe.ToString, 9)
+                    Mid(StrinDariempire, 34) = "000000000"
+                    Mid(StrinDariempire, 43) = "000000001" ' 8 space and number one
                     Mid(StrinDariempire, 1898) = "A"
                     Mid(StrinDariempire, 1899) = Chr(13) & Chr(10)
-                    sw.WriteLine(StrinDariempire)
+                    sw.Write(StrinDariempire)
                     StrinDariempire = strin
 
                 Catch ex As Exception

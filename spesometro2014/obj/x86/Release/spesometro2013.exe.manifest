@@ -55,7 +55,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>zZ5dHTDG9wlYA+S+4B+so4mHFmw=</dsig:DigestValue>
+        <dsig:DigestValue>nXxXLzRJ8uTVeemAw+/nWipdxMM=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -86,7 +86,7 @@
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>ZzjCtB3t3sWAluh8fYKhl4Lik5M=</dsig:DigestValue>
+      <dsig:DigestValue>zPHRQbzTpb+lUCI/CkffOAZUSvg=</dsig:DigestValue>
     </hash>
   </file>
   <file name="spesometro2013.exe.config" size="5261">
