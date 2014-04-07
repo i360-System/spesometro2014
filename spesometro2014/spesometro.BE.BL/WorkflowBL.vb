@@ -965,11 +965,19 @@ prossimo:
                         'Mid(StrinDariempire, 74) = .CodiceFiscaleProduttoreSW
                         If ElaborazioneExcell.Tipocomunicazione = 0 Then
                             Mid(StrinDariempire, 90) = "1" 'ordinaria
-                        ElseIf ElaborazioneExcell.Tipocomunicazione = 1 Then
                             Mid(StrinDariempire, 91) = "0" 'sostitutiva 
-                        ElseIf ElaborazioneExcell.Tipocomunicazione = 2 Then
                             Mid(StrinDariempire, 92) = "0" 'sostitutiva (not implemented)
+                        ElseIf ElaborazioneExcell.Tipocomunicazione = 1 Then
+                            Mid(StrinDariempire, 90) = "0" 'ordinaria
+                            Mid(StrinDariempire, 91) = "1" 'sostitutiva 
+                            Mid(StrinDariempire, 92) = "0" 'sostitutiva (not implemented)
+                        ElseIf ElaborazioneExcell.Tipocomunicazione = 2 Then
+                            Mid(StrinDariempire, 90) = "0" 'ordinaria
+                            Mid(StrinDariempire, 91) = "0" 'sostitutiva 
+                            Mid(StrinDariempire, 92) = "1" 'sostitutiva (not implemented)
                         End If
+                        Mid(StrinDariempire, 93) = "00000000000000000" 'Protocollo della comunicazione da sostituire o annullare
+                        Mid(StrinDariempire, 110) = "000000" 'Protocollo documento da sostituire o da annullare
                         Mid(StrinDariempire, 116) = "1" 'dati aggregati, quindi valore fisso perche siamo nell'aelaborazione aggregata
                         Mid(StrinDariempire, 117) = "0" 'dati analatici, mettiamo 0 perche non siamo nell'eleaborazione analitica
                         Mid(StrinDariempire, 118) = "1" 'Quadro FA (avendo scelto aggregato mettiamo 1)
@@ -983,7 +991,7 @@ prossimo:
                         Mid(StrinDariempire, 126) = "0" 'Quadro fn
                         Mid(StrinDariempire, 127) = "0" 'quadro SE
                         Mid(StrinDariempire, 128) = "0" 'quadro TU
-                        Mid(StrinDariempire, 129) = "0" 'quadro TA, riepilogo!
+                        Mid(StrinDariempire, 129) = "1" 'quadro TA, riepilogo!
                         Mid(StrinDariempire, 130) = partitaIva
                         Mid(StrinDariempire, 141) = CodiceAttivita
                         For Each charac As Char In numeroTel
@@ -999,11 +1007,16 @@ prossimo:
                         Mid(StrinDariempire, 171) = emai
                         Mid(StrinDariempire, 316) = denominazioneAzienda
                         Mid(StrinDariempire, 376) = eser
-                        Mid(StrinDariempire, 382) = .CodiceFisacaleFornitore
-                        Mid(StrinDariempire, 398) = "000000000000000000" '.CodiceCarica
-                        'Mid(StrinDariempire, 400) = .DataInizioProcedura
-                        'Mid(StrinDariempire, 408) = .DataFineProcedura
-                        Mid(StrinDariempire, 461) = "00000000"
+                        Mid(StrinDariempire, 382) = .CFdichiarante
+                        Mid(StrinDariempire, 398) = .CodiceCarica '"000000000000000000" '.CodiceCarica
+                        Mid(StrinDariempire, 400) = .DataInizioProcedura
+                        Mid(StrinDariempire, 408) = .DataFineProcedura
+                        Mid(StrinDariempire, 416) = .Cognome
+                        Mid(StrinDariempire, 440) = .Nome
+                        Mid(StrinDariempire, 460) = .Sesso
+                        Mid(StrinDariempire, 461) = .datanascita '"00000000" 'datnascita
+                        Mid(StrinDariempire, 469) = .ComStatNascita
+                        Mid(StrinDariempire, 509) = .provincianascita
                         Mid(StrinDariempire, 511) = denominazioneAzienda
                         Mid(StrinDariempire, 571) = .CodiceFisacaleFornitore
                         Mid(StrinDariempire, 587) = "00000" '.NumeroCAF
@@ -1106,10 +1119,11 @@ prossimo:
 
                                         End If
 
-                                    Case 3 'NFE
+                                    Case 3 'NFE       
 
                                         If Not obj(i).ToString() = "0" Then
                                             Mid(StrinDariempire, 90 + (24 * contatore)) = "FA00" & Trim(Str(counterGiro)) & "004" & Right(blank & obj(i).ToString(), 16)
+                                            'compilare quadri 7 8  10 11, quando compilato Attive
                                             contatore += 1
                                             numeroQuadri += 1
                                         End If
@@ -1118,6 +1132,7 @@ prossimo:
 
                                         If Not obj(i).ToString() = "0" Then
                                             Mid(StrinDariempire, 90 + (24 * contatore)) = "FA00" & Trim(Str(counterGiro)) & "005" & Right(blank & obj(i).ToString(), 16)
+                                            'compilare quadri 12 13  15 16, quando compilato Passive
                                             contatore += 1
                                             numeroQuadri += 1
                                         End If
@@ -1125,7 +1140,10 @@ prossimo:
                                     Case 5 'IFE
 
                                         If Not obj(i).ToString() = "0" Then
-                                            Mid(StrinDariempire, 90 + (24 * contatore)) = "FA00" & Trim(Str(counterGiro)) & "007" & Right(blank & obj(i).ToString(), 16)
+                                            Dim app = obj(i)
+                                            app += 0.5
+                                            app = Int(app)
+                                            Mid(StrinDariempire, 90 + (24 * contatore)) = "FA00" & Trim(Str(counterGiro)) & "007" & Right(blank & CStr(app), 16)
                                             contatore += 1
                                             numeroQuadri += 1
                                         End If
@@ -1133,7 +1151,10 @@ prossimo:
                                     Case 6 'IvFE
 
                                         If Not obj(i).ToString() = "0" Then
-                                            Mid(StrinDariempire, 90 + (24 * contatore)) = "FA00" & Trim(Str(counterGiro)) & "008" & Right(blank & obj(i).ToString(), 16)
+                                            Dim app = obj(i)
+                                            app += 0.5
+                                            app = Int(app)
+                                            Mid(StrinDariempire, 90 + (24 * contatore)) = "FA00" & Trim(Str(counterGiro)) & "008" & Right(blank & CStr(app), 16)
                                             contatore += 1
                                             numeroQuadri += 1
                                         End If
@@ -1141,7 +1162,10 @@ prossimo:
                                     Case 7 'INE
 
                                         If Not obj(i).ToString() = "0" Then 'tot importo note credito emesse
-                                            Mid(StrinDariempire, 90 + (24 * contatore)) = "FA00" & Trim(Str(counterGiro)) & "010" & Left(blank & obj(i).ToString(), 16)
+                                            Dim app = obj(i)
+                                            app += 0.5
+                                            app = Int(app)
+                                            Mid(StrinDariempire, 90 + (24 * contatore)) = "FA00" & Trim(Str(counterGiro)) & "010" & Left(blank & CStr(app), 16)
                                             contatore += 1
                                             numeroQuadri += 1
                                         End If
@@ -1149,7 +1173,10 @@ prossimo:
                                     Case 8 'IvNE
 
                                         If Not obj(i).ToString() = "0" Then
-                                            Mid(StrinDariempire, 90 + (24 * contatore)) = "FA00" & Trim(Str(counterGiro)) & "011" & Right(blank & obj(i).ToString(), 16)
+                                            Dim app = obj(i)
+                                            app += 0.5
+                                            app = Int(app)
+                                            Mid(StrinDariempire, 90 + (24 * contatore)) = "FA00" & Trim(Str(counterGiro)) & "011" & Right(blank & CStr(app), 16)
                                             contatore += 1
                                             numeroQuadri += 1
                                         End If
@@ -1157,7 +1184,10 @@ prossimo:
                                     Case 9 'IFR
 
                                         If Not obj(i).ToString() = "0" Then
-                                            Mid(StrinDariempire, 90 + (24 * contatore)) = "FA00" & Trim(Str(counterGiro)) & "012" & Right(blank & obj(i).ToString(), 16)
+                                            Dim app = obj(i)
+                                            app += 0.5
+                                            app = Int(app)
+                                            Mid(StrinDariempire, 90 + (24 * contatore)) = "FA00" & Trim(Str(counterGiro)) & "012" & Right(blank & CStr(app), 16)
                                             contatore += 1
                                             numeroQuadri += 1
                                         End If
@@ -1165,7 +1195,10 @@ prossimo:
                                     Case 10 'IvFR
 
                                         If Not obj(i).ToString() = "0" Then
-                                            Mid(StrinDariempire, 90 + (24 * contatore)) = "FA00" & Trim(Str(counterGiro)) & "013" & Right(blank & obj(i).ToString(), 16)
+                                            Dim app = obj(i)
+                                            app += 0.5
+                                            app = Int(app)
+                                            Mid(StrinDariempire, 90 + (24 * contatore)) = "FA00" & Trim(Str(counterGiro)) & "013" & Right(blank & CStr(app), 16)
                                             contatore += 1
                                             numeroQuadri += 1
                                         End If
@@ -1173,7 +1206,10 @@ prossimo:
                                     Case 11 'INR    
 
                                         If Not obj(i).ToString() = "0" Then
-                                            Mid(StrinDariempire, 90 + (24 * contatore)) = "FA00" & Trim(Str(counterGiro)) & "015" & Right(blank & obj(i).ToString(), 16)
+                                            Dim app = obj(i)
+                                            app += 0.5
+                                            app = Int(app)
+                                            Mid(StrinDariempire, 90 + (24 * contatore)) = "FA00" & Trim(Str(counterGiro)) & "015" & Right(blank & CStr(app), 16)
                                             contatore += 1
                                             numeroQuadri += 1
                                         End If
@@ -1181,7 +1217,10 @@ prossimo:
                                     Case 12  'IvNR
 
                                         If Not obj(i).ToString() = "0" Then
-                                            Mid(StrinDariempire, 90 + (24 * contatore)) = "FA00" & Trim(Str(counterGiro)) & "016" & Right(blank & obj(i).ToString(), 16)
+                                            Dim app = obj(i)
+                                            app += 0.5
+                                            app = Int(app)
+                                            Mid(StrinDariempire, 90 + (24 * contatore)) = "FA00" & Trim(Str(counterGiro)) & "016" & Right(blank & CStr(app), 16)
                                             contatore += 1
                                             numeroQuadri += 1
                                         End If

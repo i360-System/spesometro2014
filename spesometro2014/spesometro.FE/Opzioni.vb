@@ -41,6 +41,13 @@
         TextBox20.Text = My.Settings.NumeroCAF
         TextBox21.Text = My.Settings.ImpegnoATrasmettere
         TextBox22.Text = My.Settings.DataImpegno
+        TextBox23.Text = My.Settings.datanascita
+        TextBox24.Text = My.Settings.CFdichiarante
+        TextBox25.Text = My.Settings.Cognome
+        TextBox26.Text = My.Settings.Nome
+        TextBox27.Text = My.Settings.Sesso
+        TextBox28.Text = My.Settings.ComStatNascita
+        TextBox29.Text = My.Settings.provincianascita
         If Not IsNothing(My.Settings.MostraExcel) Then CheckBox3.CheckState = My.Settings.MostraExcel
         'todo
         If CheckBox2.Checked = True Then
@@ -115,6 +122,13 @@
             .NumeroCAF = Trim(TextBox20.Text)
             .ImpegnoATrasmettere = Trim(TextBox21.Text)
             .DataImpegno = Trim(TextBox22.Text)
+            .datanascita = Trim(TextBox23.Text)
+            .CFdichiarante = Trim(TextBox24.Text)
+            .Cognome = Trim(TextBox25.Text)
+            .Nome = Trim(TextBox26.Text)
+            .Sesso = Trim(TextBox27.Text)
+            .ComStatNascita = Trim(TextBox28.Text)
+            .provincianascita = Trim(TextBox29.Text)
             .Save()
         End With
         MsgBox("Impostazioni salvate con successo.")
@@ -225,6 +239,13 @@
             .NumeroCAF = Trim(TextBox20.Text)
             .ImpegnoATrasmettere = Trim(TextBox21.Text)
             .DataImpegno = Trim(TextBox22.Text)
+            .datanascita = Trim(TextBox23.Text)
+            .CFdichiarante = Trim(TextBox24.Text)
+            .Cognome = Trim(TextBox25.Text)
+            .Nome = Trim(TextBox26.Text)
+            .Sesso = Trim(TextBox27.Text)
+            .ComStatNascita = Trim(TextBox28.Text)
+            .provincianascita = Trim(TextBox29.Text)
             .Save()
         End With
         MsgBox("Impostazioni salvate con successo.")
@@ -327,5 +348,78 @@
 
     End Sub
 
+    Private Sub TextBox23_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles TextBox23.Validating
+        Dim stringappoggio As String = TextBox23.Text
+
+        If stringappoggio.Length > 8 Then
+            MsgBox("La data deve essere espressa nella forma GGMMAAAA")
+            TextBox23.Text = String.Empty
+        ElseIf stringappoggio.Length < 8 Then
+            MsgBox("La data deve essere espressa nella forma GGMMAAAA")
+            TextBox23.Text = String.Empty
+        ElseIf stringappoggio.Length = 8 Then
+            For Each chrt In stringappoggio
+                If Not IsNumeric(chrt) Then
+                    MsgBox("La data deve essere espressa nella forma GGMMAAAA")
+                    TextBox23.Text = String.Empty
+                    Exit For
+                End If
+            Next
+        End If
+    End Sub
+    'cognome
+    Private Sub TextBox25_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles TextBox25.Validating
+        Dim stringappoggio As String = TextBox25.Text
+
+        If stringappoggio.Length > 24 Then
+            MsgBox("Il cognome del dichiarante deve essere al massimo di 24 caratteri")
+            TextBox25.Text = String.Empty
+        End If
+    End Sub
+    'cf dichiarante
+    Private Sub TextBox24_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles TextBox24.Validating
+        Dim stringappoggio As String = TextBox24.Text
+
+        If stringappoggio.Length > 16 Then
+            MsgBox("Il codice fiscale del dichiarante deve essere al massimo di 16 caratteri")
+            TextBox24.Text = String.Empty
+        End If
+    End Sub
+    'sesso
+    Private Sub TextBox27_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles TextBox27.Validating
+        Dim stringappoggio As String = TextBox27.Text
+
+        If stringappoggio.Length > 1 Then
+            MsgBox("Il sesso deve essere al massimo di 1 carattere e non numerico")
+            TextBox27.Text = String.Empty
+        End If
+    End Sub
+    'com srtat estero nasc
+    Private Sub TextBox28_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles TextBox28.Validating
+        Dim stringappoggio As String = TextBox28.Text
+
+        If stringappoggio.Length > 40 Then
+            MsgBox("Il comune o stato estero di nascita deve essere al massimo di 40 caratteri")
+            TextBox28.Text = String.Empty
+        End If
+    End Sub
+
+    Private Sub TextBox29_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles TextBox29.Validating
+        Dim stringappoggio As String = TextBox29.Text
+
+        If stringappoggio.Length > 2 Then
+            MsgBox("LA provincia di nascita deve essere al massimo di 2 caratteri e non numerico")
+            TextBox29.Text = String.Empty
+        End If
+    End Sub
+    'nome
+    Private Sub TextBox26_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles TextBox26.Validating
+        Dim stringappoggio As String = TextBox26.Text
+
+        If stringappoggio.Length > 20 Then
+            MsgBox("Il nome del dichiarante deve essere al massimo di 20 caratteri")
+            TextBox26.Text = String.Empty
+        End If
+    End Sub
 End Class
 

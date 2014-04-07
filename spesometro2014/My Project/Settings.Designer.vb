@@ -374,6 +374,90 @@ Namespace My
                 Me("DataImpegno") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property datanascita() As String
+            Get
+                Return CType(Me("datanascita"),String)
+            End Get
+            Set
+                Me("datanascita") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property CFdichiarante() As String
+            Get
+                Return CType(Me("CFdichiarante"),String)
+            End Get
+            Set
+                Me("CFdichiarante") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property Cognome() As String
+            Get
+                Return CType(Me("Cognome"),String)
+            End Get
+            Set
+                Me("Cognome") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property Nome() As String
+            Get
+                Return CType(Me("Nome"),String)
+            End Get
+            Set
+                Me("Nome") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property Sesso() As String
+            Get
+                Return CType(Me("Sesso"),String)
+            End Get
+            Set
+                Me("Sesso") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property ComStatNascita() As String
+            Get
+                Return CType(Me("ComStatNascita"),String)
+            End Get
+            Set
+                Me("ComStatNascita") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property provincianascita() As String
+            Get
+                Return CType(Me("provincianascita"),String)
+            End Get
+            Set
+                Me("provincianascita") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

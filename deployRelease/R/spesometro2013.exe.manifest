@@ -48,14 +48,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="spesometro2013.exe" size="2217472">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="spesometro2013.exe" size="2226688">
       <assemblyIdentity name="spesometro2013" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>nXxXLzRJ8uTVeemAw+/nWipdxMM=</dsig:DigestValue>
+        <dsig:DigestValue>4nMKR4uei6mFX3Ive8VBK8iJg+k=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -89,13 +89,13 @@
       <dsig:DigestValue>zPHRQbzTpb+lUCI/CkffOAZUSvg=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="spesometro2013.exe.config" size="5261">
+  <file name="spesometro2013.exe.config" size="6052">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>M8CajK2lZDukvpomcPqwCCITcpI=</dsig:DigestValue>
+      <dsig:DigestValue>i5GIx/oLHxiU2dxoF61k7qBH7Jk=</dsig:DigestValue>
     </hash>
   </file>
   <file name="spesometro2013.ico" size="769142">
