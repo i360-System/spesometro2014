@@ -1005,7 +1005,7 @@ prossimo:
                         If Fx.Length > 12 Then Fx = Mid(Fx, 1, 12)
                         Mid(StrinDariempire, 159) = Fx
                         Mid(StrinDariempire, 171) = emai
-                        Mid(StrinDariempire, 316) = denominazioneAzienda
+                        'Mid(StrinDariempire, 316) = denominazioneAzienda rem inserito dati persona fisica
                         Mid(StrinDariempire, 376) = eser
                         Mid(StrinDariempire, 382) = .CFdichiarante
                         Mid(StrinDariempire, 398) = .CodiceCarica '"000000000000000000" '.CodiceCarica
@@ -1017,7 +1017,7 @@ prossimo:
                         Mid(StrinDariempire, 461) = .datanascita '"00000000" 'datnascita
                         Mid(StrinDariempire, 469) = .ComStatNascita
                         Mid(StrinDariempire, 509) = .provincianascita
-                        Mid(StrinDariempire, 511) = denominazioneAzienda
+                        'Mid(StrinDariempire, 511) = denominazioneAzienda rem inserito dati persona fisica
                         Mid(StrinDariempire, 571) = .CodiceFisacaleFornitore
                         Mid(StrinDariempire, 587) = "00000" '.NumeroCAF
                         Mid(StrinDariempire, 592) = .ImpegnoATrasmettere
@@ -1089,9 +1089,9 @@ prossimo:
                                 Select Case i - (13 * (ciclo - 1))
                                     Case 1 'piva
                                         If Not obj(i).ToString() = "" Then
-                                            Mid(StrinDariempire, 90 + (24 * contatore)) = "FA00" & Trim(Str(counterGiro)) & "001" & Left(obj(i).ToString() & blank, 16) & "FA00" & Trim(Str(counterGiro)) & "003" & Left(blank, 15) & "1"
-                                            contatore += 2
-                                            numeroQuadri += 2
+                                            Mid(StrinDariempire, 90 + (24 * contatore)) = "FA00" & Trim(Str(counterGiro)) & "001" & Left(obj(i).ToString() & blank, 16)
+                                            contatore += 1
+                                            numeroQuadri += 1
                                             'sw.Write(obj(i).ToString() & ";") ' compilo colonna D
                                             colonnaD = True
                                             colonnaE = False
@@ -1106,9 +1106,9 @@ prossimo:
 
                                         If colonnaE Then
                                             If Not obj(i).ToString() = "" Then
-                                                Mid(StrinDariempire, 90 + (24 * contatore)) = "FA00" & Trim(Str(counterGiro)) & "002" & Left(obj(i).ToString() & blank, 16) & "FA00" & Trim(Str(counterGiro)) & "003" & Left(blank, 15) & "1"
-                                                contatore += 2
-                                                numeroQuadri += 2
+                                                Mid(StrinDariempire, 90 + (24 * contatore)) = "FA00" & Trim(Str(counterGiro)) & "002" & Left(obj(i).ToString() & blank, 16)
+                                                contatore += 1
+                                                numeroQuadri += 1
                                                 'sw.Write(obj(i).ToString() & ";") ' compilo colonna E
                                                 'colonnaF = False
                                             Else

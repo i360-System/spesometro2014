@@ -421,5 +421,14 @@
             TextBox26.Text = String.Empty
         End If
     End Sub
+
+    Private Sub TextBox17_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles TextBox17.Validating
+        Dim stringappoggio As String = TextBox17.Text
+
+        If stringappoggio.Length > 2 Or Not IsNumeric(stringappoggio) Then
+            MsgBox("Il codice carica non deve superare i 2 caratteri di lunghezza e deve essere numerico")
+            TextBox17.Text = String.Empty
+        End If
+    End Sub
 End Class
 

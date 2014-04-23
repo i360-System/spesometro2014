@@ -156,10 +156,10 @@
     <Compile Include="spesometro.FE\Opzioni.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="spesometro.FE\spesometro.FE.UCO\UserControl2.Designer.vb">
+    <Compile Include="spesometro.FE\UserControl2.Designer.vb">
       <DependentUpon>UserControl2.vb</DependentUpon>
     </Compile>
-    <Compile Include="spesometro.FE\spesometro.FE.UCO\UserControl2.vb">
+    <Compile Include="spesometro.FE\UserControl2.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="spesometro.FE\Intro.Designer.vb">
@@ -211,7 +211,7 @@
     <EmbeddedResource Include="spesometro.FE\ElaborazioneExcell.resx">
       <DependentUpon>ElaborazioneExcell.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="spesometro.FE\spesometro.FE.UCO\UserControl2.resx">
+    <EmbeddedResource Include="spesometro.FE\UserControl2.resx">
       <DependentUpon>UserControl2.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="spesometro.FE\spesometro.FE.UCO\UserControlMenuXLS.resx">
