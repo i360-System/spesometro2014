@@ -1125,7 +1125,7 @@ prossimo:
                                             Mid(StrinDariempire, 90 + (24 * contatore)) = "FA00" & Trim(Str(counterGiro)) & "004" & Right(blank & obj(i).ToString(), 16)
                                             'compilare quadri 7 8  10 11, quando compilato Attive
                                             contatore += 1
-                                            numeroQuadri += 1
+
                                         End If
 
                                     Case 4 'NFR
@@ -1134,7 +1134,7 @@ prossimo:
                                             Mid(StrinDariempire, 90 + (24 * contatore)) = "FA00" & Trim(Str(counterGiro)) & "005" & Right(blank & obj(i).ToString(), 16)
                                             'compilare quadri 12 13  15 16, quando compilato Passive
                                             contatore += 1
-                                            numeroQuadri += 1
+
                                         End If
 
                                     Case 5 'IFE
@@ -1145,7 +1145,7 @@ prossimo:
                                             app = Int(app)
                                             Mid(StrinDariempire, 90 + (24 * contatore)) = "FA00" & Trim(Str(counterGiro)) & "007" & Right(blank & CStr(app), 16)
                                             contatore += 1
-                                            numeroQuadri += 1
+
                                         End If
 
                                     Case 6 'IvFE
@@ -1156,7 +1156,7 @@ prossimo:
                                             app = Int(app)
                                             Mid(StrinDariempire, 90 + (24 * contatore)) = "FA00" & Trim(Str(counterGiro)) & "008" & Right(blank & CStr(app), 16)
                                             contatore += 1
-                                            numeroQuadri += 1
+
                                         End If
 
                                     Case 7 'INE
@@ -1167,7 +1167,7 @@ prossimo:
                                             app = Int(app)
                                             Mid(StrinDariempire, 90 + (24 * contatore)) = "FA00" & Trim(Str(counterGiro)) & "010" & Left(blank & CStr(app), 16)
                                             contatore += 1
-                                            numeroQuadri += 1
+
                                         End If
 
                                     Case 8 'IvNE
@@ -1178,7 +1178,7 @@ prossimo:
                                             app = Int(app)
                                             Mid(StrinDariempire, 90 + (24 * contatore)) = "FA00" & Trim(Str(counterGiro)) & "011" & Right(blank & CStr(app), 16)
                                             contatore += 1
-                                            numeroQuadri += 1
+
                                         End If
 
                                     Case 9 'IFR
@@ -1189,7 +1189,7 @@ prossimo:
                                             app = Int(app)
                                             Mid(StrinDariempire, 90 + (24 * contatore)) = "FA00" & Trim(Str(counterGiro)) & "012" & Right(blank & CStr(app), 16)
                                             contatore += 1
-                                            numeroQuadri += 1
+
                                         End If
 
                                     Case 10 'IvFR
@@ -1200,7 +1200,7 @@ prossimo:
                                             app = Int(app)
                                             Mid(StrinDariempire, 90 + (24 * contatore)) = "FA00" & Trim(Str(counterGiro)) & "013" & Right(blank & CStr(app), 16)
                                             contatore += 1
-                                            numeroQuadri += 1
+
                                         End If
 
                                     Case 11 'INR    
@@ -1211,7 +1211,7 @@ prossimo:
                                             app = Int(app)
                                             Mid(StrinDariempire, 90 + (24 * contatore)) = "FA00" & Trim(Str(counterGiro)) & "015" & Right(blank & CStr(app), 16)
                                             contatore += 1
-                                            numeroQuadri += 1
+
                                         End If
 
                                     Case 12  'IvNR
@@ -1222,7 +1222,7 @@ prossimo:
                                             app = Int(app)
                                             Mid(StrinDariempire, 90 + (24 * contatore)) = "FA00" & Trim(Str(counterGiro)) & "016" & Right(blank & CStr(app), 16)
                                             contatore += 1
-                                            numeroQuadri += 1
+
                                         End If
 
                                 End Select

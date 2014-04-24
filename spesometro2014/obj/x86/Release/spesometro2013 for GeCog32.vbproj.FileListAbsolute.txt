@@ -5,30 +5,30 @@ C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\deployRel
 C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\deployRelease\spesometro2013.exe.config
 C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\deployRelease\spesometro2013.exe.manifest
 C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\deployRelease\spesometro2013.application
-C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\spesometro2014\obj\x86\Release\spesometro2014.Info.resources
-C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\spesometro2014\obj\x86\Release\spesometro2014.MainForm.resources
-C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\spesometro2014\obj\x86\Release\spesometro2014.Resources.resources
-C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\spesometro2014\obj\x86\Release\spesometro2014.GestioneUtente.resources
-C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\spesometro2014\obj\x86\Release\spesometro2014.LoginForm1.resources
-C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\spesometro2014\obj\x86\Release\spesometro2014.Opzioni.resources
-C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\spesometro2014\obj\x86\Release\spesometro2014.Intro.resources
-C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\spesometro2014\obj\x86\Release\spesometro2014.ElaborazioneExcell.resources
-C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\spesometro2014\obj\x86\Release\spesometro2014.UserControl2.resources
-C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\spesometro2014\obj\x86\Release\spesometro2014.UserControlMenuXLS.resources
-C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\spesometro2014\obj\x86\Release\spesometro2013.exe.manifest
-C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\spesometro2014\obj\x86\Release\spesometro2013.application
-C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\spesometro2014\obj\x86\Release\spesometro2013.exe
-C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\spesometro2014\obj\x86\Release\spesometro2013.xml
-C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\spesometro2014\obj\x86\Release\spesometro2013.pdb
 C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\deployRelease\spesometro2013.pdb
 C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\deployRelease\spesometro2013.xml
-C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\deployRelease\R\spesometro2013.exe.config
-C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\deployRelease\R\spesometro.DAL.Database\Database2.sdf
-C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\deployRelease\R\spesometro.DAL.Database\Database1.sdf
-C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\deployRelease\R\Manual\Manuale di utilizzo software Spesometro 2013.pdf
-C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\deployRelease\R\spesometro2013.exe.manifest
-C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\deployRelease\R\spesometro2013.application
-C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\deployRelease\R\spesometro2013.exe
-C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\deployRelease\R\spesometro2013.pdb
-C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\deployRelease\R\spesometro2013.xml
-C:\Users\Computer\Documents\Visual Studio 2010\Projects\spesometro2014\spesometro2014\obj\x86\Release\spesometro2013 for GeCog32.vbproj.GenerateResource.Cache
+C:\Users\computer\Documents\Visual Studio 2010\Projects\spesometro2014\deployRelease\R\spesometro2013.exe.config
+C:\Users\computer\Documents\Visual Studio 2010\Projects\spesometro2014\deployRelease\R\spesometro.DAL.Database\Database2.sdf
+C:\Users\computer\Documents\Visual Studio 2010\Projects\spesometro2014\deployRelease\R\spesometro.DAL.Database\Database1.sdf
+C:\Users\computer\Documents\Visual Studio 2010\Projects\spesometro2014\deployRelease\R\Manual\Manuale di utilizzo software Spesometro 2013.pdf
+C:\Users\computer\Documents\Visual Studio 2010\Projects\spesometro2014\deployRelease\R\spesometro2013.exe.manifest
+C:\Users\computer\Documents\Visual Studio 2010\Projects\spesometro2014\deployRelease\R\spesometro2013.application
+C:\Users\computer\Documents\Visual Studio 2010\Projects\spesometro2014\deployRelease\R\spesometro2013.exe
+C:\Users\computer\Documents\Visual Studio 2010\Projects\spesometro2014\deployRelease\R\spesometro2013.pdb
+C:\Users\computer\Documents\Visual Studio 2010\Projects\spesometro2014\deployRelease\R\spesometro2013.xml
+C:\Users\computer\Documents\Visual Studio 2010\Projects\spesometro2014\spesometro2014\obj\x86\Release\spesometro2014.Info.resources
+C:\Users\computer\Documents\Visual Studio 2010\Projects\spesometro2014\spesometro2014\obj\x86\Release\spesometro2014.MainForm.resources
+C:\Users\computer\Documents\Visual Studio 2010\Projects\spesometro2014\spesometro2014\obj\x86\Release\spesometro2014.Resources.resources
+C:\Users\computer\Documents\Visual Studio 2010\Projects\spesometro2014\spesometro2014\obj\x86\Release\spesometro2014.GestioneUtente.resources
+C:\Users\computer\Documents\Visual Studio 2010\Projects\spesometro2014\spesometro2014\obj\x86\Release\spesometro2014.LoginForm1.resources
+C:\Users\computer\Documents\Visual Studio 2010\Projects\spesometro2014\spesometro2014\obj\x86\Release\spesometro2014.Opzioni.resources
+C:\Users\computer\Documents\Visual Studio 2010\Projects\spesometro2014\spesometro2014\obj\x86\Release\spesometro2014.Intro.resources
+C:\Users\computer\Documents\Visual Studio 2010\Projects\spesometro2014\spesometro2014\obj\x86\Release\spesometro2014.ElaborazioneExcell.resources
+C:\Users\computer\Documents\Visual Studio 2010\Projects\spesometro2014\spesometro2014\obj\x86\Release\spesometro2014.UserControl2.resources
+C:\Users\computer\Documents\Visual Studio 2010\Projects\spesometro2014\spesometro2014\obj\x86\Release\spesometro2014.UserControlMenuXLS.resources
+C:\Users\computer\Documents\Visual Studio 2010\Projects\spesometro2014\spesometro2014\obj\x86\Release\spesometro2013 for GeCog32.vbproj.GenerateResource.Cache
+C:\Users\computer\Documents\Visual Studio 2010\Projects\spesometro2014\spesometro2014\obj\x86\Release\spesometro2013.exe.manifest
+C:\Users\computer\Documents\Visual Studio 2010\Projects\spesometro2014\spesometro2014\obj\x86\Release\spesometro2013.application
+C:\Users\computer\Documents\Visual Studio 2010\Projects\spesometro2014\spesometro2014\obj\x86\Release\spesometro2013.exe
+C:\Users\computer\Documents\Visual Studio 2010\Projects\spesometro2014\spesometro2014\obj\x86\Release\spesometro2013.xml
+C:\Users\computer\Documents\Visual Studio 2010\Projects\spesometro2014\spesometro2014\obj\x86\Release\spesometro2013.pdb
