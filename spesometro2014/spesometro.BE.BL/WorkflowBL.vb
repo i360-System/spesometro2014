@@ -265,7 +265,7 @@ Module WorkflowBL
                 importoFattureRicevute = 0 : importoNoteCreditoRicevute = 0 : IvaFattureEmesse = 0
                 IvaNoteCreditoEmesse = 0 : IvaNoteCreditoRicevute = 0 : IvaFattureRicevute = 0
                 numeroFattureEmesse = 0 : numeroNoteCreditoEmesse = 0 : numeroFattureRicevute = 0
-                numeroNoteCreditoRicevute = 0
+                'numeroNoteCreditoRicevute = 0
                 anagrafica = r("anagrafica").ToString()
                 ArrFiveValue = {r("Denominazione1").ToString, _
                                             IIf(IsNothing(r("Denominazione2").ToString), "", r("Denominazione2").ToString), _
@@ -335,7 +335,7 @@ Module WorkflowBL
 
                                     importoNoteCreditoEmesse += rig("Imponibile").ToString
                                     IvaNoteCreditoEmesse += rig("Iva").ToString
-                                    numeroNoteCreditoEmesse += 1
+                                    numeroFattureEmesse += 1
 
                                 Next
 
@@ -404,7 +404,7 @@ Module WorkflowBL
 
                                     importoNoteCreditoRicevute += CDbl(rig("Imponibile").ToString)
                                     IvaNoteCreditoRicevute += CDbl(rig("Iva").ToString)
-                                    numeroNoteCreditoRicevute += 1
+                                    numeroFattureRicevute += 1
 
                                 Next
 
@@ -789,7 +789,7 @@ prossimo:
 
                                     importoNoteCreditoEmesse += rig("Imponibile").ToString
                                     IvaNoteCreditoEmesse += rig("Iva").ToString
-                                    numeroNoteCreditoEmesse += 1
+                                    numeroFattureEmesse += 1
 
                                 Next
 
@@ -858,7 +858,7 @@ prossimo:
 
                                     importoNoteCreditoRicevute += CDbl(rig("Imponibile").ToString)
                                     IvaNoteCreditoRicevute += CDbl(rig("Iva").ToString)
-                                    numeroNoteCreditoRicevute += 1
+                                    numeroFattureRicevute += 1
 
                                 Next
 
@@ -1136,7 +1136,10 @@ prossimo:
                                             contatore += 1
 
                                         End If
-
+                                        If obj(i).ToString() = "0" And obj(i - 1).ToString() = "0" Then
+                                            MsgBox("Partita Iva/Codice Fiscale = " & obj(i - 3) & "/" & obj(i - 2) & ". Controllare la movimentazione.")
+                                            Exit For
+                                        End If
                                     Case 5 'IFE
 
                                         If Not obj(i).ToString() = "0" Then
